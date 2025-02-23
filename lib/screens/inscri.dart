@@ -1,280 +1,31 @@
-/*import 'package:flutter/material.dart';
-
-class SignUpPage extends StatefulWidget {
-  @override
-  _SignUpPageState createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  bool rememberMe = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue.shade300, Colors.blue.shade700],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Container(
-              width: 320,
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Sign Up",
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.blue),
-                  ),
-                  SizedBox(height: 20),
-                  
-                  // Email Field
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "E-mail",
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-
-                  // Password Field
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-
-                  // Repeat Password Field
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Repeat Password",
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-
-                  // Remember Me Checkbox
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: rememberMe,
-                        onChanged: (value) {
-                          setState(() {
-                            rememberMe = value!;
-                          });
-                        },
-                      ),
-                      Text("Remember me"),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-
-                  // Social Media Login
-                  Text("Sign up with social account"),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _socialButton(Icons.g_mobiledata, Colors.red),
-                      SizedBox(width: 10),
-                      _socialButton(Icons.facebook, Colors.blue),
-                      SizedBox(width: 10),
-                      _socialButton(Icons.apple, Colors.black),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-
-                  // Sign Up Button
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade500,
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                    ),
-                    onPressed: () {},
-                    child: Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
-                  ),
-                  SizedBox(height: 10),
-
-                  // License Agreement
-                  TextButton(
-                    onPressed: () {},
-                    child: Text("Read User License Agreement", style: TextStyle(color: Colors.blue)),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _socialButton(IconData icon, Color color) {
-    return CircleAvatar(
-      radius: 22,
-      backgroundColor: color,
-      child: Icon(icon, color: Colors.white, size: 28),
-    );
-  }
-}*/
-
-
-
-
-
-
-
-/*import 'package:flutter/material.dart';
-
-class SignUpPage extends StatefulWidget {
-  @override
-  _SignUpPageState createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  final _formKey = GlobalKey<FormState>();
-  String email = '';
-  String password = '';
-  bool _obscureText = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [const Color.fromARGB(32, 157, 71, 188), const Color.fromARGB(255, 182, 162, 243)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(20),
-            child: Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              elevation: 8,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "Sign Up",
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.purple),
-                      ),
-                      SizedBox(height: 20),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "Email or Username",
-                          prefixIcon: Icon(Icons.person),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                        ),
-                        validator: (value) => value!.isEmpty ? 'Please enter an email or username' : null,
-                        onChanged: (value) {
-                          setState(() => email = value);
-                        },
-                      ),
-                      SizedBox(height: 15),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          prefixIcon: Icon(Icons.lock),
-                          suffixIcon: IconButton(
-                            icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() => _obscureText = !_obscureText);
-                            },
-                          ),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                        ),
-                        obscureText: _obscureText,
-                        validator: (value) => value!.length < 6 ? 'Password must be at least 6 characters' : null,
-                        onChanged: (value) {
-                          setState(() => password = value);
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text("Forgot Password?", style: TextStyle(color: Colors.purple)),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple,
-                          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Handle sign-up logic
-                          }
-                        },
-                        child: Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Already have an account? "),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text("Login", style: TextStyle(color: Colors.purple)),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}*/
-
-
-
-
-
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/api/auth_api_managing.dart';
+import 'package:inscri_ecommerce/model/user/register_model.dart';
 
 class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
   @override
-  _SignUpPageState createState() => _SignUpPageState();    //_SignUpPageState est l'etat du widget signuppage
+  _SignUpPageState createState() =>
+      _SignUpPageState(); //_SignUpPageState est l'etat du widget signuppage
 }
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
+  String name = '';
   String email = '';
   String password = '';
   String confirmPassword = '';
-  bool _obscureText = true;                         //caché le mot de passe
-  bool _obscureConfirmText = true;                  //caché confirm mp  
+  bool _obscureText = true; //caché le mot de passe
+  bool _obscureConfirmText = true; //caché confirm mp
+  late RegisterRequestModel requestModel;              //****
+
+
+  @override
+  void initState(){
+    super.initState();
+    requestModel =new RegisterRequestModel();          //********
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +33,10 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [const Color.fromARGB(0, 237, 194, 245), const Color.fromARGB(255, 220, 167, 245)],
+            colors: [
+              const Color.fromARGB(0, 237, 194, 245),
+              const Color.fromARGB(255, 220, 167, 245)
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -291,7 +45,8 @@ class _SignUpPageState extends State<SignUpPage> {
           child: SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
               elevation: 8,
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -302,21 +57,46 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: [
                       Text(
                         "Sign Up",
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.purple),
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.purple),
                       ),
                       SizedBox(height: 20),
-                      
+
+                      // name Field
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: "username",
+                          prefixIcon: Icon(Icons.person),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                        validator: (value) => value!.isEmpty
+                            ? 'Please enter your username'
+                            : null,
+                        onChanged: (value) {
+                          setState(() => name = value);
+                        },
+                        onSaved: (value) =>requestModel.name =value!,             //**********
+                      ),
+                      SizedBox(height: 15),
+
                       // Email Field
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: "Email or Username",
+                          labelText: "Email ",
                           prefixIcon: Icon(Icons.person),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
                         ),
-                        validator: (value) => value!.isEmpty ? 'Please enter an email or username' : null,
+                        validator: (value) => value!.isEmpty
+                            ? 'Please enter your email '
+                            : null,
                         onChanged: (value) {
                           setState(() => email = value);
                         },
+                        onSaved: (value) =>requestModel.email =value!,             //**********
                       ),
                       SizedBox(height: 15),
 
@@ -326,18 +106,24 @@ class _SignUpPageState extends State<SignUpPage> {
                           labelText: "Password",
                           prefixIcon: Icon(Icons.lock),
                           suffixIcon: IconButton(
-                            icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+                            icon: Icon(_obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off),
                             onPressed: () {
                               setState(() => _obscureText = !_obscureText);
                             },
                           ),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                         obscureText: _obscureText,
-                        validator: (value) => value!.length < 6 ? 'Password must be at least 6 characters' : null,
+                        validator: (value) => value!.length < 6
+                            ? 'Password must be at least 6 characters'
+                            : null,
                         onChanged: (value) {
                           setState(() => password = value);
                         },
+                        onSaved: (value) => requestModel.password = value !,
                       ),
                       SizedBox(height: 15),
 
@@ -347,18 +133,24 @@ class _SignUpPageState extends State<SignUpPage> {
                           labelText: "Confirm Password",
                           prefixIcon: Icon(Icons.lock),
                           suffixIcon: IconButton(
-                            icon: Icon(_obscureConfirmText ? Icons.visibility : Icons.visibility_off),
+                            icon: Icon(_obscureConfirmText
+                                ? Icons.visibility
+                                : Icons.visibility_off),
                             onPressed: () {
-                              setState(() => _obscureConfirmText = !_obscureConfirmText);
+                              setState(() =>
+                                  _obscureConfirmText = !_obscureConfirmText);
                             },
                           ),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                         obscureText: _obscureConfirmText,
-                        validator: (value) => value != password ? 'Passwords do not match' : null,
+                        validator: (value) =>
+                            value != password ? 'Passwords do not match' : null,
                         onChanged: (value) {
                           setState(() => confirmPassword = value);
                         },
+                        onSaved: (value) => requestModel.password_confirmation= value !,
                       ),
                       SizedBox(height: 10),
 
@@ -367,7 +159,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                           onPressed: () {},
-                          child: Text("Forgot Password?", style: TextStyle(color: Colors.purple)),
+                          child: Text("Forgot Password?",
+                              style: TextStyle(color: Colors.purple)),
                         ),
                       ),
                       SizedBox(height: 20),
@@ -376,15 +169,21 @@ class _SignUpPageState extends State<SignUpPage> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.purple,
-                          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 15),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Handle sign-up logic
+                          if(validateAndSave()){
+                            API api =new API();
+                            api.Register(requestModel);
+                            print(requestModel.toJson());
                           }
                         },
-                        child: Text("Sign Up", style: TextStyle(fontSize: 18, color: Colors.white)),
+                        child: Text("Sign Up",
+                            style:
+                                TextStyle(fontSize: 18, color: Colors.white)),
                       ),
                       SizedBox(height: 10),
 
@@ -395,7 +194,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           Text("Already have an account? "),
                           TextButton(
                             onPressed: () {},
-                            child: Text("Login", style: TextStyle(color: Colors.purple)),
+                            child: Text("Login",
+                                style: TextStyle(color: Colors.purple)),
                           ),
                         ],
                       ),
@@ -408,5 +208,15 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+
+  bool validateAndSave(){      //******************
+    final form =_formKey.currentState;
+    if(form?.validate() ?? false){
+      form?.save();
+      return true;
+    }
+    return false;
   }
 }
