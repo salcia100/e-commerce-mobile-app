@@ -1,26 +1,5 @@
-/*import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/screens/inscri.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
-    );
-  }
-}*/
-
-
-
-
-
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/screens/inscri.dart';
+import 'package:inscri_ecommerce/screens/register.dart';
 
 void main() {
   runApp(MyApp());

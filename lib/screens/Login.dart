@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/api/auth_api_managing.dart';
-import 'package:inscri_ecommerce/model/user/register_model.dart';
+import 'package:inscri_ecommerce/api/auth_api.dart';
+import 'package:inscri_ecommerce/model/user/login_model.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  _SignUpPageState createState() =>
-      _SignUpPageState(); //_SignUpPageState est l'etat du widget signuppage
+  _SignInPageState createState() =>
+      _SignInPageState(); //_SignUpPageState est l'etat du widget signuppage
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
-  String name = '';
+
   String email = '';
   String password = '';
-  String confirmPassword = '';
   bool _obscureText = true; //caché le mot de passe
   bool _obscureConfirmText = true; //caché confirm mp
-  late RegisterRequestModel requestModel;              //****
+  late LoginRequestModel requestModel;              //****
 
 
   @override
   void initState(){
     super.initState();
-    requestModel =new RegisterRequestModel();          //********
+    requestModel =new LoginRequestModel();          //********
   }
 
   @override
@@ -56,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "Sign Up",
+                        "Login",
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -64,23 +63,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       SizedBox(height: 20),
 
-                      // name Field
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "username",
-                          prefixIcon: Icon(Icons.person),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                        ),
-                        validator: (value) => value!.isEmpty
-                            ? 'Please enter your username'
-                            : null,
-                        onChanged: (value) {
-                          setState(() => name = value);
-                        },
-                        onSaved: (value) =>requestModel.name =value!,             //**********
-                      ),
-                      SizedBox(height: 15),
 
                       // Email Field
                       TextFormField(
@@ -127,33 +109,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       SizedBox(height: 15),
 
-                      // Confirm Password Field
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "Confirm Password",
-                          prefixIcon: Icon(Icons.lock),
-                          suffixIcon: IconButton(
-                            icon: Icon(_obscureConfirmText
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() =>
-                                  _obscureConfirmText = !_obscureConfirmText);
-                            },
-                          ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                        ),
-                        obscureText: _obscureConfirmText,
-                        validator: (value) =>
-                            value != password ? 'Passwords do not match' : null,
-                        onChanged: (value) {
-                          setState(() => confirmPassword = value);
-                        },
-                        onSaved: (value) => requestModel.password_confirmation= value !,
-                      ),
-                      SizedBox(height: 10),
-
                       // Forgot Password
                       Align(
                         alignment: Alignment.centerRight,
@@ -176,29 +131,18 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         onPressed: () {
                           if(validateAndSave()){
-                            API api =new API();
-                            api.Register(requestModel);
+                            APIService api =new APIService();
+                            api.login(requestModel);
                             print(requestModel.toJson());
                           }
                         },
-                        child: Text("Sign Up",
+                        child: Text("Sign In",
                             style:
-                                TextStyle(fontSize: 18, color: Colors.white)),
+                            TextStyle(fontSize: 18, color: Colors.white)),
                       ),
                       SizedBox(height: 10),
 
-                      // Already have an account?
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Already have an account? "),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text("Login",
-                                style: TextStyle(color: Colors.purple)),
-                          ),
-                        ],
-                      ),
+
                     ],
                   ),
                 ),
@@ -219,4 +163,5 @@ class _SignUpPageState extends State<SignUpPage> {
     }
     return false;
   }
+
 }
