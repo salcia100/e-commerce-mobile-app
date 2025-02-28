@@ -20,13 +20,12 @@ class _SignUpPageState extends State<SignUpPage> {
   String confirmPassword = '';
   bool _obscureText = true; //caché le mot de passe
   bool _obscureConfirmText = true; //caché confirm mp
-  late RegisterRequestModel requestModel;              //****
-
+  late RegisterRequestModel requestModel; //****
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    requestModel =new RegisterRequestModel();          //********
+    requestModel = new RegisterRequestModel(); //********
   }
 
   @override
@@ -80,7 +79,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         onChanged: (value) {
                           setState(() => name = value);
                         },
-                        onSaved: (value) =>requestModel.name =value!,             //**********
+                        onSaved: (value) =>
+                            requestModel.name = value!, //**********
                       ),
                       SizedBox(height: 15),
 
@@ -92,13 +92,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),
-                        validator: (value) => value!.isEmpty
-                            ? 'Please enter your email '
-                            : null,
+                        validator: (value) =>
+                            value!.isEmpty ? 'Please enter your email ' : null,
                         onChanged: (value) {
                           setState(() => email = value);
                         },
-                        onSaved: (value) =>requestModel.email =value!,             //**********
+                        onSaved: (value) =>
+                            requestModel.email = value!, //**********
                       ),
                       SizedBox(height: 15),
 
@@ -125,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         onChanged: (value) {
                           setState(() => password = value);
                         },
-                        onSaved: (value) => requestModel.password = value !,
+                        onSaved: (value) => requestModel.password = value!,
                       ),
                       SizedBox(height: 15),
 
@@ -152,7 +152,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         onChanged: (value) {
                           setState(() => confirmPassword = value);
                         },
-                        onSaved: (value) => requestModel.password_confirmation= value !,
+                        onSaved: (value) =>
+                            requestModel.password_confirmation = value!,
                       ),
                       SizedBox(height: 10),
 
@@ -177,8 +178,8 @@ class _SignUpPageState extends State<SignUpPage> {
                               borderRadius: BorderRadius.circular(10)),
                         ),
                         onPressed: () {
-                          if(validateAndSave()){
-                            APIService api =new APIService();
+                          if (validateAndSave()) {
+                            APIService api = new APIService();
                             api.Register(requestModel);
                             print(requestModel.toJson());
                           }
@@ -218,10 +219,10 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-
-  bool validateAndSave(){      //******************
-    final form =_formKey.currentState;
-    if(form?.validate() ?? false){
+  bool validateAndSave() {
+    //******************
+    final form = _formKey.currentState;
+    if (form?.validate() ?? false) {
       form?.save();
       return true;
     }

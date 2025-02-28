@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/auth_api.dart';
 import 'package:inscri_ecommerce/model/user/login_model.dart';
 
+import 'home.dart';
+
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
@@ -16,14 +18,13 @@ class _SignInPageState extends State<SignInPage> {
   String email = '';
   String password = '';
   bool _obscureText = true; //caché le mot de passe
-  bool _obscureConfirmText = true; //caché confirm mp
-  late LoginRequestModel requestModel;              //****
 
+  late LoginRequestModel requestModel; //****
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    requestModel =new LoginRequestModel();          //********
+    requestModel = new LoginRequestModel(); //********
   }
 
   @override
@@ -63,7 +64,6 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       SizedBox(height: 20),
 
-
                       // Email Field
                       TextFormField(
                         decoration: InputDecoration(
@@ -72,13 +72,13 @@ class _SignInPageState extends State<SignInPage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),
-                        validator: (value) => value!.isEmpty
-                            ? 'Please enter your email '
-                            : null,
+                        validator: (value) =>
+                            value!.isEmpty ? 'Please enter your email ' : null,
                         onChanged: (value) {
                           setState(() => email = value);
                         },
-                        onSaved: (value) =>requestModel.email =value!,             //**********
+                        onSaved: (value) =>
+                            requestModel.email = value!, //**********
                       ),
                       SizedBox(height: 15),
 
@@ -105,7 +105,7 @@ class _SignInPageState extends State<SignInPage> {
                         onChanged: (value) {
                           setState(() => password = value);
                         },
-                        onSaved: (value) => requestModel.password = value !,
+                        onSaved: (value) => requestModel.password = value!,
                       ),
                       SizedBox(height: 15),
 
@@ -115,12 +115,12 @@ class _SignInPageState extends State<SignInPage> {
                         child: TextButton(
                           onPressed: () {},
                           child: Text("Forgot Password?",
-                              style: TextStyle(color: Colors.purple)),
+                              style: TextStyle(color: const Color.fromRGBO(156, 39, 176, 1))),
                         ),
                       ),
                       SizedBox(height: 20),
 
-                      // Sign Up Button
+                      // Sign In Button
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.purple,
@@ -129,20 +129,36 @@ class _SignInPageState extends State<SignInPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),
-                        onPressed: () {
-                          if(validateAndSave()){
-                            APIService api =new APIService();
-                            api.login(requestModel);
+                        onPressed: () async {
+                          if (validateAndSave()) {
+                            APIService api = new APIService();
+                            LoginResponseModel response =
+                                await api.login(requestModel);
                             print(requestModel.toJson());
+                            // Check if the response contains a valid token (successful login)
+                            if (response.token.isNotEmpty) {
+                              // If login is successful, navigate to the home screen
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        HomeScreen()), // Your home screen widget
+                              );
+                            } else {
+                              // If login fails (no token), show an error message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(
+                                        'Login failed. ${response.error}')),
+                              );
+                            }
                           }
                         },
                         child: Text("Sign In",
                             style:
-                            TextStyle(fontSize: 18, color: Colors.white)),
+                                TextStyle(fontSize: 18, color: Colors.white)),
                       ),
                       SizedBox(height: 10),
-
-
                     ],
                   ),
                 ),
@@ -154,14 +170,13 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-
-  bool validateAndSave(){      //******************
-    final form =_formKey.currentState;
-    if(form?.validate() ?? false){
+  bool validateAndSave() {
+    //******************
+    final form = _formKey.currentState;
+    if (form?.validate() ?? false) {
       form?.save();
       return true;
     }
     return false;
   }
-
 }

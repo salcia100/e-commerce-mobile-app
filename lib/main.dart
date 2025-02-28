@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/screens/home.dart';
 import 'package:inscri_ecommerce/screens/register.dart';
 
 void main() {
@@ -12,12 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //kelmet debug tetnaha
-     /* title: 'E-Commerce App',
+      /* title: 'E-Commerce App',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),*/
-      home: SignUpPage(), // Afficher directement la page d'inscription
+      home: HomeScreen(), // Afficher directement la page d'inscription
     );
   }
 }
-
