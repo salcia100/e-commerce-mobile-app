@@ -20,7 +20,14 @@ class itemCard extends StatelessWidget {
           child: Container(
             height: 180,
             width: 160,
-            child: Image.asset(product.image),
+            child: Image.network(
+              //****.assets for images statiques --> .network() for api*/
+              product.image,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Icon(Icons.image_not_supported, size: 50);
+              },
+            ),
           ),
         ),
         Padding(

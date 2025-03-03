@@ -24,7 +24,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
     super.initState();
-    requestModel = new LoginRequestModel(); //********
+    requestModel =  LoginRequestModel(); //********
   }
 
   @override
