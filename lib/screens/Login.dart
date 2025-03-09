@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/auth_api.dart';
 import 'package:inscri_ecommerce/model/user/login_model.dart';
 
-import 'home.dart';
+import 'home/home_screen.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -24,7 +24,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
     super.initState();
-    requestModel =  LoginRequestModel(); //********
+    requestModel = LoginRequestModel(); //********
   }
 
   @override
@@ -35,7 +35,7 @@ class _SignInPageState extends State<SignInPage> {
           gradient: LinearGradient(
             colors: [
               const Color.fromARGB(0, 237, 194, 245),
-              const Color.fromARGB(255, 220, 167, 245)
+              const Color.fromARGB(255, 203, 150, 145)
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -60,7 +60,7 @@ class _SignInPageState extends State<SignInPage> {
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.purple),
+                            color: Colors.black),
                       ),
                       SizedBox(height: 20),
 
@@ -115,7 +115,7 @@ class _SignInPageState extends State<SignInPage> {
                         child: TextButton(
                           onPressed: () {},
                           child: Text("Forgot Password?",
-                              style: TextStyle(color: const Color.fromRGBO(156, 39, 176, 1))),
+                              style: TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(height: 20),
@@ -123,7 +123,7 @@ class _SignInPageState extends State<SignInPage> {
                       // Sign In Button
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple,
+                          backgroundColor: Color(0xFFDB3022),
                           padding: EdgeInsets.symmetric(
                               horizontal: 50, vertical: 15),
                           shape: RoundedRectangleBorder(

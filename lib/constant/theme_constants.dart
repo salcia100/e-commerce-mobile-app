@@ -6,6 +6,8 @@ const kTextLightColor = Color(0xFFACACAC);
 
 const kDefaultPadding = 20.0;
 
-const kIconColor = Color.fromARGB(255, 195, 177, 225);
+const kIconColor = Color(0xFFDB3022);
 
-const kbarColor = Color(0xFF212325);
+const kbarColor = Colors.white;
+
+const kbackgroundColor = Color.fromARGB(255, 226, 225, 225);

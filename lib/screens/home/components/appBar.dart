@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/constant/home_constants.dart';
+import 'package:inscri_ecommerce/constant/theme_constants.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   @override
@@ -19,14 +19,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return AppBar(
       backgroundColor: kbarColor,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: navIcon(2, Icons.person, Icons.person_outline),
         color: kIconColor,
         onPressed: () {},
       ),
       actions: [
         navIcon(0, Icons.search, Icons.search_outlined),
-        navIcon(1, Icons.shopping_cart, Icons.shopping_cart_outlined),
-        navIcon(2, Icons.person, Icons.person_outline),
+        navIcon(1, Icons.notifications, Icons.notifications_none_outlined),
         SizedBox(width: kDefaultPadding / 2),
       ],
     );
@@ -38,8 +37,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
         selectedIndex == index ? filledIcon : outlinedIcon,
         color: selectedIndex == index
             ? kIconColor
-            : kIconColor, // Change la couleur en fonction de l'index sélectionné
-        size: 25,
+            : Colors
+                .grey, // Change la couleur en fonction de l'index sélectionné
+        size: 30,
       ),
       onPressed: () {
         setState(() {

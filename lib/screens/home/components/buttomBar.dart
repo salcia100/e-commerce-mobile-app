@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/constant/home_constants.dart';
+import 'package:inscri_ecommerce/constant/theme_constants.dart';
 
 class BottomBar extends StatefulWidget {
   @override
@@ -29,7 +29,7 @@ class _BottomBarState extends State<BottomBar> {
         children: [
           navIcon(0, Icons.home, Icons.home_outlined),
           navIcon(1, Icons.favorite, Icons.favorite_outline),
-          navIcon(2, Icons.notifications, Icons.notifications_none),
+          navIcon(2, Icons.shopping_bag, Icons.shopping_bag_outlined),
           navIcon(3, Icons.palette, Icons.palette_outlined),
         ],
       ),
@@ -41,9 +41,9 @@ class _BottomBarState extends State<BottomBar> {
       icon: Icon(
         selectedIndex == index ? filledIcon : outlinedIcon,
         color: selectedIndex == index
-            ? kIconColor
-            : kIconColor, // Highlight active icon
-        size: 35,
+            ? kIconColor   // Highlight active icon
+            : Colors.grey, 
+        size: 30,
       ),
       onPressed: () {
         setState(() {

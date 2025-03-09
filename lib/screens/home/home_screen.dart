@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/screens/components/body.dart';
+import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/screens/home/components/body.dart';
 import 'components/buttomBar.dart';
 import 'components/appBar.dart';
 
@@ -14,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 252, 252),
       appBar: CustomAppBar(),
       body: Body(),
       bottomNavigationBar: BottomBar(),

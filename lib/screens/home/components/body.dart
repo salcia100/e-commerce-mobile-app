@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/constant/home_constants.dart';
+import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/screens/details_produit/details_screen.dart';
 import 'categories.dart';
 import 'item_card.dart';
 import 'package:inscri_ecommerce/api/Product_api.dart';
@@ -58,7 +59,7 @@ class _BodyState extends State<Body> {
                 color: Color.fromARGB(255, 54, 32, 35)),
           ),
         ),
-        Categories(),
+        CategorySelector(),
         Expanded(
           child: RefreshIndicator(
             onRefresh: _onRefresh, // Trigger _onRefresh when pulled
@@ -74,6 +75,13 @@ class _BodyState extends State<Body> {
                 product: products[index],
                 press: () {
                   print("Tapped on ${products[index].name}");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailsScreen(
+                          product: products[index],
+                        ),
+                      ));
                 },
               ),
             ),
