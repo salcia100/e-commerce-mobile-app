@@ -12,10 +12,10 @@ class _CategorySelectorState extends State<CategorySelector> {
 
   final List<Map<String, String>> categories = [
     {"name": "dresses", "image": "assets/categories/category1.jpg"},
-    {"name": "tops", "image": "assets/images/men.png"},
-    {"name": "Accessories", "image": "assets/images/accessories.png"},
-    {"name": "Beauty", "image": "assets/images/beauty.png"},
-    {"name": "pants", "image": "assets/images/beauty.png"},
+    {"name": "tops", "image": "assets/categories/category2.jpg"},
+    {"name": "Accessories", "image": "assets/categories/category3.jpg"},
+    {"name": "Beauty", "image": "assets/categories/category4.jpg"},
+    {"name": "pants", "image": "assets/categories/category5.jpg"},
   ];
 
   @override
@@ -50,8 +50,8 @@ class _CategorySelectorState extends State<CategorySelector> {
                       children: [
                         // Image in a circle
                         Container(
-                          width: 80,
-                          height: 80,
+                          width: 70,
+                          height: 70,
                           decoration: BoxDecoration(
                             color: isSelected
                                 ? Color(0xFF3A2C27)
