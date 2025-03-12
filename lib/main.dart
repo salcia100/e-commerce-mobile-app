@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/screens/home/home_screen.dart';
-import 'package:inscri_ecommerce/screens/register.dart';
+import 'package:inscri_ecommerce/screens/cart/cart_screen.dart';
+//import 'package:inscri_ecommerce/screens/home/home_screen.dart';
+//import 'package:inscri_ecommerce/screens/register.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,11 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //kelmet debug tetnaha
-      /* title: 'E-Commerce App',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),*/
-      home: HomeScreen(), // Afficher directement la page d'inscription
+      home: CartScreen(), // Afficher directement la page d'inscription
     );
   }
 }
