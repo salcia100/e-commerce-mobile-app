@@ -1,23 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:inscri_ecommerce/screens/cart/cart_screen.dart';
+import 'package:inscri_ecommerce/api/Cart_api.dart';
+import 'package:inscri_ecommerce/model/Product.dart';
 
 class AddToCartButton extends StatefulWidget {
+  final Product product;
+  const AddToCartButton({Key? key, required this.product}) : super(key: key);
   @override
   State<AddToCartButton> createState() => _AddToCartButtonState();
 }
 
 class _AddToCartButtonState extends State<AddToCartButton> {
+  final CartApi apiService = CartApi();
+  List<dynamic> products = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts();
+  }
+
+  void fetchProducts() async {
+    try {
+      List<dynamic> data = await apiService.GetOneCartItem();
+      setState(() {
+        products = data;
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Erreur : $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           // Logic for Add to Cart action
-            Navigator.push(                                                      //push add tocart---->page cart
-                context,
-                MaterialPageRoute(builder: (context) => CartScreen()),
-              );
+          int productID = widget.product.id;
+          int quantity = widget.product.stock; //a modifier
+          await CartApi.addProductToCart(productID, quantity);
+          Navigator.push(
+            //push add tocart---->page cart
+            context,
+            MaterialPageRoute(builder: (context) => CartScreen()),
+          );
           print("Add to Cart clicked!");
         },
         style: ElevatedButton.styleFrom(

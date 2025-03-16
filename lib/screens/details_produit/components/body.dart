@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/description&review.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/productOptions.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/addToCartButton.dart';
-import '../../../model/Product/Product.dart';
+import '../../../model/Product.dart';
 
 class Body extends StatefulWidget {
   final Product product;
@@ -97,7 +97,7 @@ class _BodyState extends State<Body> {
                         ),
                         ProductOptions(),
                         DescriptionReview(product: widget.product),
-                        AddToCartButton(),
+                        AddToCartButton(product: widget.product),
                       ],
                     ),
                   ),

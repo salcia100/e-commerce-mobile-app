@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/model/Product/Product.dart';
+import 'package:inscri_ecommerce/model/Product.dart';
 
 class DescriptionReview extends StatefulWidget {
   final Product product;

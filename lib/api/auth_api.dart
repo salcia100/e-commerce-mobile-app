@@ -1,7 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'package:inscri_ecommerce/constant/constant.dart';
 import 'dart:convert';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:inscri_ecommerce/outils/secure_storage.dart';
 import 'package:inscri_ecommerce/model/user/register_model.dart';
 
 import '../model/user/login_model.dart';
@@ -25,6 +26,7 @@ class APIService {
     }
   }
 
+  final storage = FlutterSecureStorage(); // Secure storage for token
   Future<LoginResponseModel> login(LoginRequestModel requestModel) async {
     String url = apiUrl + '/auth/login';
     final response =
@@ -33,10 +35,20 @@ class APIService {
     print('response status:${response.statusCode}');
     print('response body:${response.body}');
 
-    if (response.statusCode == 200 || response.statusCode == 400) {
-      return LoginResponseModel.fromJson(json.decode(response.body));
+    if (response.statusCode == 200) {
+      // Convert JSON response
+      LoginResponseModel loginResponse =
+          LoginResponseModel.fromJson(json.decode(response.body));
+
+      // ✅ Store token securely
+      if (loginResponse.token.isNotEmpty) {
+        await SecureStorage.saveToken(loginResponse.token);
+        print("Token stored successfully!");
+      }
+
+      return loginResponse;
     } else {
-      throw Exception('failed to load data :${response.statusCode}');
+      throw Exception('Failed to login: ${response.statusCode}');
     }
   }
 }

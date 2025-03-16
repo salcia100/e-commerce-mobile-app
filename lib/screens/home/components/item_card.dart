@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/model/Product/Product.dart';
+import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -45,7 +45,7 @@ class itemCard extends StatelessWidget {
           Text(
             "\$${product.price}",
             style: TextStyle(fontWeight: FontWeight.bold),
-          )
+          ),
         ],
       ),
     );

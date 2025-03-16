@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:inscri_ecommerce/model/Cart.dart';
 
 class CartItem extends StatelessWidget {
-  final String title;
+  /*final String title;
   final String size;
   final String color;
   final double price;
@@ -16,7 +18,10 @@ class CartItem extends StatelessWidget {
     required this.price,
     required this.quantity,
     required this.imagePath,
-  });
+  });*/
+  final Cart cart;
+
+  CartItem({required this.cart});
 
   @override
   Widget build(BuildContext context) {
@@ -39,37 +44,44 @@ class CartItem extends StatelessWidget {
           ),
         ),
         padding: const EdgeInsets.all(16),
+      
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            
-            ClipRRect(                                                         //Image du produit
+            ClipRRect(
+              //Image du produit
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                imagePath,
-                width: 80,
-                height: 80,
+              child: CachedNetworkImage(
+                imageUrl: cart.imagePath, // Use the imagePath from the model
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) =>
+                    Center(child: Icon(Icons.image_not_supported, size: 50)),
+
+                width: 60,
+                height: 60,
                 fit: BoxFit.cover,
               ),
             ),
             const SizedBox(width: 16),
-
-            Expanded(                                                        //Utilisation de Expanded pour empêcher l'overflow
+            Flexible(
+              //Utilisation de Expanded pour empêcher l'overflow
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    cart.title,
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF1D1F22),
                     ),
-                    overflow: TextOverflow.ellipsis,                       // pour éviter le dépassement
+                    overflow:
+                        TextOverflow.ellipsis, // pour éviter le dépassement
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Size: $size  |  Color: $color",
+                    "Size:" + cart.size + "|" + " Color:" + cart.color,
                     style: const TextStyle(
                       fontSize: 10,
                       color: Color(0xFF8A8A8F),
@@ -77,7 +89,7 @@ class CartItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "\$${price.toStringAsFixed(2)}",
+                    "\$${cart.price.toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -87,8 +99,8 @@ class CartItem extends StatelessWidget {
                 ],
               ),
             ),
-
-            Column(                                              // Boutons quantité et supprimer
+            Column(
+              // Boutons quantité et supprimer
               children: [
                 Row(
                   children: [
@@ -97,7 +109,7 @@ class CartItem extends StatelessWidget {
                       icon: const Icon(Icons.remove, size: 16),
                     ),
                     Text(
-                      "$quantity",
+                      cart.quantity.toString(),
                       style: const TextStyle(fontSize: 14),
                     ),
                     IconButton(

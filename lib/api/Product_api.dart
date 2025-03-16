@@ -1,13 +1,25 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:inscri_ecommerce/constant/constant.dart';
-import 'package:inscri_ecommerce/model/Product/Product.dart';
+import 'package:inscri_ecommerce/model/Product.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:inscri_ecommerce/outils/secure_storage.dart';
 
 class ApiService {
   Future<List<dynamic>> getProducts() async {
     try {
       String url = apiUrl + '/product/showall';
-      final response = await http.get(Uri.parse(url));
+
+      // ✅ Retrieve token
+      String? token = await SecureStorage.getToken();
+
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $token', // ✅ Attach token
+          'Content-Type': 'application/json'
+        },
+      );
 
       print("API Response: ${response.body}"); // Debugging
 
