@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:inscri_ecommerce/screens/cart/cart_screen.dart';
 
 class AddToCartButton extends StatefulWidget {
   @override
@@ -13,10 +14,14 @@ class _AddToCartButtonState extends State<AddToCartButton> {
       child: ElevatedButton(
         onPressed: () {
           // Logic for Add to Cart action
+            Navigator.push(                                                      //push add tocart---->page cart
+                context,
+                MaterialPageRoute(builder: (context) => CartScreen()),
+              );
           print("Add to Cart clicked!");
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.black, // Button color
+          backgroundColor: const Color(0xFFDB3022), // Button color
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25), // Rounded corners
           ),
