@@ -3,22 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inscri_ecommerce/model/Cart.dart';
 
 class CartItem extends StatelessWidget {
-  /*final String title;
-  final String size;
-  final String color;
-  final double price;
-  final int quantity;
-  final String imagePath;
-
-  const CartItem({
-    super.key,
-    required this.title,
-    required this.size,
-    required this.color,
-    required this.price,
-    required this.quantity,
-    required this.imagePath,
-  });*/
   final Cart cart;
 
   CartItem({required this.cart});

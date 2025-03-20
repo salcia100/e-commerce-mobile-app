@@ -12,31 +12,6 @@ class AddToCartButton extends StatefulWidget {
 }
 
 class _AddToCartButtonState extends State<AddToCartButton> {
-  final CartApi apiService = CartApi();
-  List<dynamic> products = [];
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchProducts();
-  }
-
-  void fetchProducts() async {
-    try {
-      List<dynamic> data = await apiService.GetOneCartItem();
-      setState(() {
-        products = data;
-        isLoading = false;
-      });
-    } catch (e) {
-      print("Erreur : $e");
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -44,7 +19,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
         onPressed: () async {
           // Logic for Add to Cart action
           int productID = widget.product.id;
-          int quantity = widget.product.stock; //a modifier
+          int quantity = 1; //widget.product.stock; //a modifier
           await CartApi.addProductToCart(productID, quantity);
           Navigator.push(
             //push add tocart---->page cart

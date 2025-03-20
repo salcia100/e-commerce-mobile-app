@@ -9,7 +9,7 @@ class ShippingSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Section pour le texte "Check out" avec une icône de retour
-          Row(
+          /*Row(
             children: [
               IconButton(
                 icon: Icon(Icons.arrow_back_ios_new, color: Colors.black),
@@ -26,7 +26,7 @@ class ShippingSection extends StatelessWidget {
                 ),
               ),
             ],
-          ),
+          ),*/
           SizedBox(height: 20),
 
           

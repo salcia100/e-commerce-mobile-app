@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/screens/checkout/components/agree_boutton.dart';
-import 'package:inscri_ecommerce/screens/checkout/components/total_price.dart';
-import 'components/shipping.dart';
-import 'components/payment.dart';
+import 'package:inscri_ecommerce/model/order.dart';
+import 'package:inscri_ecommerce/screens/orders_history/components/OrderItem.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class OrdersScreen extends StatefulWidget {
+  @override
+  State<OrdersScreen> createState() => _OrdersScreenState();
+}
+
+class _OrdersScreenState extends State<OrdersScreen> {
+  List<Order> orders = Order.orders;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +22,7 @@ class CheckoutScreen extends StatelessWidget {
           },
         ),
         title: const Text(
-          'Check out',
+          'My Orders',
           style: TextStyle(
             color: Color(0xFF1D1F22),
             fontSize: 18,
@@ -27,15 +31,11 @@ class CheckoutScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ShippingSection(),
-            PaymentSection(),
-            ProductPrice(),
-            BottomSection(),
-          ],
-        ),
+      body: ListView.builder(
+        itemCount: orders.length,
+        itemBuilder: (context, index) {
+          return OrderItem(order: orders[index]);
+        },
       ),
     );
   }

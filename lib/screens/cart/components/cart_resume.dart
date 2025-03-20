@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/screens/checkout/checkout_screen.dart';
 
 class CartSummary extends StatelessWidget {
   final double subtotal;
@@ -76,7 +77,13 @@ class CartSummary extends StatelessWidget {
               minimumSize: const Size(double.infinity, 48),
             ),
             onPressed: () {
-              // Action lors du clic
+              // Logic for Add to Cart action
+
+              Navigator.push(
+                //push add tocart---->page checkout
+                context,
+                MaterialPageRoute(builder: (context) => CheckoutScreen()),
+              );
             },
             child: const Text(
               'Proceed to checkout',

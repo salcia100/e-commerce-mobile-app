@@ -20,20 +20,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return Scaffold(
       backgroundColor: kbackgroundColor,
       appBar: AppBar(
-        backgroundColor: kbarColor,
-        title: const Text("Product Details"),
-        foregroundColor: Colors.black,
+        elevation: 0,
+        backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          color: kIconColor,
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        actions: [
-          navIcon(0, Icons.search, Icons.search_outlined),
-          navIcon(1, Icons.shopping_cart, Icons.shopping_cart_outlined),
-          navIcon(2, Icons.person, Icons.person_outline),
-          SizedBox(width: kDefaultPadding / 2),
-        ],
+        title: const Text(
+          'Product Details',
+          style: TextStyle(
+            color: Color(0xFF1D1F22),
+            fontSize: 18,
+            fontFamily: 'Product Sans',
+          ),
+        ),
+        centerTitle: true,
       ),
       body: Body(product: widget.product),
       bottomNavigationBar: BottomBar(),

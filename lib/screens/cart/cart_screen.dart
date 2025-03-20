@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/Cart_api.dart';
-import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/Cart.dart';
-import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/cart/components/cart_item.dart';
 import 'package:inscri_ecommerce/screens/cart/components/cart_resume.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -74,55 +71,25 @@ class _CartScreenState extends State<CartScreen> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                Cart item = products[index];
-                return CartItem(
-                  cart: Cart(
-                      title: item.title,
-                      size: "s",
-                      color: "red",
-                      price: item.price,
-                      quantity: item.quantity,
-                      imagePath: item.imagePath),
-                  /* title: item.name,
-                    size: "S",
-                    color: "Beige",
-                    price: item.price,
-                    quantity: item.quantity,
-                    imagePath: item.image,*/
-                );
-              },
+            child: RefreshIndicator(
+              onRefresh: _onRefresh, // Trigger _onRefresh when pulled
+              child: ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  Cart item = products[index];
+                  return CartItem(
+                    cart: Cart(
+                        title: item.title,
+                        size: "s",
+                        color: "red",
+                        price: item.price,
+                        quantity: item.quantity,
+                        imagePath: item.imagePath),
+                  );
+                },
+              ),
             ),
           ),
-
-          // Liste des articles
-          /*CartItem(
-              title: "Coat",
-              size: "S",
-              color: "Beige",
-              price: 30.00,
-              quantity: 1,
-              imagePath: "assets/cart/10.jpg",
-            ),
-            CartItem(
-              title: "Sweater",
-              size: "M",
-              color: "brown",
-              price: 39.99,
-              quantity: 1,
-              imagePath: "assets/cart/11.jpg",
-            ),
-
-            CartItem(
-              title: "Dress",
-              size: "M",
-              color: "Beige",
-              price: 39.99,
-              quantity: 1,
-              imagePath: "assets/cart/12.jpg",
-            ),*/
 
           const SizedBox(height: 20),
 

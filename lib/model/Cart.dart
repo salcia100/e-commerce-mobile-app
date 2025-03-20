@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/Cart_api.dart';
+import 'package:inscri_ecommerce/constant/constant.dart';
 
 class Cart {
   final String title;
@@ -24,10 +25,10 @@ class Cart {
 
     // Vérifie et remplace l'IP si nécessaire
     if (imageUrl != null && imageUrl.contains("127.0.0.1")) {
-      imageUrl = imageUrl.replaceAll("127.0.0.1", "172.16.15.218");
+      imageUrl = imageUrl.replaceAll("127.0.0.1", IPv4);
     }
 
-    imageUrl = imageUrl + "?${DateTime.now().minute}"; // Append timestamp
+    //imageUrl = imageUrl + "?${DateTime.now().second}"; // Append timestamp
 
     print("image url : " + imageUrl);
 
@@ -37,7 +38,8 @@ class Cart {
       color: "red",
       imagePath: imageUrl,
       price: double.parse(json['product']['price'].toString()),
-      quantity: int.parse(json['product']['stock'].toString()),
+      quantity: int.parse(json['quantity'].toString()),
+      //quantity: int.parse(json['product']['stock'].toString()),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/screens/home/home_screen.dart';
 
 class CheckoutAccepted extends StatelessWidget {
   @override
@@ -23,7 +24,8 @@ class CheckoutAccepted extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 100), // Réduire le padding
+        padding:
+            const EdgeInsets.symmetric(horizontal: 100), // Réduire le padding
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +64,13 @@ class CheckoutAccepted extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // Ajoute l'action ici
+                // Logic for Add to Cart action
+
+                Navigator.push(
+                  //push add tocart---->page checkout
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
               },
               child: Text(
                 'Continue shopping',

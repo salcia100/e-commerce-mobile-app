@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/screens/cart/cart_screen.dart';
+import 'package:inscri_ecommerce/screens/home/home_screen.dart';
 
 class BottomBar extends StatefulWidget {
   @override
@@ -41,14 +43,37 @@ class _BottomBarState extends State<BottomBar> {
       icon: Icon(
         selectedIndex == index ? filledIcon : outlinedIcon,
         color: selectedIndex == index
-            ? kIconColor   // Highlight active icon
-            : Colors.grey, 
+            ? kIconColor // Highlight active icon
+            : Colors.grey,
         size: 30,
       ),
       onPressed: () {
         setState(() {
           selectedIndex = index; // Change selected icon
         });
+
+        // Define the destination screen based on the selected index
+        Widget destination = HomeScreen(); // Default screen in case index is invalid;
+        switch (index) {
+          case 0:
+            destination = HomeScreen(); // Replace with your actual screen
+            break;
+          case 1:
+            //destination = FavoriteScreen();
+            break;
+          case 2:
+            destination = CartScreen();
+            break;
+          case 3:
+            //destination = PaletteScreen();
+            break;
+        }
+
+        // Navigate to the selected page without replacing the current one
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => destination),
+        );
       },
     );
   }
