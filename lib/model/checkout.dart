@@ -31,7 +31,7 @@ class CheckoutResponseModel {
 
   factory CheckoutResponseModel.fromJson(Map<String, dynamic> json) {
     return CheckoutResponseModel(
-        payment_url: json["payment_url"] ?? "", // if json["token"] is null, use ""
+        payment_url: json["url"] ?? "", // if json["token"] is null, use ""
         error: json["error"] ?? "");
   }
 }

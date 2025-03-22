@@ -19,23 +19,7 @@ class BottomSection extends StatefulWidget {
 class _BottomSectionState extends State<BottomSection> {
   bool _isChecked = false; // État de la case à cocher
 
-  void _placeOrder() {
-    if (_isChecked && validateAndSave()) {
-      CheckoutApi api = CheckoutApi();
-      api.checkout(widget.requestModel);
-      print(widget.requestModel.toJson());
-
-      // Naviguer vers la page CheckoutAccepted 🎉
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CheckoutAccepted()),
-      );
-    } else {
-      print("Veuillez remplir le formulaire et accepter les conditions !");
-    }
-  }
-
-    bool validateAndSave() {
+   bool validateAndSave() {
     //******************
     final form = widget.formKey.currentState;
     if (form?.validate() ?? false) {
@@ -46,6 +30,31 @@ class _BottomSectionState extends State<BottomSection> {
       print("❌ Form non valide");
     return false;
   }
+
+  void _placeOrder() async{
+    if (_isChecked && validateAndSave()) {
+      CheckoutApi api = CheckoutApi();
+      /*api.checkout(widget.requestModel);
+      print(widget.requestModel.toJson());*/
+      // Récupère l'URL de paiement Stripe
+    var result = await api.checkout(widget.requestModel);
+
+    if (result != null) {
+      // L'URL de paiement Stripe a été récupérée avec succès
+      print('URL de paiement Stripe: $result');
+
+      // Naviguer vers la page CheckoutAccepted 🎉
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CheckoutAccepted()),    //CheckoutPage(paymentUrl:result)
+      );
+    } else {
+      print("Veuillez remplir le formulaire et accepter les conditions !");
+    }
+  }
+  }
+
+   
 
   @override
   Widget build(BuildContext context) {

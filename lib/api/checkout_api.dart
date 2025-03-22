@@ -6,7 +6,7 @@ import 'package:inscri_ecommerce/outils/secure_storage.dart';
 import 'package:inscri_ecommerce/model/order.dart';
 
 class CheckoutApi {
-   Future<void> checkout(CheckoutRequestModel requestModel) async {
+   Future<dynamic> checkout(CheckoutRequestModel requestModel) async {
     try {
       String url = apiUrl + '/checkout';
 
@@ -23,8 +23,13 @@ class CheckoutApi {
       );
       if (response.statusCode == 200) {
         print('✅ order created successfully !');
+        CheckoutResponseModel checkoutResponse = CheckoutResponseModel.fromJson(json.decode(response.body));
+        
+        return checkoutResponse.payment_url;  // Retourne l'URL de Stripe
       } else {
-        print('⚠️ Erreur : ${response.body}');
+        return response.body;
+        
+        
       }
     } catch (e) {
       print('❌ Exception : $e');
