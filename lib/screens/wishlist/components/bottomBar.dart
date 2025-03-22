@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/screens/cart/cart_screen.dart';
 import 'package:inscri_ecommerce/screens/home/home_screen.dart';
-import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
 
 class BottomBar extends StatefulWidget {
   @override
@@ -60,7 +59,7 @@ class _BottomBarState extends State<BottomBar> {
             destination = HomeScreen(); // Replace with your actual screen
             break;
           case 1:
-            destination = WishlistScreen();
+            //destination = FavoriteScreen();
             break;
           case 2:
             destination = CartScreen();
