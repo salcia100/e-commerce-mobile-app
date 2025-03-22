@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/api/checkout_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/screens/checkout/checkout_accepted.dart';
+import 'package:inscri_ecommerce/screens/checkout/components/shipping.dart';
+import 'package:inscri_ecommerce/model/checkout.dart';
 // Import de la page CheckoutAccepted
 
 class BottomSection extends StatefulWidget {
+   final CheckoutRequestModel requestModel;
+   final GlobalKey<FormState> formKey; // Utilise la clé du formulaire du parent
+
+  BottomSection({required this.requestModel, required this.formKey});
+
   @override
   _BottomSectionState createState() => _BottomSectionState();
 }
@@ -12,13 +20,31 @@ class _BottomSectionState extends State<BottomSection> {
   bool _isChecked = false; // État de la case à cocher
 
   void _placeOrder() {
-    if (_isChecked) {
+    if (_isChecked && validateAndSave()) {
+      CheckoutApi api = CheckoutApi();
+      api.checkout(widget.requestModel);
+      print(widget.requestModel.toJson());
+
       // Naviguer vers la page CheckoutAccepted 🎉
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => CheckoutAccepted()),
       );
+    } else {
+      print("Veuillez remplir le formulaire et accepter les conditions !");
     }
+  }
+
+    bool validateAndSave() {
+    //******************
+    final form = widget.formKey.currentState;
+    if (form?.validate() ?? false) {
+      form?.save();
+          print("📌 Données après save: ${widget.requestModel.toJson()}"); // Debug
+      return true;
+    }
+      print("❌ Form non valide");
+    return false;
   }
 
   @override
@@ -55,8 +81,12 @@ class _BottomSectionState extends State<BottomSection> {
 
           // Bouton "Place my order"
           Center(
-            child: ElevatedButton(
-              onPressed: _isChecked ? _placeOrder : null, // Désactivé si la case n'est pas cochée
+             child: Column(
+    mainAxisSize: MainAxisSize.min, // Ajuste la taille pour éviter un espace inutile
+    children: [
+             
+            ElevatedButton(
+            onPressed:  _placeOrder,
               style: ElevatedButton.styleFrom(
                 backgroundColor: kIconColor,
                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
@@ -70,9 +100,13 @@ class _BottomSectionState extends State<BottomSection> {
                 ),
               ),
             ),
+         ]
+             )
           ),
         ],
       ),
     );
   }
+
+
 }

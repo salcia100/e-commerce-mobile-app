@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/model/checkout.dart';
 import 'package:inscri_ecommerce/screens/checkout/components/agree_boutton.dart';
 import 'package:inscri_ecommerce/screens/checkout/components/total_price.dart';
 import 'components/shipping.dart';
 import 'components/payment.dart';
 
 class CheckoutScreen extends StatelessWidget {
+
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final CheckoutRequestModel requestModel = CheckoutRequestModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +34,10 @@ class CheckoutScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ShippingSection(),
+            ShippingSection(formKey: _formKey, requestModel: requestModel),
             PaymentSection(),
             ProductPrice(),
-            BottomSection(),
+            BottomSection(requestModel: requestModel,formKey:_formKey),
           ],
         ),
       ),
