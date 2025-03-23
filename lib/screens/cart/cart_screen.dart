@@ -46,6 +46,14 @@ class _CartScreenState extends State<CartScreen> {
     fetchProducts();
   }
 
+
+  // Method to remove item from the list
+  void removeItem(int id) {
+    setState(() {
+      products.removeWhere((product) => product.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,12 +87,14 @@ class _CartScreenState extends State<CartScreen> {
                   Cart item = products[index];
                   return CartItem(
                     cart: Cart(
+                        id: item.id,
                         title: item.title,
                         size: "s",
                         color: "red",
                         price: item.price,
                         quantity: item.quantity,
                         imagePath: item.imagePath),
+                    removeItem: removeItem, // Pass removeItem callback
                   );
                 },
               ),

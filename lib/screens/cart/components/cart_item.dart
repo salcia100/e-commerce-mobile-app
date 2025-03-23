@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:inscri_ecommerce/api/Cart_api.dart';
 import 'package:inscri_ecommerce/model/Cart.dart';
 
 class CartItem extends StatelessWidget {
   final Cart cart;
+  final Function removeItem; // Callback function to remove the item
 
-  CartItem({required this.cart});
+  CartItem({required this.cart,required this.removeItem});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,6 @@ class CartItem extends StatelessWidget {
           ),
         ),
         padding: const EdgeInsets.all(16),
-      
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -103,7 +104,13 @@ class CartItem extends StatelessWidget {
                   ],
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    int id = cart.id;
+
+                    await CartApi.RemoveProductFomCart(id);
+                    removeItem(id); // Call the callback function to remove the item from the list
+                    print("product deleted from cart ");
+                  },
                   icon: const Icon(Icons.delete, size: 20, color: Colors.red),
                 ),
               ],

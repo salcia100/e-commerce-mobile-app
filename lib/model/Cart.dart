@@ -3,6 +3,7 @@ import 'package:inscri_ecommerce/api/Cart_api.dart';
 import 'package:inscri_ecommerce/constant/constant.dart';
 
 class Cart {
+  final int id;
   final String title;
   final String size;
   final String color;
@@ -11,6 +12,7 @@ class Cart {
   final String imagePath;
 
   const Cart({
+    required this.id,
     required this.title,
     required this.size,
     required this.color,
@@ -33,6 +35,7 @@ class Cart {
     print("image url : " + imageUrl);
 
     return Cart(
+      id: int.parse(json['id'].toString()),
       title: json['product']['name'],
       size: "s",
       color: "red",

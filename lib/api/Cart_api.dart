@@ -59,4 +59,28 @@ class CartApi {
       throw Exception(" ❌  Erreur : $e ");
     }
   }
+
+  static Future<void> RemoveProductFomCart(int id) async {
+    try {
+      String url = apiUrl + '/cart/remove/$id';
+
+      // ✅ Retrieve token
+      String? token = await SecureStorage.getToken();
+
+      final response = await http.delete(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token', // Si l'authentification est requise
+        },
+      );
+      if (response.statusCode == 200) {
+        print('✅ product deleted from cart successfully !');
+      } else {
+        print('⚠️ Erreur : ${response.body}');
+      }
+    } catch (e) {
+      print('❌ Exception : $e');
+    }
+  }
 }

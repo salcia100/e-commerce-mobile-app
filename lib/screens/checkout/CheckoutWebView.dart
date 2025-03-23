@@ -23,7 +23,7 @@ class _CheckoutWebViewState extends State<CheckoutWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(    
       appBar: AppBar(title: Text("Payment")),
       body: WebViewWidget(controller: _controller),
     );
