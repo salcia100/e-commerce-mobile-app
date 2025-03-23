@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/checkout_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/screens/checkout/CheckoutWebView.dart';
 import 'package:inscri_ecommerce/screens/checkout/checkout_accepted.dart';
 import 'package:inscri_ecommerce/screens/checkout/components/shipping.dart';
 import 'package:inscri_ecommerce/model/checkout.dart';
 // Import de la page CheckoutAccepted
 
 class BottomSection extends StatefulWidget {
-   final CheckoutRequestModel requestModel;
-   final GlobalKey<FormState> formKey; // Utilise la clé du formulaire du parent
+  final CheckoutRequestModel requestModel;
+  final GlobalKey<FormState> formKey; // Utilise la clé du formulaire du parent
 
   BottomSection({required this.requestModel, required this.formKey});
 
@@ -19,42 +20,39 @@ class BottomSection extends StatefulWidget {
 class _BottomSectionState extends State<BottomSection> {
   bool _isChecked = false; // État de la case à cocher
 
-   bool validateAndSave() {
+  bool validateAndSave() {
     //******************
     final form = widget.formKey.currentState;
     if (form?.validate() ?? false) {
       form?.save();
-          print("📌 Données après save: ${widget.requestModel.toJson()}"); // Debug
+      print("📌 Données après save: ${widget.requestModel.toJson()}"); // Debug
       return true;
     }
-      print("❌ Form non valide");
+    print("❌ Form non valide");
     return false;
   }
 
-  void _placeOrder() async{
+  void _placeOrder() async {
     if (_isChecked && validateAndSave()) {
       CheckoutApi api = CheckoutApi();
-      /*api.checkout(widget.requestModel);
-      print(widget.requestModel.toJson());*/
-      // Récupère l'URL de paiement Stripe
-    var result = await api.checkout(widget.requestModel);
 
-    if (result != null) {
-      // L'URL de paiement Stripe a été récupérée avec succès
-      print('URL de paiement Stripe: $result');
+      var result = await api.checkout(widget.requestModel);
 
-      // Naviguer vers la page CheckoutAccepted 🎉
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CheckoutAccepted()),    //CheckoutPage(paymentUrl:result)
-      );
-    } else {
-      print("Veuillez remplir le formulaire et accepter les conditions !");
+      if (result != null) {
+        // L'URL de paiement Stripe a été récupérée avec succès
+        print('URL de paiement Stripe: $result');
+
+        // Naviguer vers la page CheckoutAccepted 🎉
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CheckoutWebView(paymentUrl: result),
+            ));
+      } else {
+        print("Veuillez remplir le formulaire et accepter les conditions !");
+      }
     }
   }
-  }
-
-   
 
   @override
   Widget build(BuildContext context) {
@@ -90,32 +88,29 @@ class _BottomSectionState extends State<BottomSection> {
 
           // Bouton "Place my order"
           Center(
-             child: Column(
-    mainAxisSize: MainAxisSize.min, // Ajuste la taille pour éviter un espace inutile
-    children: [
-             
-            ElevatedButton(
-            onPressed:  _placeOrder,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: kIconColor,
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                disabledBackgroundColor: Colors.grey, // Couleur grisée si désactivé
-              ),
-              child: Text(
-                'Place my order',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+              child: Column(
+                  mainAxisSize: MainAxisSize
+                      .min, // Ajuste la taille pour éviter un espace inutile
+                  children: [
+                ElevatedButton(
+                  onPressed: _placeOrder,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kIconColor,
+                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                    disabledBackgroundColor:
+                        Colors.grey, // Couleur grisée si désactivé
+                  ),
+                  child: Text(
+                    'Place my order',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-         ]
-             )
-          ),
+              ])),
         ],
       ),
     );
   }
-
-
 }
