@@ -1,4 +1,5 @@
 //API url
 //String apiUrl = 'http://10.0.2.2:8000/api';
-String apiUrl = 'http://172.16.13.48:8000/api';
-String IPv4 = '172.16.13.48';
+
+String apiUrl = 'http://192.168.100.3:8000/api';
+String IPv4 = '192.168.100.3';

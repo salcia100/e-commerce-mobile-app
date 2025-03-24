@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/checkout_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/screens/checkout/CheckoutWebView.dart';
-import 'package:inscri_ecommerce/screens/checkout/checkout_accepted.dart';
-import 'package:inscri_ecommerce/screens/checkout/components/shipping.dart';
 import 'package:inscri_ecommerce/model/checkout.dart';
 // Import de la page CheckoutAccepted
 

@@ -43,7 +43,7 @@ class _OrderItemState extends State<OrderItem> {
               ),
               SizedBox(height: 8),
               Text('Date: ${widget.order.date}'),
-              Text('Tracking: ${widget.order.shipping_address}'),
+              Text('shipping_address: ${widget.order.shipping_address}'),
               Text('Quantity: ${widget.order.quantity}'),
               Text('Subtotal: \$${widget.order.subtotal}'),
               SizedBox(height: 8),

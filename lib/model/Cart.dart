@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/api/Cart_api.dart';
 import 'package:inscri_ecommerce/constant/constant.dart';
 
 class Cart {
@@ -26,7 +24,7 @@ class Cart {
     String imageUrl = json['product']['image'];
 
     // Vérifie et remplace l'IP si nécessaire
-    if (imageUrl != null && imageUrl.contains("127.0.0.1")) {
+    if (imageUrl.contains("127.0.0.1")) {
       imageUrl = imageUrl.replaceAll("127.0.0.1", IPv4);
     }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/model/checkout.dart';
-import 'package:inscri_ecommerce/screens/checkout/components/agree_boutton.dart';
 
 class ShippingSection extends StatefulWidget {
   final GlobalKey<FormState> formKey;
