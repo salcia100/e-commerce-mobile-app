@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/Orders_api.dart';
-import 'package:inscri_ecommerce/model/order.dart';
-import 'package:inscri_ecommerce/screens/orders_history/components/OrderItem.dart';
+import 'package:inscri_ecommerce/screens/orders_history/components/OrderItemWidget.dart';
 
 class OrdersScreen extends StatefulWidget {
   @override
@@ -69,7 +68,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
           child: ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) {
-              return OrderItem(order: orders[index]);
+              return OrderItemWidget(order: orders[index]);
             },
           ),
         ));

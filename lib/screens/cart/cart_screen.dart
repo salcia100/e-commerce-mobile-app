@@ -46,7 +46,6 @@ class _CartScreenState extends State<CartScreen> {
     fetchProducts();
   }
 
-
   // Method to remove item from the list
   void removeItem(int id) {
     setState(() {

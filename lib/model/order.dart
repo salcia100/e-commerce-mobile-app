@@ -1,12 +1,14 @@
+import 'package:inscri_ecommerce/model/orderItem.dart';
 import 'package:intl/intl.dart';
 
 class Order {
   final int id;
-  final String  date;
+  final String date;
   final String shipping_address;
   final int quantity;
   final double subtotal;
   final String status;
+  final List<OrderItem> orderItems;
 
   Order({
     required this.id,
@@ -15,53 +17,23 @@ class Order {
     required this.quantity,
     required this.subtotal,
     required this.status,
+    required this.orderItems,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
+    var list = json['order_item'] as List;
+    List<OrderItem> orderItems =
+        list.map((i) => OrderItem.fromJson(i)).toList();
 
     return Order(
       id: int.parse(json['id'].toString()),
-      date:DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(json['created_at'])), 
-      shipping_address:json['shipping_address'],
+      date: DateFormat('dd/MM/yyyy HH:mm')
+          .format(DateTime.parse(json['created_at'])),
+      shipping_address: json['shipping_address'],
       status: json['status'],
       subtotal: double.parse(json['total_price'].toString()),
       quantity: int.parse(json['total_quantity'].toString()),
+      orderItems: orderItems,
     );
   }
-
-  /*static List<Order> orders = [
-    Order(
-      id: 1524,
-      date: "14/05/2021",
-      shipping_address: "123 Main Street, City",
-      //quantity: 2,
-      subtotal: 110.0,
-      status: "PENDING",
-    ),
-    Order(
-      id: 1525,
-      date: "14/05/2021",
-      shipping_address: "123 Main Street, City",
-      //quantity: 1,
-      subtotal: 50.0,
-      status: "SHIPPED",
-    ),
-    Order(
-      id: 1526,
-      date: "14/05/2021",
-      shipping_address: "123 Main Street, City",
-      //quantity: 2,
-      subtotal: 40.0,
-      status: "PAID",
-    ),
-    Order(
-      id: 1527,
-      date: "23/05/2021",
-      shipping_address: "123 Main Street, City",
-      //quantity: 4,
-      subtotal: 70.0,
-      status: "CANCELED",
-    ),
-  ];*/
 }
-

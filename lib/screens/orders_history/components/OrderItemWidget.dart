@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/model/order.dart';
-import 'package:inscri_ecommerce/model/orderItems.dart';
+import 'package:inscri_ecommerce/model/orderItem.dart';
 
-class OrderItem extends StatefulWidget {
+class OrderItemWidget extends StatefulWidget {
   final Order order;
 
-  const OrderItem({Key? key, required this.order}) : super(key: key);
+  const OrderItemWidget({Key? key, required this.order}) : super(key: key);
 
   @override
-  State<OrderItem> createState() => _OrderItemState();
+  State<OrderItemWidget> createState() => _OrderItemState();
 }
 
-class _OrderItemState extends State<OrderItem> {
-  List<OrderItems> orderItems = OrderItems.orderIems;
+class _OrderItemState extends State<OrderItemWidget> {
+  late List<OrderItem> orderItems;
   bool _isExpanded = false; // Variable to track the expanded state
+
+  @override
+  void initState() {
+    super.initState();
+    orderItems = widget.order.orderItems; // Initialize inside initState
+  }
 
   @override
   Widget build(BuildContext context) {
