@@ -42,4 +42,9 @@ class Product {
       ],
     );
   }
+
+  @override
+  String toString() {
+    return 'Name: $name, Image: $image, Price: $price';
+  }
 }

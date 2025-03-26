@@ -32,41 +32,42 @@ class WishListApi {
     }
   }
 
-   static Future<List<Product>> GetLikes() async {
-  try {
-    String url = apiUrl + '/likes';
+  static Future<List<Product>> GetLikes() async {
+    try {
+      String url = apiUrl + '/likes';
 
-    // ✅ Retrieve token
-    String? token = await SecureStorage.getToken();
+      // ✅ Retrieve token
+      String? token = await SecureStorage.getToken();
 
-    final response = await http.get(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token', // Si l'authentification est requise
-      },
-    );
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token', // Si l'authentification est requise
+        },
+      );
 
-    if (response.statusCode == 200) {
-      print('✅ voici votre wishlist !');
-      List<dynamic> data = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print('✅ voici votre wishlist !');
+        List<dynamic> data = jsonDecode(response.body);
 
-      // Accéder à la clé 'product' dans chaque élément pour obtenir le produit
-      List<Product> products = data.map((json) {
-        return Product.fromJson(json['product']); // Accéder à 'product' dans chaque élément
-      }).toList();
+        // Accéder à la clé 'product' dans chaque élément pour obtenir le produit
+        List<Product> products = data.map((json) {
+          return Product.fromJson(
+              json['product']); // Accéder à 'product' dans chaque élément
+        }).toList();
 
-      return products;
-    } else {
-      throw Exception(" ⚠️ Erreur : ${response.body}");
+        return products;
+        
+      } else {
+        throw Exception(" ⚠️ Erreur : ${response.body}");
+      }
+    } catch (e) {
+      throw Exception(" ❌  Erreur : $e ");
     }
-  } catch (e) {
-    throw Exception(" ❌  Erreur : $e ");
   }
-}
 
-
-static Future<void> removeLike(int id) async {
+  static Future<void> removeLike(int id) async {
     try {
       String url = apiUrl + '/likes/delete/$id';
 
@@ -89,5 +90,4 @@ static Future<void> removeLike(int id) async {
       print('❌ Exception : $e');
     }
   }
-
 }

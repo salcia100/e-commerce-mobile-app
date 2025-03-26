@@ -54,7 +54,8 @@ class _BottomBarState extends State<BottomBar> {
         });
 
         // Define the destination screen based on the selected index
-        Widget destination = HomeScreen(); // Default screen in case index is invalid;
+        Widget destination =
+            HomeScreen(); // Default screen in case index is invalid;
         switch (index) {
           case 0:
             destination = HomeScreen(); // Replace with your actual screen
