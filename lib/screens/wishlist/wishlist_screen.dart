@@ -1,11 +1,83 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/api/wishlist_api.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/home/components/buttomBar.dart';
 import 'package:inscri_ecommerce/screens/wishlist/components/appBar.dart';
 import 'package:inscri_ecommerce/screens/wishlist/components/wishlist_body.dart';
 
-class WishlistScreen extends StatelessWidget {
-  final List<Product> wishlistItems = [
+class WishlistScreen extends StatefulWidget {
+  @override
+  State<WishlistScreen> createState() => _WishlistScreenState();
+}
+
+class _WishlistScreenState extends State<WishlistScreen> {
+  final WishListApi apiService = WishListApi();
+  List<Product> products = [];
+  bool isLoading = true;
+
+
+   @override
+  void initState() {
+    super.initState();
+    fetchWishlist();
+  }
+
+  void fetchWishlist() async {
+    try {
+      List<Product> data = await WishListApi.GetLikes();
+      print("Products loaded: ${data.length}");
+      setState(() {
+        products = data;
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Erreur : $e");
+      setState(() {
+        isLoading = false;
+      });
+    
+  }
+  Future<void> _onRefresh() async {
+    setState(() {
+      isLoading = true;
+    });
+    fetchWishlist();
+  }
+  
+
+    /*void fetchWishlist() async {
+  try {
+    setState(() {
+      isLoading = true;  // Affichage de l'animation de chargement
+    });
+
+    // Appel à l'API pour récupérer les données
+    WishListApi api = WishListApi();
+    List<Product> data = await api.GetLikes();  
+    if (data != null && data.isNotEmpty) {
+      print("Products loaded: ${data.length}");
+      setState(() {
+        wishlistItems = data;
+        isLoading = false;
+      });
+    } else {
+      throw Exception("Aucune donnée reçue ou la liste est vide.");
+    }
+  } catch (e) {
+    print("Erreur : $e");
+
+    // Affichage du message d'erreur sur l'interface utilisateur
+    setState(() {
+      isLoading = false;
+     
+    });
+  }*/
+}
+
+  
+  /*final List<Product> wishlistItems = [
     Product(    id: 1, // Ajout de l'ID
     name: "Dress1", 
     price: 52.00, 
@@ -50,13 +122,13 @@ class WishlistScreen extends StatelessWidget {
     stock: 3,
     reviews: ["Produit de qualité."]
   ),
-  ];
+  ];*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(context),
-      body: WishlistBody(wishlistItems: wishlistItems),
+      body: WishlistBody(),
       bottomNavigationBar: BottomBar(),
     );
   }

@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //kelmet debug tetnaha
-      home: HomeScreen(), // Afficher directement la page d'inscription
+      home: SignUpPage(), // Afficher directement la page d'inscription
     );
   }
 }

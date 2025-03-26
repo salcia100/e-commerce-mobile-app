@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/api/wishlist_api.dart';
+import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/description&review.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/productOptions.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/addToCartButton.dart';
-import '../../../model/Product.dart';
+import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
+
 
 class Body extends StatefulWidget {
   final Product product;
@@ -15,10 +19,49 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  bool isLiked = false; // Ajout d'une variable pour suivre l'état du like
   bool isExpanded = false;
   bool isReviewsExpanded = false;
+  late int id; // Déclare la variable sans l'initialiser ici         //****** */
+
 
   final int rating = 5;
+   @override
+  void initState() {
+    super.initState();
+    id = widget.product.id; // Initialise `id` après que `widget` soit disponible
+  }
+
+
+  void toggleLike() async {
+  setState(() {
+    isLiked = !isLiked;
+
+  });
+
+  try {
+    // Appel de l'API pour ajouter/enlever le produit de la liste de souhaits
+    if (isLiked) {
+      await WishListApi.addLike(widget.product.id); // Ajout à la wishlist
+       await WishListApi.GetLikes();
+       print("product added to wishlist ");
+     
+    } else {
+     // await WishListApi.removeLike(widget.product.id); // Suppression de la wishlist
+    }
+    
+    // Naviguer vers la WishlistScreen après avoir ajouté l'élément
+     Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => WishlistScreen()),
+  );
+  } catch (e) {
+    print("Erreur lors de l'ajout à la wishlist : $e");
+    // Afficher un message d'erreur si nécessaire
+  }
+
+}
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -123,8 +166,8 @@ class _BodyState extends State<Body> {
                       top: 10, // Adjust this value for positioning
                       right: 10, // Adjust this value for positioning
                       child: Container(
-                        width: 32,
-                        height: 32,
+                        width: 38,
+                        height: 38,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(25.5),
@@ -137,9 +180,20 @@ class _BodyState extends State<Body> {
                             ),
                           ],
                         ),
-                        child: Icon(Icons.favorite_border,
-                            color: Colors.red), // Like Icon
-                      ),
+                       child:
+                      
+                       
+                       
+                        IconButton(
+                        onPressed: 
+                        toggleLike, // Gérer le clic ici
+                        icon: Icon(
+                          isLiked ? Icons.favorite : Icons.favorite_border, // Change l'icône selon l'état
+                           color: kIconColor,
+                           
+                        ),
+                       ),
+                       ),
                     ),
                   ],
                 ),

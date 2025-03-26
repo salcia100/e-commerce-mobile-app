@@ -7,7 +7,7 @@ class CartItem extends StatelessWidget {
   final Cart cart;
   final Function removeItem; // Callback function to remove the item
 
-  CartItem({required this.cart,required this.removeItem});
+  CartItem({required this.cart, required this.removeItem});
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +103,8 @@ class CartItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                IconButton(
+               
+                 IconButton(
                   onPressed: () async {
                     int id = cart.id;
 
