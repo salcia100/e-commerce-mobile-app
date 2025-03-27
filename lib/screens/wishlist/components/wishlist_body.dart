@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/wishlist_api.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
+import 'package:inscri_ecommerce/screens/details_produit/details_screen.dart';
 import 'wishlist_item_card.dart';
 
 class WishlistBody extends StatelessWidget {
@@ -36,6 +37,15 @@ class WishlistBody extends StatelessWidget {
                 product: likedproducts[index],
                 onRemove: () {
                   removeFromWishlist(likedproducts[index]); // Handle remove
+                },
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailsScreen(
+                          product: likedproducts[index],
+                        ),
+                      ));
                 },
               );
             },

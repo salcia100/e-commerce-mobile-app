@@ -6,8 +6,9 @@ import 'package:inscri_ecommerce/model/Cart.dart';
 class CartItem extends StatelessWidget {
   final Cart cart;
   final Function removeItem; // Callback function to remove the item
+  final Function(int id, int newQuantity) updateQuantity; // Add callback
 
-  CartItem({required this.cart, required this.removeItem});
+  CartItem({required this.cart, required this.removeItem,required this.updateQuantity});
 
   @override
   Widget build(BuildContext context) {
@@ -84,37 +85,49 @@ class CartItem extends StatelessWidget {
                 ],
               ),
             ),
-            Column(
-              // Boutons quantité et supprimer
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.remove, size: 16),
-                    ),
-                    Text(
-                      cart.quantity.toString(),
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.add, size: 16),
-                    ),
-                  ],
-                ),
-               
-                 IconButton(
-                  onPressed: () async {
-                    int id = cart.id;
-
-                    await CartApi.RemoveProductFomCart(id);
-                    removeItem(id); // Call the callback function to remove the item from the list
-                    print("product deleted from cart ");
-                  },
-                  icon: const Icon(Icons.delete, size: 20, color: Colors.red),
-                ),
-              ],
+            Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 35),
+              child: Column(
+                // Boutons quantité et supprimer
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () async {
+                          if (cart.quantity > 1) {
+                            int newQuantity = cart.quantity - 1;
+                            updateQuantity(cart.id, newQuantity);
+                            await CartApi.decrementquantity(cart.id);
+                          }
+                        },
+                        icon: const Icon(Icons.remove, size: 16),
+                      ),
+                      Text(
+                        cart.quantity.toString(),
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          int newQuantity = cart.quantity + 1;
+                          updateQuantity(cart.id, newQuantity);
+                          await CartApi.incrementquantity(cart.id);
+                        },
+                        icon: const Icon(Icons.add, size: 16),
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      int id = cart.id;
+              
+                      await CartApi.RemoveProductFomCart(id);
+                      removeItem(id); // Call the callback function to remove the item from the list
+                      print("product deleted from cart ");
+                    },
+                    icon: const Icon(Icons.delete, size: 20, color: Colors.red),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

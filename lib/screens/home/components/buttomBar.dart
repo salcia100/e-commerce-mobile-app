@@ -11,6 +11,12 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int selectedIndex = 0; // Keeps track of the selected button
+  final List<Widget> screens = [
+    HomeScreen(),
+    WishlistScreen(),
+    CartScreen(),
+    // Ajoute l'écran correspondant à "Palette" ici si nécessaire
+  ];
 
   @override
   Widget build(BuildContext context) {

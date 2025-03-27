@@ -83,4 +83,59 @@ class CartApi {
       print('❌ Exception : $e');
     }
   }
+
+  //updatequantity
+  static Future<void> incrementquantity(int productId) async {
+    try {
+      String url = apiUrl + '/cart/incrementquantity/$productId';
+
+      // ✅ Retrieve token
+      String? token = await SecureStorage.getToken();
+
+      final response = await http.put(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token', // Si l'authentification est requise
+        },
+        body: jsonEncode({
+          'product_id': productId,
+        }),
+      );
+      if (response.statusCode == 200) {
+        print('✅ Cart updated');
+      } else {
+        print('⚠️ Erreur : ${response.body}');
+      }
+    } catch (e) {
+      print('❌ Exception : $e');
+    }
+  }
+
+   static Future<void> decrementquantity(int productId) async {
+    try {
+      String url = apiUrl + '/cart/decrementquantity/$productId';
+
+      // ✅ Retrieve token
+      String? token = await SecureStorage.getToken();
+
+      final response = await http.put(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token', // Si l'authentification est requise
+        },
+        body: jsonEncode({
+          'product_id': productId,
+        }),
+      );
+      if (response.statusCode == 200) {
+        print('✅ Cart updated');
+      } else {
+        print('⚠️ Erreur : ${response.body}');
+      }
+    } catch (e) {
+      print('❌ Exception : $e');
+    }
+  }
 }

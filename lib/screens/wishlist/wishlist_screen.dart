@@ -48,7 +48,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(context),
-      body: WishlistBody(likedproducts: likedproducts ,onRefresh: fetchWishlist),
+      body: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: WishlistBody(
+            likedproducts: likedproducts, onRefresh: fetchWishlist),
+      ),
       bottomNavigationBar: BottomBar(),
     );
   }

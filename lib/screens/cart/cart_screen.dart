@@ -53,6 +53,17 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
+  //Methode to update item quantity
+   void updateQuantity(int id, int newQuantity) {
+    setState(() {
+      for (var product in products) {
+        if (product.id == id) {
+          product.quantity = newQuantity;
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +105,7 @@ class _CartScreenState extends State<CartScreen> {
                         quantity: item.quantity,
                         imagePath: item.imagePath),
                     removeItem: removeItem, // Pass removeItem callback
+                    updateQuantity: updateQuantity, // Pass update function
                   );
                 },
               ),

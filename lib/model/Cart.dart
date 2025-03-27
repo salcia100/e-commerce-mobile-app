@@ -1,15 +1,15 @@
 import 'package:inscri_ecommerce/constant/constant.dart';
 
 class Cart {
-  final int id;
-  final String title;
-  final String size;
-  final String color;
-  final double price;
-  final int quantity;
-  final String imagePath;
+  int id;
+  String title;
+  String size;
+  String color;
+  double price;
+  int quantity;
+  String imagePath;
 
-  const Cart({
+  Cart({
     required this.id,
     required this.title,
     required this.size,
