@@ -48,6 +48,8 @@ dependencies:
   webview_flutter: ^4.4.4
   webview_flutter_android: ^3.7.0
   webview_flutter_wkwebview: ^3.6.0
+
+  image_picker: ^0.8.4+3
   
 
 dev_dependencies:

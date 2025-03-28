@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/screens/add_product/add_product_screen.dart';
 import 'package:inscri_ecommerce/screens/cart/cart_screen.dart';
 import 'package:inscri_ecommerce/screens/home/home_screen.dart';
 import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
@@ -14,6 +15,7 @@ class _BottomBarState extends State<BottomBar> {
   final List<Widget> screens = [
     HomeScreen(),
     WishlistScreen(),
+    AddProductScreen(),
     CartScreen(),
     // Ajoute l'écran correspondant à "Palette" ici si nécessaire
   ];
@@ -38,8 +40,9 @@ class _BottomBarState extends State<BottomBar> {
         children: [
           navIcon(0, Icons.home, Icons.home_outlined),
           navIcon(1, Icons.favorite, Icons.favorite_outline),
-          navIcon(2, Icons.shopping_bag, Icons.shopping_bag_outlined),
-          navIcon(3, Icons.palette, Icons.palette_outlined),
+          navIcon(2,Icons.add_a_photo, Icons.add_a_photo_outlined),
+          navIcon(3, Icons.shopping_bag, Icons.shopping_bag_outlined),
+          navIcon(4, Icons.palette, Icons.palette_outlined),
         ],
       ),
     );
@@ -70,10 +73,13 @@ class _BottomBarState extends State<BottomBar> {
             destination = WishlistScreen();
             break;
           case 2:
-            destination = CartScreen();
+            destination = AddProductScreen();
             break;
           case 3:
-            //destination = PaletteScreen();
+            destination = CartScreen();
+            break;
+          case 4:
+          //destination = PaletteScreen();
             break;
         }
 

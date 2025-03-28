@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/Cart_api.dart';
 import 'package:inscri_ecommerce/model/Cart.dart';
+import 'package:inscri_ecommerce/screens/cart/components/appBar_cart.dart';
 import 'package:inscri_ecommerce/screens/cart/components/cart_item.dart';
 import 'package:inscri_ecommerce/screens/cart/components/cart_resume.dart';
 
@@ -67,25 +68,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text(
-          'Your Cart',
-          style: TextStyle(
-            color: Color(0xFF1D1F22),
-            fontSize: 18,
-            fontFamily: 'Product Sans',
-          ),
-        ),
-        centerTitle: true,
-      ),
+      appBar: CartAppBar(),
       body: Column(
         children: [
           Expanded(

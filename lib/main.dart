@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/Login.dart';
+import 'package:inscri_ecommerce/screens/add_product/add_product_screen.dart';
 import 'package:inscri_ecommerce/screens/cart/cart_screen.dart';
 import 'package:inscri_ecommerce/screens/checkout/checkout_accepted.dart';
 import 'package:inscri_ecommerce/screens/checkout/checkout_screen.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, //kelmet debug tetnaha
-      home: HomeScreen(), // Afficher directement la page d'inscription
+      home: SignInPage(), // Afficher directement la page d'inscription
     );
   }
 }
