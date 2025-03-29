@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:inscri_ecommerce/constant/constant.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
-import 'package:inscri_ecommerce/outils/secure_storage.dart';
+import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
 class WishListApi {
   static Future<void> addLike(int productId) async {

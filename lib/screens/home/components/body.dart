@@ -11,7 +11,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final ApiService apiService = ApiService();
+  final ProductApi apiService = ProductApi();
   List<dynamic> products = [];
   bool isLoading = true;
 
@@ -71,7 +71,7 @@ class _BodyState extends State<Body> {
                 crossAxisSpacing: kDefaultPadding,
                 childAspectRatio: 0.75,
               ),
-              itemBuilder: (context, index) => itemCard(
+              itemBuilder: (context, index) => ItemCard(
                 product: products[index],
                 press: () {
                   print("Tapped on ${products[index].name}");

@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'package:inscri_ecommerce/constant/constant.dart';
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:inscri_ecommerce/outils/secure_storage.dart';
+import 'package:inscri_ecommerce/utils/secure_storage.dart';
 import 'package:inscri_ecommerce/model/user/register_model.dart';
 
 import '../model/user/login_model.dart';

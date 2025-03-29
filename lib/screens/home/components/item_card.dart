@@ -3,11 +3,11 @@ import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class itemCard extends StatelessWidget {
+class ItemCard extends StatelessWidget {
   final Product product;
   final VoidCallback press;
 
-  const itemCard({
+  const ItemCard({
     Key? key,
     required this.product,
     required this.press,

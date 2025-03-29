@@ -50,6 +50,7 @@ dependencies:
   webview_flutter_wkwebview: ^3.6.0
 
   image_picker: ^0.8.4+3
+  shared_preferences: ^2.5.3   #pour sauvegarder l'historique de recherche de manière persistante
   
 
 dev_dependencies:
