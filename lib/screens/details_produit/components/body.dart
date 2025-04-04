@@ -148,8 +148,8 @@ class _BodyState extends State<Body> {
                   children: [
                     // Image
                     Container(
-                      width: 700, // Keep your image width
-                      height: 365, // Keep your image height
+                      width: MediaQuery.of(context).size.width * 1,  // 100% of screen width
+                      height: MediaQuery.of(context).size.height * 0.4, // 40% of screen height
                       child: CachedNetworkImage(
                         imageUrl: widget.product.image,
                         fit: BoxFit.contain,

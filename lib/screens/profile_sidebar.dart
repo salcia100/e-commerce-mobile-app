@@ -53,7 +53,17 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
           ),
           _buildMenuItem(
             icon: Icons.shopping_bag,
-            text: "My Order",
+            text: "My Shop",
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OrdersScreen()),
+              );
+            },
+          ),
+          _buildMenuItem(
+            icon: Icons.shopping_bag,
+            text: "My Orders",
             onTap: () {
               Navigator.push(
                 context,

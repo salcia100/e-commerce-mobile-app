@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:inscri_ecommerce/api/Product_api.dart';
+import 'package:inscri_ecommerce/model/Product.dart';
+import 'package:inscri_ecommerce/utils/toast.dart';
 
 class AddProductBody extends StatefulWidget {
   @override
@@ -7,15 +12,62 @@ class AddProductBody extends StatefulWidget {
 }
 
 class _AddProductBodyState extends State<AddProductBody> {
+  ProductApi productApi = new ProductApi();
+  Map<String, String> formValues = {
+    'name': "",
+    'description': "",
+    'price': "",
+    'stock': "",
+    'image': "",
+  };
+  bool loading = false;
+
+  inputOnChanged(mapKey, textValue) {
+    setState(() {
+      formValues.update(mapKey, (value) => textValue);
+    });
+  }
+
+  formOnSubmit() async {
+    if (_image == null) {
+      errorToast("Veuillez sélectionner une image !");
+    } else if (formValues["name"]!.isEmpty) {
+      errorToast("Product name Required!");
+    } else if (formValues["description"]!.isEmpty) {
+      errorToast("Product description Required");
+    } else if (formValues["stock"]!.isEmpty) {
+      errorToast("Product stock Required");
+    } else if (formValues["price"]!.isEmpty) {
+      errorToast("price Required");
+    } else {
+      setState(() {
+        loading = true;
+      });
+      await productApi.addProduct(formValues, _image);
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
   final ImagePicker _picker = ImagePicker();
   XFile? _image;
-  String? _selectedCategory;  // Variable pour stocker la catégorie sélectionnée
+  String? _selectedCategory; // Variable pour stocker la catégorie sélectionnée
   String? _selectedColor;
   String? _selectedSize;
 
   // Liste des catégories
   List<String> categories = ['Dress', 'Tops', 'Pants', 'Shoes', 'Accessories'];
-  List<String> colors = ['Noir', 'Blanc', 'Rouge', 'Bleu', 'Vert', 'Jaune', 'Rose', 'Violet'];
+  List<String> colors = [
+    'Noir',
+    'Blanc',
+    'Rouge',
+    'Bleu',
+    'Vert',
+    'Jaune',
+    'Rose',
+    'Violet'
+  ];
   List<String> sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   Future<void> addImage() async {
@@ -44,13 +96,32 @@ class _AddProductBodyState extends State<AddProductBody> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Photos", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            Text("Photos",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             SizedBox(height: 10),
             Row(
               children: [
-                Expanded(child: ImageBox(label: "Add photo here")),
+                Expanded(
+                  child: _image != null
+                      ? Image.file(
+                          File(_image!.path),
+                          fit: BoxFit.cover,
+                          width: 100,
+                          height: 100,
+                        )
+                      : ImageBox(label: "Add photo here"),
+                ),
                 SizedBox(width: 10),
-                Expanded(child: ImageBox(label: "Add photo here")),
+                Expanded(
+                  child: _image != null
+                      ? Image.file(
+                          File(_image!.path),
+                          fit: BoxFit.cover,
+                          width: 100,
+                          height: 100,
+                        )
+                      : ImageBox(label: "Add photo here"),
+                ),
                 SizedBox(width: 10),
                 GestureDetector(
                   onTap: () {
@@ -76,33 +147,44 @@ class _AddProductBodyState extends State<AddProductBody> {
             ),
             SizedBox(height: 20),
             TextField(
-              decoration: InputDecoration(labelText: "Title", hintText: "Ex: Manteau noir, Robe effet satinée"),
+              decoration: InputDecoration(
+                  labelText: "Title",
+                  hintText: "Ex: Manteau noir, Robe effet satinée"),
+              onChanged: (textValue) {
+                inputOnChanged("name", textValue);
+
+                ///****** */
+              },
             ),
             TextField(
-              decoration: InputDecoration(labelText: "Description", hintText: "Décrivez votre produit"),
+              decoration: InputDecoration(
+                  labelText: "Description", hintText: "Décrivez votre produit"),
               maxLines: 3,
+              onChanged: (textValue) {
+                inputOnChanged("description", textValue);
+
+                ///****** */
+              },
             ),
 
-              DropdownButtonFormField<String>(
-                value: _selectedCategory,
-                items: categories.map((category) {
-                  return DropdownMenuItem<String>(
-                    value: category,
-                    child: Text(category),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedCategory = value;
-                  });
-                },
-                decoration: InputDecoration(labelText: 'Catégorie'),
-                validator: (value) => value == null ? 'Sélectionnez une catégorie' : null,
-              ),
-              SizedBox(height: 10),
-
-
-
+            DropdownButtonFormField<String>(
+              value: _selectedCategory,
+              items: categories.map((category) {
+                return DropdownMenuItem<String>(
+                  value: category,
+                  child: Text(category),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedCategory = value;
+                });
+              },
+              decoration: InputDecoration(labelText: 'Catégorie'),
+              validator: (value) =>
+                  value == null ? 'Sélectionnez une catégorie' : null,
+            ),
+            SizedBox(height: 10),
 
             /*DropdownButtonFormField(
               items: [],
@@ -114,47 +196,47 @@ class _AddProductBodyState extends State<AddProductBody> {
               children: [
                 //color
                 Expanded(
-                  child:DropdownButtonFormField<String>(
-                value: _selectedColor,
-                items: colors.map((color) {
-                  return DropdownMenuItem<String>(
-                    value: color,
-                    child: Text(color),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedColor = value;
-                  });
-                },
-                decoration: InputDecoration(labelText: 'Color'),
-                validator: (value) => value == null ? 'Select Color' : null,
-              ),
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedColor,
+                    items: colors.map((color) {
+                      return DropdownMenuItem<String>(
+                        value: color,
+                        child: Text(color),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedColor = value;
+                      });
+                    },
+                    decoration: InputDecoration(labelText: 'Color'),
+                    validator: (value) => value == null ? 'Select Color' : null,
+                  ),
                 ),
-              SizedBox(height: 10),
+                SizedBox(height: 10),
 
-              //size
-              Expanded(child: DropdownButtonFormField<String>(
-                value: _selectedSize,
-                items: sizes.map((size) {
-                  return DropdownMenuItem<String>(
-                    value: size,
-                    child: Text(size),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedSize = value;
-                  });
-                },
-                decoration: InputDecoration(labelText: 'Size'),
-                validator: (value) => value == null ? 'Select Size' : null,
-              ),),
-  
-              SizedBox(height: 10),
+                //size
+                Expanded(
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedSize,
+                    items: sizes.map((size) {
+                      return DropdownMenuItem<String>(
+                        value: size,
+                        child: Text(size),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _selectedSize = value;
+                      });
+                    },
+                    decoration: InputDecoration(labelText: 'Size'),
+                    validator: (value) => value == null ? 'Select Size' : null,
+                  ),
+                ),
 
+                SizedBox(height: 10),
 
-                
                 /*Expanded(
                   child: ElevatedButton(
                     onPressed: () {},
@@ -177,14 +259,33 @@ class _AddProductBodyState extends State<AddProductBody> {
               children: [
                 Expanded(
                   child: TextField(
-                    decoration: InputDecoration(labelText: "Price", hintText: "Ex: 29.900"),
+                    decoration: InputDecoration(
+                        labelText: "Price", hintText: "Ex: 29.900"),
+                    onChanged: (textValue) {
+                      inputOnChanged("price", textValue); //** */
+                    },
                   ),
                 ),
                 SizedBox(width: 10),
               ],
             ),
             SizedBox(height: 10),
-           /* Container(
+            //stock
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration:
+                        InputDecoration(labelText: "Stock", hintText: "20"),
+                    onChanged: (textValue) {
+                      inputOnChanged("stock", textValue); //** */
+                    },
+                  ),
+                ),
+                SizedBox(width: 10),
+              ],
+            ),
+            /* Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xFFDB3022)),
@@ -200,15 +301,15 @@ class _AddProductBodyState extends State<AddProductBody> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFDB3022)),
+                onPressed: formOnSubmit,
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFDB3022)),
                 child: Text("Publish", style: TextStyle(color: Colors.white)),
               ),
             ),
           ],
         ),
       ),
-      
     );
   }
 }
