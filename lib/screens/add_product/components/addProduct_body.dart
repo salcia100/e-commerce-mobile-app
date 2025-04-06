@@ -59,15 +59,15 @@ class _AddProductBodyState extends State<AddProductBody> {
   // Liste des catégories
   List<String> categories = ['Dress', 'Tops', 'Pants', 'Shoes', 'Accessories'];
   List<String> colors = [
-    'Noir',
-    'Blanc',
-    'Rouge',
-    'Bleu',
-    'Vert',
-    'Jaune',
-    'Rose',
-    'Violet'
-  ];
+  'Black',     
+  'White',     
+  'Red',       
+  'Blue',      
+  'Green',     
+  'Yellow',    
+  'Pink',      
+  'Purple'     
+];
   List<String> sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   Future<void> addImage() async {

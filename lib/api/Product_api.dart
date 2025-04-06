@@ -68,9 +68,11 @@ class ProductApi {
 
       // ✅ Retrieve token
       String? token = await SecureStorage.getToken();
+      //print('📦 Token utilisé : $token');                                      //########################1
 
       var request = http.MultipartRequest('POST', Uri.parse(url))
         ..headers['Authorization'] = 'Bearer $token';
+        //..headers['Accept'] = 'application/json';                              //######################2
 
       // Ajouter les autres données du produit
       request.fields['name'] = dict['name'];
@@ -97,4 +99,65 @@ class ProductApi {
       print('❌ Exception : $e');
     }
   }
+
+
+  Future<void> updateProduct(int productId, Map<String, dynamic> updatedData, XFile? imageFile) async {
+  try {
+    String url = apiUrl + '/product/update/$productId'; // URL d’update
+    String? token = await SecureStorage.getToken();
+
+    var request = http.MultipartRequest('PUT', Uri.parse(url))
+      ..headers['Authorization'] = 'Bearer $token';
+
+    // Ajouter les champs modifiés
+    request.fields['name'] = updatedData['name'];
+    request.fields['description'] = updatedData['description'];
+    request.fields['price'] = updatedData['price'];
+    request.fields['stock'] = updatedData['stock'];
+
+    // Vérifier si une image a été sélectionnée
+    if (imageFile != null) {
+      var file = await http.MultipartFile.fromPath('image', imageFile.path);
+      request.files.add(file);
+    }
+
+    var response = await request.send();
+    String responseBody = await response.stream.bytesToString();
+    print('🔍 Réponse API update : $responseBody');
+
+    if (response.statusCode == 200) {
+      print('✅ Produit mis à jour avec succès !');
+    } else {
+      print('⚠️ Erreur lors de la mise à jour : $responseBody');
+    }
+  } catch (e) {
+    print('❌ Exception update : $e');
+  }
+}
+
+Future<void> deleteProduct(int productId) async {
+  try {
+    String url = apiUrl + '/product/delete/$productId'; // URL delete
+    String? token = await SecureStorage.getToken();
+
+    final response = await http.delete(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    print("🔍 Réponse API delete : ${response.body}");
+
+    if (response.statusCode == 200) {
+      print("✅ Produit supprimé avec succès !");
+    } else {
+      print("⚠️ Erreur lors de la suppression : ${response.body}");
+    }
+  } catch (e) {
+    print("❌ Exception delete : $e");
+  }
+}
+
 }
