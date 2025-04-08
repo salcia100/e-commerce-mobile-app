@@ -6,22 +6,27 @@ import 'package:inscri_ecommerce/screens/home/home_screen.dart';
 import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
 
 class BottomBar extends StatefulWidget {
+  final Future<void> Function()? onRefresh;  // Nullable onRefresh function
+
+  const BottomBar({Key? key, this.onRefresh}) : super(key: key);
+
   @override
   _BottomBarState createState() => _BottomBarState();
 }
 
 class _BottomBarState extends State<BottomBar> {
   int selectedIndex = 0; // Keeps track of the selected button
-  final List<Widget> screens = [
-    HomeScreen(),
-    WishlistScreen(),
-    AddProductScreen(),
-    CartScreen(),
-    // Ajoute l'écran correspondant à "Palette" ici si nécessaire
-  ];
+  
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> screens = [
+    HomeScreen(),
+    WishlistScreen(),
+    AddProductScreen(onRefresh:widget.onRefresh),
+    CartScreen(),
+    // Ajoute l'écran correspondant à "Palette" ici si nécessaire
+  ];
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15),
       height: 65,
@@ -73,7 +78,7 @@ class _BottomBarState extends State<BottomBar> {
             destination = WishlistScreen();
             break;
           case 2:
-            destination = AddProductScreen();
+            destination = AddProductScreen(onRefresh:widget.onRefresh);
             break;
           case 3:
             destination = CartScreen();

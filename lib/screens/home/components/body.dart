@@ -6,45 +6,16 @@ import 'item_card.dart';
 import 'package:inscri_ecommerce/api/Product_api.dart';
 
 class Body extends StatefulWidget {
+  final Future<void> Function() onRefresh;
+  final  List<dynamic> products;
+  Body({required this.onRefresh,required this.products});
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  final ProductApi apiService = ProductApi();
-  List<dynamic> products = [];
-  bool isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    fetchProducts();
-  }
-
-  void fetchProducts() async {
-    try {
-      List<dynamic> data = await apiService.getProducts();
-      print("Products loaded: ${data.length}");
-      setState(() {
-        products = data;
-        isLoading = false;
-      });
-    } catch (e) {
-      print("Erreur : $e");
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  // Added method to handle pull-to-refresh
-  Future<void> _onRefresh() async {
-    setState(() {
-      isLoading = true;
-    });
-    fetchProducts();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,24 +33,24 @@ class _BodyState extends State<Body> {
         CategorySelector(),
         Expanded(
           child: RefreshIndicator(
-            onRefresh: _onRefresh, // Trigger _onRefresh when pulled
+            onRefresh: widget.onRefresh, // Trigger _onRefresh when pulled
             child: GridView.builder(
-              itemCount: products.length,
+              itemCount: widget.products.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: kDefaultPadding,
-                crossAxisSpacing: kDefaultPadding,
-                childAspectRatio: 0.75,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.7,
               ),
               itemBuilder: (context, index) => ItemCard(
-                product: products[index],
+                product: widget.products[index],
                 press: () {
-                  print("Tapped on ${products[index].name}");
+                  print("Tapped on ${widget.products[index].name}");
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailsScreen(
-                          product: products[index],
+                          product: widget.products[index],
                         ),
                       ));
                 },

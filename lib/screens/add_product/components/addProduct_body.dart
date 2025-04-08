@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inscri_ecommerce/api/Product_api.dart';
-import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/utils/toast.dart';
 
 class AddProductBody extends StatefulWidget {
+  final Future<void> Function() ? onRefresh;
+  const AddProductBody({required this.onRefresh});
   @override
   State<AddProductBody> createState() => _AddProductBodyState();
 }
@@ -43,10 +44,16 @@ class _AddProductBodyState extends State<AddProductBody> {
       setState(() {
         loading = true;
       });
-      await productApi.addProduct(formValues, _image);
-      setState(() {
-        loading = false;
-      });
+      try {
+        await productApi.addProduct(formValues, _image);
+        successToast("Product added successfully!");
+        Navigator.pop(context);
+        widget.onRefresh!();
+      } catch (e) {
+        errorToast("Error while adding !");
+      } finally {
+        setState(() => loading = false);
+      }
     }
   }
 
@@ -59,15 +66,15 @@ class _AddProductBodyState extends State<AddProductBody> {
   // Liste des catégories
   List<String> categories = ['Dress', 'Tops', 'Pants', 'Shoes', 'Accessories'];
   List<String> colors = [
-  'Black',     
-  'White',     
-  'Red',       
-  'Blue',      
-  'Green',     
-  'Yellow',    
-  'Pink',      
-  'Purple'     
-];
+    'Black',
+    'White',
+    'Red',
+    'Blue',
+    'Green',
+    'Yellow',
+    'Pink',
+    'Purple'
+  ];
   List<String> sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   Future<void> addImage() async {
@@ -152,8 +159,6 @@ class _AddProductBodyState extends State<AddProductBody> {
                   hintText: "Ex: Manteau noir, Robe effet satinée"),
               onChanged: (textValue) {
                 inputOnChanged("name", textValue);
-
-                ///****** */
               },
             ),
             TextField(

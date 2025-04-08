@@ -8,7 +8,6 @@ import 'package:inscri_ecommerce/screens/details_produit/components/productOptio
 import 'package:inscri_ecommerce/screens/details_produit/components/addToCartButton.dart';
 import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
 
-
 class Body extends StatefulWidget {
   final Product product;
 
@@ -24,43 +23,39 @@ class _BodyState extends State<Body> {
   bool isReviewsExpanded = false;
   late int id; // Déclare la variable sans l'initialiser ici         //****** */
 
-
   final int rating = 5;
-   @override
+  @override
   void initState() {
     super.initState();
-    id = widget.product.id; // Initialise `id` après que `widget` soit disponible
+    id =
+        widget.product.id; // Initialise `id` après que `widget` soit disponible
   }
-
 
   void toggleLike() async {
-  setState(() {
-    isLiked = !isLiked;
+    setState(() {
+      isLiked = !isLiked;
+    });
 
-  });
+    try {
+      // Appel de l'API pour ajouter/enlever le produit de la liste de souhaits
+      if (isLiked) {
+        await WishListApi.addLike(widget.product.id); // Ajout à la wishlist
+        await WishListApi.GetLikes();
+        print("product added to wishlist ");
+      } else {
+        // await WishListApi.removeLike(widget.product.id); // Suppression de la wishlist
+      }
 
-  try {
-    // Appel de l'API pour ajouter/enlever le produit de la liste de souhaits
-    if (isLiked) {
-      await WishListApi.addLike(widget.product.id); // Ajout à la wishlist
-       await WishListApi.GetLikes();
-       print("product added to wishlist ");
-     
-    } else {
-     // await WishListApi.removeLike(widget.product.id); // Suppression de la wishlist
+      // Naviguer vers la WishlistScreen après avoir ajouté l'élément
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => WishlistScreen()),
+      );
+    } catch (e) {
+      print("Erreur lors de l'ajout à la wishlist : $e");
+      // Afficher un message d'erreur si nécessaire
     }
-    
-    // Naviguer vers la WishlistScreen après avoir ajouté l'élément
-     Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => WishlistScreen()),
-  );
-  } catch (e) {
-    print("Erreur lors de l'ajout à la wishlist : $e");
-    // Afficher un message d'erreur si nécessaire
   }
-
-}
 
   @override
   Widget build(BuildContext context) {
@@ -148,8 +143,10 @@ class _BodyState extends State<Body> {
                   children: [
                     // Image
                     Container(
-                      width: MediaQuery.of(context).size.width * 1,  // 100% of screen width
-                      height: MediaQuery.of(context).size.height * 0.4, // 40% of screen height
+                      width: MediaQuery.of(context).size.width *
+                          1, // 100% of screen width
+                      height: MediaQuery.of(context).size.height *
+                          0.4, // 40% of screen height
                       child: CachedNetworkImage(
                         imageUrl: widget.product.image,
                         fit: BoxFit.contain,
@@ -180,20 +177,17 @@ class _BodyState extends State<Body> {
                             ),
                           ],
                         ),
-                       child:
-                      
-                       
-                       
-                        IconButton(
-                        onPressed: 
-                        toggleLike, // Gérer le clic ici
-                        icon: Icon(
-                          isLiked ? Icons.favorite : Icons.favorite_border, // Change l'icône selon l'état
-                           color: kIconColor,
-                           
+                        child: IconButton(
+                          onPressed: toggleLike, // Gérer le clic ici
+                          icon: Icon(
+                            isLiked
+                                ? Icons.favorite
+                                : Icons
+                                    .favorite_border, // Change l'icône selon l'état
+                            color: kIconColor,
+                          ),
                         ),
-                       ),
-                       ),
+                      ),
                     ),
                   ],
                 ),

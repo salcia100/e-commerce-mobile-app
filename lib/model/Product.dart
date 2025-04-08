@@ -1,4 +1,5 @@
 import 'package:inscri_ecommerce/constant/constant.dart';
+import 'package:intl/intl.dart';
 
 class Product {
   String image, name, description;
@@ -6,6 +7,7 @@ class Product {
   double price;
   List<String> reviews;
   //Color color;
+  final String date;
 
   Product({
     required this.id,
@@ -15,7 +17,7 @@ class Product {
     required this.description,
     required this.stock,
     required this.reviews,
-
+    required this.date,
     //required this.color,
   });
 
@@ -40,6 +42,8 @@ class Product {
         "Très satisfait de mon achat.",
         "Livraison rapide et conforme.",
       ],
+      date: DateFormat('dd/MM/yyyy HH:mm')
+          .format(DateTime.parse(json['created_at'])),
     );
   }
 
