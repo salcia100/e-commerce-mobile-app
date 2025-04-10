@@ -76,7 +76,7 @@ class _ItemCardState extends State<ItemCard> {
                   ],
                 ),
                 SizedBox(width: 8), // Space between price and like button
-                IconButton(
+                /*IconButton(
                   onPressed: toggleLike, // Handle the click here
                   icon: Icon(
                     isLiked
@@ -85,7 +85,7 @@ class _ItemCardState extends State<ItemCard> {
                             .favorite_border, // Change the icon based on the state
                     color: kIconColor,
                   ),
-                ),
+                ),*/
               ],
             ),
           ],

@@ -38,8 +38,7 @@ class _WishlistItemCardState extends State<WishlistItemCard> {
                     height: 180,
                     width: 160,
                     child: CachedNetworkImage(
-                      imageUrl: widget.product
-                          .image, // The image URL from your product model
+                      imageUrl: widget.product.image, // The image URL from your product model
                       fit: BoxFit.cover,
                       placeholder: (context, url) =>
                           CircularProgressIndicator(), // Placeholder while loading
@@ -79,7 +78,7 @@ class _WishlistItemCardState extends State<WishlistItemCard> {
 
               // Détails du produit
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
