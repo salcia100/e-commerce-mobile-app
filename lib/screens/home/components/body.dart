@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/model/Category.dart';
 import 'package:inscri_ecommerce/screens/details_produit/details_screen.dart';
 import 'categories.dart';
 import 'item_card.dart';
-import 'package:inscri_ecommerce/api/Product_api.dart';
 
 class Body extends StatefulWidget {
   final Future<void> Function() onRefresh;
   final  List<dynamic> products;
-  Body({required this.onRefresh,required this.products});
+  final  List<Category> categories;
+  final Function(int) onCategorySelected; // Add this callback
+
+
+  Body({required this.onRefresh,required this.products,required this.categories,required this.onCategorySelected});
   @override
   State<Body> createState() => _BodyState();
 }
@@ -30,7 +34,9 @@ class _BodyState extends State<Body> {
                 color: Color.fromARGB(255, 54, 32, 35)),
           ),
         ),
-        CategorySelector(),
+        
+        Categories(categories:widget.categories,onCategorySelected: widget.onCategorySelected),
+
         Expanded(
           child: RefreshIndicator(
             onRefresh: widget.onRefresh, // Trigger _onRefresh when pulled
