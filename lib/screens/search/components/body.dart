@@ -110,7 +110,7 @@ class _BodyState extends State<SearchBody> {
                         ),
                       ],
                     ),
-                    child: Icon(Icons.filter_list, color: Color(0xFF777E90)),
+                    child: Icon(Icons.tune, color: Color(0xFF777E90)),
                   ),
                 ),
               ),
