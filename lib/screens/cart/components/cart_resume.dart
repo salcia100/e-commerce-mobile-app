@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/screens/checkout/checkout_screen.dart';
 
 class CartSummary extends StatelessWidget {
-  final double subtotal;
-
-  const CartSummary({super.key, required this.subtotal});
 
   @override
   Widget build(BuildContext context) {
@@ -26,46 +23,6 @@ class CartSummary extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                'Product price',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF8A8A8F),
-                ),
-              ),
-              Text(
-                '\$110',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          const Divider(color: Color(0xFFE8E8E8)),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Subtotal',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                '\$${subtotal.toStringAsFixed(2)}',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
           const SizedBox(height: 20),
           ElevatedButton(
             style: ElevatedButton.styleFrom(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/screens/Login.dart';
+import 'package:inscri_ecommerce/screens/login.dart';
 import 'package:inscri_ecommerce/screens/My_shop/my_shop_screen.dart';
 import 'package:inscri_ecommerce/screens/orders_history/orders_screen.dart';
 import 'package:inscri_ecommerce/screens/home/home_screen.dart';
@@ -113,7 +113,7 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
               text: "Log out",
               onTap: () {
                 SecureStorage.deleteToken();
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignInPage()),);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Login()),);
               }),
 
           // 🟢 SWITCH MODE CLAIR / SOMBRE

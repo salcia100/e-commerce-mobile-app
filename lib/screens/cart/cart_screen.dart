@@ -4,6 +4,7 @@ import 'package:inscri_ecommerce/model/Cart.dart';
 import 'package:inscri_ecommerce/screens/cart/components/appBar_cart.dart';
 import 'package:inscri_ecommerce/screens/cart/components/cart_item.dart';
 import 'package:inscri_ecommerce/screens/cart/components/cart_resume.dart';
+import 'package:inscri_ecommerce/screens/checkout/checkout_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -98,7 +99,30 @@ class _CartScreenState extends State<CartScreen> {
           const SizedBox(height: 20),
 
           // Résumé du panier
-          const CartSummary(subtotal: 110.00),
+          //const CartSummary(subtotal: 110.00),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFDB3022),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              minimumSize: const Size(double.infinity, 48),
+            ),
+            onPressed: () {
+              // Logic for Add to Cart action
+
+              Navigator.push(
+                //push add tocart---->page checkout
+                context,
+                MaterialPageRoute(builder: (context) => CheckoutScreen()),
+              );
+            },
+            child: const Text(
+              'Proceed to checkout',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
+          ),
         ],
       ),
     );

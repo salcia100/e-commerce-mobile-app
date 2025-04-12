@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/auth_api.dart';
 import 'package:inscri_ecommerce/model/user/register_model.dart';
 
-import 'Login.dart';
+import 'login.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  _SignUpPageState createState() =>
-      _SignUpPageState(); //_SignUpPageState est l'etat du widget signuppage
+  _SignUpState createState() =>
+      _SignUpState(); //_SignUpPageState est l'etat du widget signuppage
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   String name = '';
   String email = '';
@@ -200,7 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignInPage()),
+                                    builder: (context) => Login()),
                               );
                             },
                             child: Text("Login",

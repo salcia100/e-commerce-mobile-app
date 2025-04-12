@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/auth_api.dart';
 import 'package:inscri_ecommerce/model/user/login_model.dart';
+import 'package:inscri_ecommerce/screens/signup.dart';
 
 import 'home/home_screen.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  _SignInPageState createState() =>
-      _SignInPageState(); //_SignUpPageState est l'etat du widget signuppage
+  _LoginState createState() =>
+      _LoginState(); //_SignUpPageState est l'etat du widget signuppage
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
   String email = '';
@@ -159,6 +160,24 @@ class _SignInPageState extends State<SignInPage> {
                                 TextStyle(fontSize: 18, color: Colors.white)),
                       ),
                       SizedBox(height: 10),
+                      // dosen't have an account?
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Dosen't have an account? "),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignUp()),
+                              );
+                            },
+                            child: Text("sign up",
+                                style: TextStyle(color: Colors.black)),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
