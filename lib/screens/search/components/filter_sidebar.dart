@@ -12,8 +12,6 @@ class FilterSidebar extends StatefulWidget {
 }
 
 class _FilterSidebarState extends State<FilterSidebar> {
-  //price
-  RangeValues _currentRange = RangeValues(10, 80);
 
   @override
   Widget build(BuildContext context) {

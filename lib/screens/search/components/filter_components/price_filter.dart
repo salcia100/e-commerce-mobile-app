@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/constant/theme_constants.dart';
 
 class PriceFilter extends StatefulWidget {
   @override

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/screens/Login.dart';
 import 'package:inscri_ecommerce/screens/My_shop/my_shop_screen.dart';
 import 'package:inscri_ecommerce/screens/orders_history/orders_screen.dart';
 import 'package:inscri_ecommerce/screens/home/home_screen.dart';
 import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
+import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
 class ProfileSidebar extends StatefulWidget {
   @override
@@ -24,7 +26,8 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
               color: Colors.white, // Fond blanc
             ),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage('assets/profile/profile.jpg'), // Remplace par l'image de ton choix
+              backgroundImage: AssetImage(
+                  'assets/profile/profile.jpg'), // Remplace par l'image de ton choix
             ),
             accountName: Text(
               "name",
@@ -90,21 +93,33 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               "OTHER",
-              style: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           _buildMenuItem(icon: Icons.settings, text: "Setting", onTap: () {}),
-          _buildMenuItem(icon: Icons.support_agent, text: "Support", onTap: () {}),
-          _buildMenuItem(icon: Icons.info_outline, text: "About us", onTap: () {}),
+          _buildMenuItem(
+              icon: Icons.support_agent, text: "Support", onTap: () {}),
+          _buildMenuItem(
+              icon: Icons.info_outline, text: "About us", onTap: () {}),
 
           Spacer(), // 🟢 Espacement pour aligner le bouton "Log out" en bas
 
           // 🟢 BOUTON LOG OUT
-          _buildMenuItem(icon: Icons.logout, text: "Log out", onTap: () {}),
+          _buildMenuItem(
+              icon: Icons.logout,
+              text: "Log out",
+              onTap: () {
+                SecureStorage.deleteToken();
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignInPage()),);
+              }),
 
           // 🟢 SWITCH MODE CLAIR / SOMBRE
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey[200],
@@ -114,12 +129,14 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildThemeButton(Icons.wb_sunny, "Light", isSelected: !isDarkMode, onTap: () {
+                  _buildThemeButton(Icons.wb_sunny, "Light",
+                      isSelected: !isDarkMode, onTap: () {
                     setState(() {
                       isDarkMode = false;
                     });
                   }),
-                  _buildThemeButton(Icons.nightlight_round, "Dark", isSelected: isDarkMode, onTap: () {
+                  _buildThemeButton(Icons.nightlight_round, "Dark",
+                      isSelected: isDarkMode, onTap: () {
                     setState(() {
                       isDarkMode = true;
                     });
@@ -155,7 +172,8 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
   }
 
   // 🟢 BOUTON POUR LE MODE CLAIR / SOMBRE
-  Widget _buildThemeButton(IconData icon, String text, {required bool isSelected, required VoidCallback onTap}) {
+  Widget _buildThemeButton(IconData icon, String text,
+      {required bool isSelected, required VoidCallback onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
