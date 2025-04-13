@@ -13,7 +13,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
       ),
       title: const Text(
-        ' Search 🔎',
+        ' Search',
         style: TextStyle(
           color: Color(0xFF1D1F22),
           fontSize: 18,

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CategoryFilter extends StatefulWidget {
+  final Function(String) onCategorySelected;                        //######1
+
+  CategoryFilter({required this.onCategorySelected});              //######2
+
   @override
   _CategoryFilterState createState() => _CategoryFilterState();
 }

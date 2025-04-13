@@ -6,6 +6,57 @@ import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
 class ProductApi {
+  Future<List<Product>> filterProducts({
+  double minPrice = 0,
+  double maxPrice = double.infinity,
+  List<String> colors = const [],
+  int rating = 0,
+  String category = '',
+  List<String> discounts = const [],
+}) async {
+  try {
+    String url = apiUrl + '/products/filter';
+
+    String? token = await SecureStorage.getToken();
+     // Créer les paramètres en query string
+    final queryParams = {                                          //####1
+      'min_price': minPrice.toString(),
+      'max_price': maxPrice.toString(),
+      'colors': colors.join(','), // Convertir liste en string
+      'rating': rating.toString(),
+      'category': category,
+      'discounts': discounts.join(','), // Idem
+    };
+    final uri = Uri.parse('$apiUrl/products/filter').replace(queryParameters: queryParams);    //#####2
+
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+      
+    );
+    print(' Filter API response: ${response.body}');
+
+    if (response.statusCode == 200) {
+       final Map<String, dynamic> responseData = jsonDecode(response.body);
+      List<dynamic> productList = responseData['products'];
+      //print('Premier produit: ${productList[0]}');
+      //final products = productList.map((json) => Product.fromJson(json)).toList();
+      //print('✅ Produits parsés: ${products.length}');
+      return productList.map((json) => Product.fromJson(json)).toList();
+    } else {
+      throw Exception("Erreur lors du filtrage des produits");
+    }
+  } catch (e) {
+    throw Exception("Erreur : $e");
+  }
+}
+
+
+
+
   Future<List<dynamic>> getProducts() async {
     try {
       String url = apiUrl + '/product/showall';

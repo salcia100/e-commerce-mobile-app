@@ -75,7 +75,7 @@ class _ItemCardState extends State<ItemCard> {
                     ),
                   ],
                 ),
-                SizedBox(width: 8), // Space between price and like button
+                SizedBox(width: 8), 
                 /*IconButton(
                   onPressed: toggleLike, // Handle the click here
                   icon: Icon(

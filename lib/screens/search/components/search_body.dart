@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/Product_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/details_produit/details_screen.dart';
 import 'package:inscri_ecommerce/screens/home/components/item_card.dart';
 
 class SearchBody extends StatefulWidget {
   final VoidCallback onfilterPressed;
+ 
 
-  SearchBody({required this.onfilterPressed});
+  SearchBody({Key? key, required this.onfilterPressed}) : super(key: key);//*********1 */
+
+  //SearchBody({required this.onfilterPressed});
 
   @override
   State<SearchBody> createState() => _BodyState();
@@ -17,6 +21,8 @@ class _BodyState extends State<SearchBody> {
   ProductApi productApi = new ProductApi();
   List<dynamic> _products = []; // List to store search results
   List<String> _searchHistory = [];
+  List<Product> filteredProducts = [];                                     //*******2 */
+  
 
   void searchProduct(String query) async {
     List<dynamic> results = await productApi.searchProducts(query);
@@ -35,6 +41,21 @@ class _BodyState extends State<SearchBody> {
       }
     });
   }
+   // Fonction qui gère le filtrage
+  Future<void> applyFilters(Map<String, dynamic> filters) async {
+  var filteredProducts = await productApi.filterProducts(
+    minPrice: filters['minPrice'],
+    maxPrice: filters['maxPrice'],
+    colors: filters['colors'],
+    rating: filters['rating'],
+    category: filters['category'],
+    discounts: filters['discounts'],
+  );
+
+  setState(() {
+    _products = filteredProducts;
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +88,7 @@ class _BodyState extends State<SearchBody> {
                       Expanded(
                         child: TextField(
                           decoration: InputDecoration(
-                            hintText: 'Rechercher...',
+                            hintText: 'Search...',
                             hintStyle: TextStyle(
                               color: Color(0xFF777E90),
                               fontSize: 14,
@@ -142,7 +163,7 @@ class _BodyState extends State<SearchBody> {
         // Display Products Below Search Bar
         Expanded(
           child: _products.isEmpty
-              ? Center(child: Text("Aucun produit trouvé  🫧⋆.˚🦢"))
+              ? Center(child: Text("Aucun produit trouvé..."))
               : GridView.builder(
                   itemCount: _products.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

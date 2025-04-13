@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PriceFilter extends StatefulWidget {
+   final Function(double, double) onpriceSelected;                        //######1
+
+  PriceFilter({required this.onpriceSelected});                            //######2
   @override
   State<PriceFilter> createState() => _PriceFilterState();
 }
@@ -16,7 +19,7 @@ class _PriceFilterState extends State<PriceFilter> {
           //price slider with RangeSlider
           values: _currentRange, // 👈 current range
           min: 0,
-          max: 100,
+          max: 200,
           divisions: 10,
           activeColor: Colors.black, // filled part
           inactiveColor: Color(0xFFF3F3F6), // unfilled part
@@ -28,6 +31,7 @@ class _PriceFilterState extends State<PriceFilter> {
             setState(() {
               _currentRange = newRange;
             });
+            widget.onpriceSelected(_currentRange.start, _currentRange.end);      //#####3
           },
         ),
         Row(

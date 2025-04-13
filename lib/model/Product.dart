@@ -3,11 +3,10 @@ import 'package:intl/intl.dart';
 
 class Product {
   String image, name, description;
-  int stock, id;
+  int stock, id;    //rating;
   double price;
   List<String> reviews;
-  //Color color;
-  final String date;
+  final String date;    //color,category,discount
 
   Product({
     required this.id,
@@ -18,7 +17,10 @@ class Product {
     required this.stock,
     required this.reviews,
     required this.date,
-    //required this.color,
+    /*required this.color,
+    required this.category,
+    required this.discount,
+    required this.rating,*/
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -44,6 +46,10 @@ class Product {
       ],
       date: DateFormat('dd/MM/yyyy HH:mm')
           .format(DateTime.parse(json['created_at'])),
+         /* discount: json['discount'] ?? 'No discount',
+          color: json['color'] ?? 'No color',
+          category: json['category'] ?? 'No category',
+         rating: int.parse(json['rating'].toString()) ?? 0,*/
     );
   }
 

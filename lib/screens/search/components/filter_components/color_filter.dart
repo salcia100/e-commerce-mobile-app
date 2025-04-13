@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 
 class ColorFilter extends StatefulWidget {
+  final Function(List<String>) onColorSelected;                 //######1
+
+  ColorFilter({required this.onColorSelected});                //######2
   @override
   _ColorFilterState createState() => _ColorFilterState();
 }
 
 class _ColorFilterState extends State<ColorFilter> {
   // List of available colors
-  final List<Color> colors = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-    Colors.yellow,
-    Colors.purple,
-    Colors.black,
-    Colors.brown,
+  final List<Map<String, dynamic>> colors = [                   //####3
+    {'name': 'red', 'color': Colors.red},
+    {'name': 'green', 'color': Colors.green},
+    {'name': 'blue', 'color': Colors.blue},
+    {'name': 'yellow', 'color': Colors.yellow},
+    {'name': 'white', 'color': Colors.white},
+    {'name': 'purple', 'color': Colors.purple},
+    {'name': 'black', 'color': Colors.black},
+    {'name': 'brown', 'color': Colors.brown},
   ];
   // Track selected colors
-  List<Color> selectedColors = [];
+  List<String> selectedColors = [];
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +33,28 @@ class _ColorFilterState extends State<ColorFilter> {
 
         return GestureDetector(
           onTap: () {
-            setState(() {
+            final colorName = color['name'];                    //#####4
+
+            if (selectedColors.contains(colorName)) {
+              selectedColors.remove(colorName);
+            } else {
+              selectedColors.add(colorName);
+            }
+
+            widget.onColorSelected(selectedColors);
+            /*setState(() {
               if (isSelected) {
                 selectedColors.remove(color); // unselect
               } else {
                 selectedColors.add(color); // select
               }
-            });
+            });*/
           },
           child: Container(
             width: 25,
             height: 25,
             decoration: BoxDecoration(
-              color: color,
+              color: color['color'],                                //########5
               shape: BoxShape.circle,
               border:
                   isSelected ? Border.all(color: Colors.black, width: 2) : null,

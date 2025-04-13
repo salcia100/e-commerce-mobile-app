@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/api/Product_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/search/components/filter_components/category_filter.dart';
 import 'package:inscri_ecommerce/screens/search/components/filter_components/discount_filter.dart';
 import 'package:inscri_ecommerce/screens/search/components/filter_components/color_filter.dart';
@@ -12,6 +14,13 @@ class FilterSidebar extends StatefulWidget {
 }
 
 class _FilterSidebarState extends State<FilterSidebar> {
+  
+  double minPrice = 0; //####123456
+  double maxPrice = 200;
+  List<String> selectedColors = [];
+  int rating = 0;
+  String selectedCategory = "All";
+  List<String> discounts = [];
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +49,14 @@ class _FilterSidebarState extends State<FilterSidebar> {
                   fontSize: 15,
                   color: Color(0xFF33302E))),
           SizedBox(height: 15),
-          PriceFilter(),
+          PriceFilter(
+            onpriceSelected: (min, max) {
+              setState(() {
+                minPrice = min;
+                maxPrice = max;
+              });
+            },
+          ),
           SizedBox(height: 35),
           //color
           Text("Color",
@@ -49,7 +65,13 @@ class _FilterSidebarState extends State<FilterSidebar> {
                   fontSize: 15,
                   color: Color(0xFF33302E))),
           SizedBox(height: 15),
-          ColorFilter(),
+          ColorFilter(
+            onColorSelected: (colors) {
+              setState(() {
+                selectedColors = colors;
+              });
+            },
+          ),
           SizedBox(height: 35),
           //Star Rating
           Text("Star Rating",
@@ -58,7 +80,13 @@ class _FilterSidebarState extends State<FilterSidebar> {
                   fontSize: 15,
                   color: Color(0xFF33302E))),
           SizedBox(height: 15),
-          RatingFilter(),
+          RatingFilter(
+            onratingSelected: (ratingValue) {
+              setState(() {
+                rating = ratingValue;
+              });
+            },
+          ),
           SizedBox(height: 35),
           //Category
           Text("Category",
@@ -67,7 +95,13 @@ class _FilterSidebarState extends State<FilterSidebar> {
                   fontSize: 15,
                   color: Color(0xFF33302E))),
           SizedBox(height: 15),
-          CategoryFilter(),
+          CategoryFilter(
+            onCategorySelected: (category) {
+              setState(() {
+                selectedCategory = category;
+              });
+            },
+          ),
           SizedBox(height: 35),
           //discount
           Text("Discount",
@@ -76,24 +110,65 @@ class _FilterSidebarState extends State<FilterSidebar> {
                   fontSize: 15,
                   color: Color(0xFF33302E))),
           SizedBox(height: 15),
-          DiscountFilter(),
+          DiscountFilter(
+            ondiscountSelected: (discountList) {
+              setState(() {
+                discounts = discountList;
+              });
+            },
+          ),
           SizedBox(height: 35),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    //#####7
+                    minPrice = 0;
+                    maxPrice = 100;
+                    selectedColors = [];
+                    rating = 0;
+                    selectedCategory = "All";
+                    discounts = [];
+                  });
+                  // Recharger les produits par défaut (sans filtre)
+    ProductApi api = ProductApi();
+    api.getProducts().then((products) {
+      // widget.onFilteredResults(products); // si t’as un callback
+      print("🔄 Produits rechargés : ${products.length}");
+    }).catchError((e) {
+      print("❌ Erreur lors du reset : $e");
+    });
+                },
                 child: Text("Reset"),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: kTextColor, 
-                    foregroundColor: kbarColor),
+                    backgroundColor: kTextColor, foregroundColor: kbarColor),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  //#######8
+                  ProductApi api = ProductApi();
+                  try {
+                    List<Product> results = await api.filterProducts(
+                      minPrice: minPrice,
+                      maxPrice: maxPrice,
+                      colors: selectedColors,
+                      rating: rating,
+                      category: selectedCategory,
+                      discounts: discounts,
+                    );
+
+                    print("✅ Produits filtrés: ${results.length}");
+
+                    // widget.onFilteredResults(results);
+                  } catch (e) {
+                    print("❌ Erreur de filtre: $e");
+                  }
+                },
                 child: Text("Apply"),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: kIconColor, 
-                    foregroundColor: kbarColor),
+                    backgroundColor: kIconColor, foregroundColor: kbarColor),
               ),
             ],
           )

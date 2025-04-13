@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/screens/search/components/appBar.dart';
-import 'package:inscri_ecommerce/screens/search/components/body.dart';
+import 'package:inscri_ecommerce/screens/search/components/search_body.dart';
 import 'package:inscri_ecommerce/screens/search/components/filter_sidebar.dart';
 
 class SearchScreen extends StatefulWidget {
