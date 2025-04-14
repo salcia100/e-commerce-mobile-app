@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inscri_ecommerce/api/Product_api.dart';
+import 'package:inscri_ecommerce/api/product_api.dart';
 
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/Product.dart';

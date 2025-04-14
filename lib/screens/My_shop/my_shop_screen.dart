@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/api/Product_api.dart';
+import 'package:inscri_ecommerce/api/product_api.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/My_shop/components/appBar_myShop.dart';
 import 'package:inscri_ecommerce/screens/My_shop/components/my_shop_body.dart';

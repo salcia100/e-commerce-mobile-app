@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/api/Product_api.dart';
+import 'package:inscri_ecommerce/api/product_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/My_shop/delete_product_confirmation.dart';

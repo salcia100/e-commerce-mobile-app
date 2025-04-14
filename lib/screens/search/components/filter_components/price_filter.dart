@@ -9,7 +9,7 @@ class PriceFilter extends StatefulWidget {
 }
 
 class _PriceFilterState extends State<PriceFilter> {
-  RangeValues _currentRange = RangeValues(10, 80);
+  RangeValues _currentRange = RangeValues(0, 200);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _PriceFilterState extends State<PriceFilter> {
           values: _currentRange, // 👈 current range
           min: 0,
           max: 200,
-          divisions: 10,
+          divisions: 20,
           activeColor: Colors.black, // filled part
           inactiveColor: Color(0xFFF3F3F6), // unfilled part
           labels: RangeLabels(

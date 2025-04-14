@@ -4,7 +4,7 @@ class Category {
   String name, image;
   int id;
 
-  Category({required this.image, required this.name, required this.id});
+  Category({this.image='', required this.name, required this.id});
 
   factory Category.fromJson(Map<String, dynamic> json) {
     String imageUrl = json['image'] != null

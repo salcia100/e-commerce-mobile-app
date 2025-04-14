@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ColorFilter extends StatefulWidget {
-  final Function(List<String>) onColorSelected;                 //######1
+  final Function(List<String>) onColorSelected; //######1
 
-  ColorFilter({required this.onColorSelected});                //######2
+  ColorFilter({required this.onColorSelected}); //######2
   @override
   _ColorFilterState createState() => _ColorFilterState();
 }
 
 class _ColorFilterState extends State<ColorFilter> {
   // List of available colors
-  final List<Map<String, dynamic>> colors = [                   //####3
+  final List<Map<String, dynamic>> colors = [
+    //####3
     {'name': 'red', 'color': Colors.red},
     {'name': 'green', 'color': Colors.green},
     {'name': 'blue', 'color': Colors.blue},
@@ -29,32 +30,27 @@ class _ColorFilterState extends State<ColorFilter> {
       spacing: 12,
       runSpacing: 12,
       children: colors.map((color) {
-        bool isSelected = selectedColors.contains(color);
+        String colorName = color['name'];
+        bool isSelected = selectedColors.contains(colorName);
+        //#####3
 
         return GestureDetector(
           onTap: () {
-            final colorName = color['name'];                    //#####4
-
-            if (selectedColors.contains(colorName)) {
-              selectedColors.remove(colorName);
-            } else {
-              selectedColors.add(colorName);
-            }
+            setState(() {
+              if (isSelected) {
+                selectedColors.remove(colorName); // désélectionner
+              } else {
+                selectedColors.add(colorName); // sélectionner
+              }
+            });
 
             widget.onColorSelected(selectedColors);
-            /*setState(() {
-              if (isSelected) {
-                selectedColors.remove(color); // unselect
-              } else {
-                selectedColors.add(color); // select
-              }
-            });*/
           },
           child: Container(
             width: 25,
             height: 25,
             decoration: BoxDecoration(
-              color: color['color'],                                //########5
+              color: color['color'], //########5
               shape: BoxShape.circle,
               border:
                   isSelected ? Border.all(color: Colors.black, width: 2) : null,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/api/Product_api.dart';
+import 'package:inscri_ecommerce/api/filter_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/search/components/filter_components/category_filter.dart';
@@ -9,17 +9,19 @@ import 'package:inscri_ecommerce/screens/search/components/filter_components/pri
 import 'package:inscri_ecommerce/screens/search/components/filter_components/rating_filter.dart';
 
 class FilterSidebar extends StatefulWidget {
+  final Function(List<Product>) onFilteredResults;
+
+  FilterSidebar({required this.onFilteredResults});
   @override
   State<FilterSidebar> createState() => _FilterSidebarState();
 }
 
 class _FilterSidebarState extends State<FilterSidebar> {
-  
   double minPrice = 0; //####123456
   double maxPrice = 200;
   List<String> selectedColors = [];
   int rating = 0;
-  String selectedCategory = "All";
+  int selectedCategory = 0;
   List<String> discounts = [];
 
   @override
@@ -96,9 +98,9 @@ class _FilterSidebarState extends State<FilterSidebar> {
                   color: Color(0xFF33302E))),
           SizedBox(height: 15),
           CategoryFilter(
-            onCategorySelected: (category) {
+            onCategorySelected: (int categoryId) {
               setState(() {
-                selectedCategory = category;
+                selectedCategory = categoryId;
               });
             },
           ),
@@ -129,17 +131,9 @@ class _FilterSidebarState extends State<FilterSidebar> {
                     maxPrice = 100;
                     selectedColors = [];
                     rating = 0;
-                    selectedCategory = "All";
+                    selectedCategory = 0;
                     discounts = [];
                   });
-                  // Recharger les produits par défaut (sans filtre)
-    ProductApi api = ProductApi();
-    api.getProducts().then((products) {
-      // widget.onFilteredResults(products); // si t’as un callback
-      print("🔄 Produits rechargés : ${products.length}");
-    }).catchError((e) {
-      print("❌ Erreur lors du reset : $e");
-    });
                 },
                 child: Text("Reset"),
                 style: ElevatedButton.styleFrom(
@@ -148,7 +142,7 @@ class _FilterSidebarState extends State<FilterSidebar> {
               ElevatedButton(
                 onPressed: () async {
                   //#######8
-                  ProductApi api = ProductApi();
+                  FilterApi api = FilterApi();
                   try {
                     List<Product> results = await api.filterProducts(
                       minPrice: minPrice,
@@ -158,9 +152,9 @@ class _FilterSidebarState extends State<FilterSidebar> {
                       category: selectedCategory,
                       discounts: discounts,
                     );
-
                     print("✅ Produits filtrés: ${results.length}");
-
+                    widget.onFilteredResults(results); // 👈 très important
+                    Navigator.pop(context);
                     // widget.onFilteredResults(results);
                   } catch (e) {
                     print("❌ Erreur de filtre: $e");

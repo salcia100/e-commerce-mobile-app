@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/api/Product_api.dart';
+import 'package:inscri_ecommerce/api/product_api.dart';
 import 'package:inscri_ecommerce/api/category_api.dart';
 import 'package:inscri_ecommerce/model/Category.dart';
 import 'package:inscri_ecommerce/screens/home/components/body.dart';
@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void fetchCategories() async {
     try {
       List<Category> categorieData = await categoryApiService.getCategories();
-      print("Products loaded: ${categorieData.length}");
+      print("Categories loaded: ${categorieData.length}");
       setState(() {
         categories = categorieData;
         isLoading = false;

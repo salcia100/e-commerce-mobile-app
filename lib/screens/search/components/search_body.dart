@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/api/Product_api.dart';
+import 'package:inscri_ecommerce/api/product_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/details_produit/details_screen.dart';
@@ -7,21 +7,18 @@ import 'package:inscri_ecommerce/screens/home/components/item_card.dart';
 
 class SearchBody extends StatefulWidget {
   final VoidCallback onfilterPressed;
- 
-
-  SearchBody({Key? key, required this.onfilterPressed}) : super(key: key);//*********1 */
-
-  //SearchBody({required this.onfilterPressed});
+  final Function(List<Product>) onFilteredResults; // 👈 Ajouter cette ligne
+  SearchBody({Key? key, required this.onfilterPressed,required this.onFilteredResults,}) : super(key: key);//*********1 */
 
   @override
-  State<SearchBody> createState() => _BodyState();
+  State<SearchBody> createState() => BodyState();
 }
 
-class _BodyState extends State<SearchBody> {
+class BodyState extends State<SearchBody> {
   ProductApi productApi = new ProductApi();
   List<dynamic> _products = []; // List to store search results
   List<String> _searchHistory = [];
-  List<Product> filteredProducts = [];                                     //*******2 */
+  //List<Product> filteredProducts = [];                                     //*******2 */
   
 
   void searchProduct(String query) async {
@@ -41,21 +38,13 @@ class _BodyState extends State<SearchBody> {
       }
     });
   }
-   // Fonction qui gère le filtrage
-  Future<void> applyFilters(Map<String, dynamic> filters) async {
-  var filteredProducts = await productApi.filterProducts(
-    minPrice: filters['minPrice'],
-    maxPrice: filters['maxPrice'],
-    colors: filters['colors'],
-    rating: filters['rating'],
-    category: filters['category'],
-    discounts: filters['discounts'],
-  );
-
+  
+void onFilteredResults(List<Product> results) {
   setState(() {
-    _products = filteredProducts;
+    _products = results;
   });
 }
+
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +149,7 @@ class _BodyState extends State<SearchBody> {
             ),
           ),
 
+        
         // Display Products Below Search Bar
         Expanded(
           child: _products.isEmpty
