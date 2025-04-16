@@ -3,6 +3,7 @@ import 'package:inscri_ecommerce/screens/login.dart';
 import 'package:inscri_ecommerce/screens/My_shop/my_shop_screen.dart';
 import 'package:inscri_ecommerce/screens/orders_history/orders_screen.dart';
 import 'package:inscri_ecommerce/screens/home/home_screen.dart';
+import 'package:inscri_ecommerce/screens/profile_sidebar/components/user_info.dart';
 import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
@@ -20,30 +21,9 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 🟢 HEADER - Profil utilisateur
-          UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.white, // Fond blanc
-            ),
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage(
-                  'assets/profile/profile.jpg'), // Remplace par l'image de ton choix
-            ),
-            accountName: Text(
-              "name",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            accountEmail: Text(
-              "name@gmail.com",
-              style: TextStyle(color: Colors.grey),
-            ),
-          ),
-
-          // 🟢 MENU PRINCIPAL
+          // HEADER - Profil utilisateur
+          ProfileInfo(),
+          // MENU PRINCIPAL
           _buildMenuItem(
             icon: Icons.home,
             text: "Homepage",
@@ -88,7 +68,7 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
 
           Divider(),
 
-          // 🟢 AUTRES OPTIONS
+          // AUTRES OPTIONS
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
@@ -105,18 +85,21 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
           _buildMenuItem(
               icon: Icons.info_outline, text: "About us", onTap: () {}),
 
-          Spacer(), // 🟢 Espacement pour aligner le bouton "Log out" en bas
+          Spacer(), // Espacement pour aligner le bouton "Log out" en bas
 
-          // 🟢 BOUTON LOG OUT
+          // BOUTON LOG OUT
           _buildMenuItem(
               icon: Icons.logout,
               text: "Log out",
               onTap: () {
                 SecureStorage.deleteToken();
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Login()),);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
               }),
 
-          // 🟢 SWITCH MODE CLAIR / SOMBRE
+          // SWITCH MODE CLAIR / SOMBRE
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
@@ -150,7 +133,7 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
     );
   }
 
-  // 🟢 WIDGET POUR UN ÉLÉMENT DE MENU
+  // WIDGET POUR UN ÉLÉMENT DE MENU
   Widget _buildMenuItem({
     required IconData icon,
     required String text,
@@ -171,7 +154,7 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
     );
   }
 
-  // 🟢 BOUTON POUR LE MODE CLAIR / SOMBRE
+  // BOUTON POUR LE MODE CLAIR / SOMBRE
   Widget _buildThemeButton(IconData icon, String text,
       {required bool isSelected, required VoidCallback onTap}) {
     return GestureDetector(

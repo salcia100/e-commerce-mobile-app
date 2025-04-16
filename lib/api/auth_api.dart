@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 import 'package:inscri_ecommerce/constant/constant.dart';
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:inscri_ecommerce/model/user/User.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 import 'package:inscri_ecommerce/model/user/register_model.dart';
 
@@ -49,6 +50,54 @@ class APIService {
       return loginResponse;
     } else {
       throw Exception('Failed to login: ${response.statusCode}');
+    }
+  }
+
+  Future<User> fetchProfile() async {
+    String url = apiUrl + '/auth/profile';
+    // Retrieve token
+    String? token = await SecureStorage.getToken();
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Authorization': 'Bearer $token', //  Attach token
+        'Content-Type': 'application/json'
+      },
+    );
+    print("API Response: ${response.body}"); // Debugging
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      return User.fromJson(jsonResponse['data']);
+    } else {
+      throw Exception("Erreur lors du chargement des produits");
+    }
+  }
+
+  Future<bool> updateUserAvatar(int avatarId) async {
+    try {
+      String url = apiUrl + '/auth/profile/update';
+      final String? token = await SecureStorage.getToken();
+
+      final response = await http.put(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({'avatar_id': avatarId}),
+      );
+
+      print("Update Avatar Response: ${response.body}");
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        print("Erreur de mise à jour: ${response.statusCode}");
+        return false;
+      }
+    } catch (e) {
+      print("Erreur: $e");
+      return false;
     }
   }
 }

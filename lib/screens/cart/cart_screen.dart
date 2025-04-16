@@ -3,7 +3,6 @@ import 'package:inscri_ecommerce/api/Cart_api.dart';
 import 'package:inscri_ecommerce/model/Cart.dart';
 import 'package:inscri_ecommerce/screens/cart/components/appBar_cart.dart';
 import 'package:inscri_ecommerce/screens/cart/components/cart_item.dart';
-import 'package:inscri_ecommerce/screens/cart/components/cart_resume.dart';
 import 'package:inscri_ecommerce/screens/checkout/checkout_screen.dart';
 
 class CartScreen extends StatefulWidget {
@@ -56,7 +55,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   //Methode to update item quantity
-   void updateQuantity(int id, int newQuantity) {
+  void updateQuantity(int id, int newQuantity) {
     setState(() {
       for (var product in products) {
         if (product.id == id) {
@@ -96,31 +95,28 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
 
-          const SizedBox(height: 20),
-
-          // Résumé du panier
           //const CartSummary(subtotal: 110.00),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFDB3022),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFDB3022),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                minimumSize: const Size(double.infinity, 48),
               ),
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              minimumSize: const Size(double.infinity, 48),
-            ),
-            onPressed: () {
-              // Logic for Add to Cart action
-
-              Navigator.push(
-                //push add tocart---->page checkout
-                context,
-                MaterialPageRoute(builder: (context) => CheckoutScreen()),
-              );
-            },
-            child: const Text(
-              'Proceed to checkout',
-              style: TextStyle(fontSize: 16, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                );
+              },
+              child: const Text(
+                'Proceed to checkout',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
             ),
           ),
         ],

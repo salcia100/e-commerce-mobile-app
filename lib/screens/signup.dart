@@ -182,6 +182,12 @@ class _SignUpState extends State<SignUp> {
                             APIService api = new APIService();
                             api.Register(requestModel);
                             print(requestModel.toJson());
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Login()), // Your home screen widget
+                              );
                           }
                         },
                         child: Text("Sign Up",
