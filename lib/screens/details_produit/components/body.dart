@@ -23,7 +23,7 @@ class _BodyState extends State<Body> {
   bool isReviewsExpanded = false;
   late int id; // Déclare la variable sans l'initialiser ici         //****** */
 
-  final int rating = 5;
+  //final int rating = 5;
   @override
   void initState() {
     super.initState();
@@ -112,6 +112,7 @@ class _BodyState extends State<Body> {
                             ],
                           ),
                         ),
+                        //rating
                         Container(
                           width: 119,
                           height: 16,
@@ -122,17 +123,24 @@ class _BodyState extends State<Body> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: List.generate(5, (index) {
-                              return Icon(
-                                Icons.star,
-                                size: 16.0,
-                                color: index < rating
-                                    ? Colors.yellow
-                                    : Colors.grey,
-                              );
+                              if (widget.product.rating >= index + 1) {
+                                return Icon(Icons.star,
+                                    size: 16.0, color: Colors.amber);
+                              } else if (widget.product.rating > index &&
+                                  widget.product.rating < index + 1) {
+                                return Icon(Icons.star_half,
+                                    size: 16.0, color: Colors.amber);
+                              } else {
+                                return Icon(Icons.star_border,
+                                    size: 16.0, color: Colors.grey);
+                              }
                             }),
                           ),
                         ),
-                        ProductOptions(),
+                        ProductOptions(
+                          colors: widget.product.color ?? [],
+                          sizes: widget.product.size ?? [],
+                        ),
                         DescriptionReview(product: widget.product),
                         AddToCartButton(product: widget.product),
                       ],

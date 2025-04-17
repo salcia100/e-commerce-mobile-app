@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
-
 class ProductOptions extends StatelessWidget {
+  final List<Color> colors;
+  final List<String> sizes;
+
+  const ProductOptions({
+    Key? key,
+    required this.colors,
+    required this.sizes,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -11,6 +19,7 @@ class ProductOptions extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Labels
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -35,24 +44,21 @@ class ProductOptions extends StatelessWidget {
               ],
             ),
             SizedBox(height: 8),
+            // Dynamic options
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Wrap(
                   spacing: 8,
-                  children: [
-                    colorOption(Colors.white, Colors.brown),
-                    colorOption(Colors.black),
-                    colorOption(Colors.red),
-                  ],
+                  children: colors
+                      .map((color) => colorOption(Colors.white, color))
+                      .toList(),
                 ),
                 Wrap(
                   spacing: 8,
-                  children: [
-                    sizeOption('S', Colors.grey),
-                    sizeOption('M', Colors.grey),
-                    sizeOption('L', Colors.black, Colors.white),
-                  ],
+                  children: sizes
+                      .map((size) => sizeOption(size, Colors.grey))
+                      .toList(),
                 ),
               ],
             ),
@@ -114,3 +120,4 @@ class ProductOptions extends StatelessWidget {
     );
   }
 }
+

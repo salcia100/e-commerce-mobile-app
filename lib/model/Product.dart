@@ -1,12 +1,17 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/constant/constant.dart';
 import 'package:intl/intl.dart';
 
 class Product {
   String image, name, description;
-  int stock, id;    //rating;
-  double price;
-  List<String> reviews;
-  final String date;    //color,category,discount
+  int stock, id; //
+  double price, rating;
+  List<Map<String, dynamic>> reviews;
+  final String date; //,category,discount
+  List<Color>? color;
+  List<String>? size;
 
   Product({
     required this.id,
@@ -17,10 +22,11 @@ class Product {
     required this.stock,
     required this.reviews,
     required this.date,
-    /*required this.color,
-    required this.category,
-    required this.discount,
-    required this.rating,*/
+    this.color,
+    this.size,
+    //required this.category,
+    //required this.discount,
+    required this.rating,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -31,7 +37,65 @@ class Product {
         : "default_image_url.jpg"; // Valeur par défaut si image est null
     imageUrl = imageUrl + "?${DateTime.now().minute}"; // Append timestamp
 
+    List<String> parseStringList(dynamic input) {
+      if (input == null) return [];
+      if (input is String) {
+        try {
+          final decoded = jsonDecode(input);
+          if (decoded is List) {
+            return List<String>.from(decoded.map((x) => x.toString()));
+          } else {
+            return [input];
+          }
+        } catch (e) {
+          return [input];
+        }
+      }
+      if (input is List)
+        return List<String>.from(input.map((x) => x.toString()));
+      return [];
+    }
+
+    List<Color> parseColorList(dynamic input) {
+      if (input == null) return [];
+      if (input is String) {
+        try {
+          final decoded = jsonDecode(input);
+          if (decoded is List) {
+            return decoded
+                .map<Color>((x) => colorFromString(x.toString()))
+                .toList();
+          } else {
+            return [colorFromString(input)];
+          }
+        } catch (e) {
+          return [colorFromString(input)];
+        }
+      }
+      if (input is List)
+        return input.map<Color>((x) => colorFromString(x.toString())).toList();
+      return [];
+    }
+
+    List<Map<String, dynamic>> parseReviews(dynamic input) {
+    if (input is String) {
+      try {
+        final decoded = jsonDecode(input);  // Si c'est une chaîne JSON
+        if (decoded is List) {
+          return List<Map<String, dynamic>>.from(decoded);
+        }
+      } catch (e) {
+        return []; // Si l'input est une chaîne mais pas un JSON valide
+      }
+    }
+    if (input is List) {
+      return List<Map<String, dynamic>>.from(input);
+    }
+    return [];
+  }
+
     print("image url : " + imageUrl);
+
     return Product(
       id: json['id'],
       name: json['name'] ?? 'No name available',
@@ -39,22 +103,49 @@ class Product {
       price: double.parse(json['price'].toString()),
       description: json['description'] ?? 'No description available',
       stock: int.parse(json['stock'].toString()),
-      reviews: [
-        "Super produit !",
-        "Très satisfait de mon achat.",
-        "Livraison rapide et conforme.",
-      ],
+     reviews: parseReviews(json['reviews']),
       date: DateFormat('dd/MM/yyyy HH:mm')
           .format(DateTime.parse(json['created_at'])),
-         /* discount: json['discount'] ?? 'No discount',
+      /* discount: json['discount'] ?? 'No discount',
           color: json['color'] ?? 'No color',
           category: json['category'] ?? 'No category',
          rating: int.parse(json['rating'].toString()) ?? 0,*/
+      color: parseColorList(json['color']),
+      size: parseStringList(json['size']),
+      rating: (json['rating'] ?? 0).toDouble(),
     );
   }
 
   @override
   String toString() {
     return 'Name: $name, Image: $image, Price: $price';
+  }
+}
+
+Color colorFromString(String colorString) {
+  switch (colorString.toLowerCase()) {
+    case "red":
+      return Colors.red;
+    case "blue":
+      return Colors.blue;
+    case "green":
+      return Colors.green;
+    case "black":
+      return Colors.black;
+    case "white":
+      return Colors.white;
+    case "yellow":
+      return Colors.yellow;
+    case "orange":
+      return Colors.orange;
+    case "purple":
+      return Colors.purple;
+    case "pink":
+      return Colors.pink;
+    case "grey":
+    case "gray":
+      return Colors.grey;
+    default:
+      return Colors.transparent; // Default if unknown color
   }
 }
