@@ -50,9 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void fetchProducts({int? categoryId}) async {
     try {
       List<dynamic> data = (categoryId == null || categoryId == -1)
-        ? await apiService.getProducts() // All products
-        : await categoryApiService.getCategoryProducts(categoryId); // Filtered
-        
+          ? await apiService.getProducts() // All products
+          : await categoryApiService
+              .getCategoryProducts(categoryId); // Filtered
+
       setState(() {
         products = data;
         isLoading = false;
@@ -81,7 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
       isLoading = true;
     });
     fetchCategories();
-    fetchProducts( categoryId: selectedCategoryId != -1 ? selectedCategoryId : null,);
+    fetchProducts(
+      categoryId: selectedCategoryId != -1 ? selectedCategoryId : null,
+    );
   }
 
   @override
@@ -97,8 +100,10 @@ class _HomeScreenState extends State<HomeScreen> {
           products: products,
           categories: categories,
           onRefresh: onRefresh,
-          onCategorySelected: onCategorySelected), // this is to listen for the selected category,
-      bottomNavigationBar: BottomBar(onRefresh: onRefresh),
+          onCategorySelected:
+              onCategorySelected), // this is to listen for the selected category,
+      bottomNavigationBar:
+          BottomBar(onRefresh: onRefresh, initialIndex: 0), // Pass the initial
     );
   }
 }

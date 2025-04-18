@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/wishlist_api.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
-import 'package:inscri_ecommerce/screens/home/components/buttomBar.dart';
 import 'package:inscri_ecommerce/screens/wishlist/components/appBar.dart';
 import 'package:inscri_ecommerce/screens/wishlist/components/wishlist_body.dart';
 
@@ -53,7 +52,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
         child: WishlistBody(
             likedproducts: likedproducts, onRefresh: fetchWishlist),
       ),
-      bottomNavigationBar: BottomBar(),
+      //bottomNavigationBar: BottomBar(),
     );
   }
 }

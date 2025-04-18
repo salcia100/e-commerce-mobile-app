@@ -170,16 +170,16 @@ class _DescriptionReviewState extends State<DescriptionReview> {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: widget.product.reviews.map<Widget>((review) {
-  final comment = review['comment'] ?? '';
+                      final comment = review['comment'] ?? '';
 
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 12.0),
-    child: Text(
-      "- $comment",
-      style: TextStyle(fontSize: 14, color: Colors.black87),
-    ),
-  );
-}).toList(),
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: Text(
+                          "- $comment",
+                          style: TextStyle(fontSize: 14, color: Colors.black87),
+                        ),
+                      );
+                    }).toList(),
                   )
                 : Text(
                     "No reviews available.",

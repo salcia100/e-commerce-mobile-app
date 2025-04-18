@@ -71,8 +71,7 @@ class _EditProductBodyState extends State<EditProductBody> {
               onTap: _pickImage,
               child: _imageFile != null
                   ? Image.file(File(_imageFile!.path), height: 150)
-                  : widget.product.image != null &&
-                          widget.product.image.isNotEmpty
+                  : widget.product.image.isNotEmpty
                       ? Image.network(widget.product.image, height: 150)
                       : Container(
                           height: 150,

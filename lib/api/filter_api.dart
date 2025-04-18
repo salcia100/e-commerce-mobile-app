@@ -27,7 +27,7 @@ class FilterApi {
       };
 
       // Only add category_id if it's not 0
-      if (category != 1&& category != 0) {
+      if (category != 1 && category != 0) {
         bodyMap['category_id'] = category;
       }
 
