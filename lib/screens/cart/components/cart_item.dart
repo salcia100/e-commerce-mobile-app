@@ -51,7 +51,6 @@ class CartItem extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             Flexible(
-              //Utilisation de Expanded pour empêcher l'overflow
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

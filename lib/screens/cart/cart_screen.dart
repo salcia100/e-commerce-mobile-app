@@ -95,7 +95,7 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
 
-          //const CartSummary(subtotal: 110.00),
+          //const CartResume(subtotal: 110.00),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: ElevatedButton(

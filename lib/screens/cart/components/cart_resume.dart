@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/screens/checkout/checkout_screen.dart';
 
-class CartSummary extends StatelessWidget {
+class CartResume extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

@@ -64,7 +64,7 @@ class _AddProductBodyState extends State<AddProductBody> {
   String? _selectedSize;
 
   // Liste des catégories
-  List<String> categories = ['Dress', 'Tops', 'Pants', 'Shoes', 'Accessories'];
+  List<String> categories = ['Dress', 'Tops', 'Pants', 'Shoes', 'Accessories','coat','Beauty'];
   List<String> colors = [
     'Black',
     'White',
@@ -73,12 +73,14 @@ class _AddProductBodyState extends State<AddProductBody> {
     'Green',
     'Yellow',
     'Pink',
-    'Purple'
+    'Purple',
+    'Brown',
+    'Orange'
   ];
   List<String> sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   Future<void> addImage() async {
-    // Choix de l'image depuis la galerie (pour utiliser la caméra, change ImageSource.gallery en ImageSource.camera)
+    // Choix de l'image depuis la galerie 
     final XFile? pickedImage = await _picker.pickImage(
       source: ImageSource.gallery,
       maxWidth: 800,
@@ -93,7 +95,7 @@ class _AddProductBodyState extends State<AddProductBody> {
     } else {
       print('Aucune image sélectionnée.');
     }
-  } // <-- Fermeture de la méthode addImage
+  } //Fermeture de la méthode addImage
 
   @override
   Widget build(BuildContext context) {

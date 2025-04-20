@@ -30,6 +30,7 @@ class _CheckoutWebViewState extends State<CheckoutWebView> {
   }
 }*/
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/constant/constant.dart';
 import 'package:inscri_ecommerce/screens/checkout/checkout_accepted.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -90,7 +91,7 @@ class _CheckoutWebViewState extends State<CheckoutWebView> {
 
       final response = await http.get(
         Uri.parse(
-            'http://192.168.100.3:8000/api/payment-success?order_id=$orderId'),
+            apiUrl+'/payment-success?order_id=$orderId'),
         headers: {
           'Authorization': 'Bearer $token',
         },

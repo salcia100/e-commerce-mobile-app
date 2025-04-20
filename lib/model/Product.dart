@@ -28,6 +28,7 @@ class Product {
     //required this.discount,
     required this.rating,
   });
+ 
 
   factory Product.fromJson(Map<String, dynamic> json) {
     //String imageUrl = json['image'].replaceAll("127.0.0.1", "10.0.2.2");

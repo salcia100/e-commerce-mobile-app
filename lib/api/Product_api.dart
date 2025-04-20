@@ -9,16 +9,15 @@ class ProductApi {
   Future<List<dynamic>> getProducts() async {
     try {
       String url = apiUrl + '/product/showall';
-      // ✅ Retrieve token
       String? token = await SecureStorage.getToken();
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $token', // ✅ Attach token
+          'Authorization': 'Bearer $token', 
           'Content-Type': 'application/json'
         },
       );
-      print("API Response: ${response.body}"); // Debugging
+      print("API Response: ${response.body}");
       if (response.statusCode == 200) {
         List<dynamic> data = jsonDecode(response.body);
         return data.map((json) => Product.fromJson(json)).toList();
@@ -33,12 +32,11 @@ class ProductApi {
   Future<List<dynamic>> searchProducts(String query) async {
     try {
       String url = apiUrl + '/product/search?q=$query';
-      // ✅ Retrieve token
       String? token = await SecureStorage.getToken();
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $token', // ✅ Attach token
+          'Authorization': 'Bearer $token', 
           'Content-Type': 'application/json'
         },
       );
@@ -57,12 +55,11 @@ class ProductApi {
   Future<List<Product>> getVendorProducts() async {
     try {
       String url = apiUrl + '/VendorProducts';
-      // ✅ Retrieve token
       String? token = await SecureStorage.getToken();
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $token', // ✅ Attach token
+          'Authorization': 'Bearer $token', 
           'Content-Type': 'application/json'
         },
       );
@@ -81,7 +78,6 @@ class ProductApi {
   Future<void> addProduct(Map<String, dynamic> dict, XFile? imageFile) async {
     try {
       String url = apiUrl + '/products/add';
-      // ✅ Retrieve token
       String? token = await SecureStorage.getToken();
       //print('📦 Token utilisé : $token');
       var request = http.MultipartRequest('POST', Uri.parse(url))
