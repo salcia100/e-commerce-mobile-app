@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/body.dart';
-import 'package:inscri_ecommerce/screens/home/components/buttomBar.dart';
+import 'package:inscri_ecommerce/screens/home/components/bottomBar.dart';
 
 class DetailsScreen extends StatefulWidget {
   final Product product;

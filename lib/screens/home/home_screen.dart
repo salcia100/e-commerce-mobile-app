@@ -4,7 +4,7 @@ import 'package:inscri_ecommerce/api/category_api.dart';
 import 'package:inscri_ecommerce/model/Category.dart';
 import 'package:inscri_ecommerce/screens/home/components/body.dart';
 import 'package:inscri_ecommerce/screens/profile_sidebar/profile_sidebar.dart';
-import 'components/buttomBar.dart';
+import 'components/bottomBar.dart';
 import 'components/appBar.dart';
 
 class HomeScreen extends StatefulWidget {

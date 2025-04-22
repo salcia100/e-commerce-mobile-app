@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/auth_api.dart';
+import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/user/login_model.dart';
 import 'package:inscri_ecommerce/screens/signup.dart';
 
@@ -124,7 +125,7 @@ class _LoginState extends State<Login> {
                       // Sign In Button
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFDB3022),
+                          backgroundColor: kIconColor,
                           padding: EdgeInsets.symmetric(
                               horizontal: 50, vertical: 15),
                           shape: RoundedRectangleBorder(

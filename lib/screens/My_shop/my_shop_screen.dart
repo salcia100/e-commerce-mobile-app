@@ -3,7 +3,7 @@ import 'package:inscri_ecommerce/api/product_api.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/My_shop/components/appBar_myShop.dart';
 import 'package:inscri_ecommerce/screens/My_shop/components/my_shop_body.dart';
-import 'package:inscri_ecommerce/screens/home/components/buttomBar.dart';
+import 'package:inscri_ecommerce/screens/home/components/bottomBar.dart';
 
 class MyShopScreen extends StatefulWidget {
   const MyShopScreen({super.key});
