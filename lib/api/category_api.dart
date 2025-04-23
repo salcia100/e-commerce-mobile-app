@@ -6,10 +6,10 @@ import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
 class CategoryApi {
-  //afficher tous les categories
+  //afficher tous les maincategories
   Future<List<Category>> getCategories() async {
     try {
-      String url = apiUrl + '/categories/show';
+      String url = apiUrl + '/categories/mainCategories/show';
       // ✅ Retrieve token
       String? token = await SecureStorage.getToken();
       final response = await http.get(
@@ -35,16 +35,43 @@ class CategoryApi {
     }
   }
 
-  //afficher les produits d'une categorie
-  Future<List<dynamic>> getCategoryProducts(int id) async {
+  //afficher tous les subcategories
+  Future<List<Category>> getSubCategories(int id) async {
     try {
-      String url = apiUrl + '/categories/${id}/products';
-      // ✅ Retrieve token
+      String url = apiUrl + '/categories/${id}/subCategories/show';
+      // Retrieve token
       String? token = await SecureStorage.getToken();
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $token', // ✅ Attach token
+          'Authorization': 'Bearer $token', // Attach token
+          'Content-Type': 'application/json'
+        },
+      );
+      print("API Response: ${response.body}"); // Debugging
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        List<dynamic> data = jsonResponse['sub_categories'];
+
+        return data.map((json) => Category.fromJson(json)).toList();
+      } else {
+        throw Exception("Erreur lors du chargement des sub categories");
+      }
+    } catch (e) {
+      throw Exception("Erreur : $e");
+    }
+  }
+
+  //afficher les produits d'une categorie
+  Future<List<dynamic>> getCategoryProducts(int id) async {
+    try {
+      String url = apiUrl + '/categories/${id}/products';
+      // Retrieve token
+      String? token = await SecureStorage.getToken();
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $token', // Attach token
           'Content-Type': 'application/json'
         },
       );
