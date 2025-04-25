@@ -55,9 +55,9 @@ class _ProfileInfoState extends State<ProfileInfo> {
   void _onAvatarSelected(int selectedAvatarId) async {
     bool success = await apiService.updateUserAvatar(selectedAvatarId);
     if (success) {
-      successToast("Avatar mis à jour avec succès !");
+      successToast("Avatar Updated successfully !");
     } else {
-      errorToast("Erreur lors de la mise à jour de l'avatar !");
+      errorToast("Error updating avatar !");
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:inscri_ecommerce/model/checkout.dart';
 
 class ShippingSection extends StatefulWidget {
@@ -84,18 +85,30 @@ class _ShippingSectionState extends State<ShippingSection> {
                   }),
               SizedBox(height: 10),
               TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Phone*',
-                  ),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter your phone ' : null,
-                  onChanged: (value) {
-                    setState(() => phone = value);
-                  },
-                  onSaved: (value) {
-                    widget.requestModel.phone = value!;
-                    print("✅ phone enregistré: ${widget.requestModel.phone}");
-                  }),
+  decoration: InputDecoration(
+    labelText: 'Phone*',
+  ),
+  keyboardType: TextInputType.number,
+  inputFormatters: [
+    FilteringTextInputFormatter.digitsOnly,
+    LengthLimitingTextInputFormatter(8),
+  ],
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your phone';
+    } else if (value.length != 8) {
+      return 'Phone number must be 8 digits';
+    }
+    return null;
+  },
+  onChanged: (value) {
+    setState(() => phone = value);
+  },
+  onSaved: (value) {
+    widget.requestModel.phone = value!;
+    print("✅ phone enregistré: ${widget.requestModel.phone}");
+  },
+)
             ],
           ),
         ));

@@ -3,6 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:inscri_ecommerce/screens/cart/cart_screen.dart';
 import 'package:inscri_ecommerce/api/Cart_api.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
+import 'package:inscri_ecommerce/screens/login.dart';
+import 'package:inscri_ecommerce/utils/secure_storage.dart';
+
 
 class AddToCartButton extends StatefulWidget {
   final Product product;
@@ -17,6 +20,12 @@ class _AddToCartButtonState extends State<AddToCartButton> {
     return Center(
       child: ElevatedButton(
         onPressed: () async {
+                    String? token = await SecureStorage.getToken();
+          if (token == null || token.isEmpty) {
+            // Not logged in → redirect to login
+            Navigator.push(context, MaterialPageRoute(builder: (_) => Login()));
+            return;
+          }
           // Logic for Add to Cart action
           int productID = widget.product.id;
           int quantity = 1; //widget.product.stock; //a modifier

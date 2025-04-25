@@ -8,14 +8,47 @@ import 'package:inscri_ecommerce/utils/secure_storage.dart';
 class CategoryApi {
   //afficher tous les maincategories
   Future<List<Category>> getCategories() async {
+  try {
+    String url = apiUrl + '/categories/mainCategories/show';
+    
+    // Récupérer le token, mais on l'utilise seulement si présent
+    String? token = await SecureStorage.getToken();
+    
+    // Créer les headers sans token si l'utilisateur n'est pas authentifié
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+    };
+    
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+
+    final response = await http.get(Uri.parse(url), headers: headers);
+    print("API Response: ${response.body}"); // Pour déboguer
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+
+      // Accéder à la liste des catégories depuis la réponse
+      List<dynamic> data = jsonResponse['categories'];
+
+      return data.map((json) => Category.fromJson(json)).toList();
+    } else {
+      throw Exception("Erreur lors du chargement des categories");
+    }
+  } catch (e) {
+    throw Exception("Erreur : $e");
+  }
+}
+
+  /*Future<List<Category>> getCategories() async {
     try {
       String url = apiUrl + '/categories/mainCategories/show';
-      // ✅ Retrieve token
+      //  Retrieve token
       String? token = await SecureStorage.getToken();
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $token', // ✅ Attach token
+          'Authorization': 'Bearer $token', //  Attach token
           'Content-Type': 'application/json'
         },
       );
@@ -33,7 +66,7 @@ class CategoryApi {
     } catch (e) {
       throw Exception("Erreur : $e");
     }
-  }
+  }*/
 
   //afficher tous les subcategories
   Future<List<Category>> getSubCategories(int id) async {
@@ -41,13 +74,15 @@ class CategoryApi {
       String url = apiUrl + '/categories/${id}/subCategories/show';
       // Retrieve token
       String? token = await SecureStorage.getToken();
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer $token', // Attach token
-          'Content-Type': 'application/json'
-        },
-      );
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+    };
+    
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+
+    final response = await http.get(Uri.parse(url), headers: headers);
       print("API Response: ${response.body}"); // Debugging
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);

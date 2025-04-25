@@ -9,20 +9,23 @@ class CartApi {
     try {
       String url = apiUrl + '/cart/add';
 
-      // ✅ Retrieve token
+      // Retrieve token
       String? token = await SecureStorage.getToken();
 
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token', // Si l'authentification est requise
-        },
-        body: jsonEncode({
-          'product_id': productId,
-          'quantity': quantity,
-        }),
-      );
+   Map<String, String> headers = {'Content-Type': 'application/json'};
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+
+    // ✅ Requête POST
+    final response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: jsonEncode({
+        'product_id': productId,
+        'quantity': quantity,
+      }),
+    );
       if (response.statusCode == 200) {
         print('✅ Produit ajouté au panier avec succès !');
       } else {
@@ -37,16 +40,19 @@ class CartApi {
     try {
       String url = apiUrl + '/cart';
 
-      // ✅ Retrieve token
+      //  Retrieve token
       String? token = await SecureStorage.getToken();
 
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token', // Si l'authentification est requise
-        },
-      );
+      Map<String, String> headers = {'Content-Type': 'application/json'};
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+
+    // ✅ Requête POST
+    final response = await http.get(
+      Uri.parse(url),
+      headers: headers,
+    );
 
       if (response.statusCode == 200) {
         print('✅ voici votre panier !');
@@ -64,7 +70,7 @@ class CartApi {
     try {
       String url = apiUrl + '/cart/remove/$id';
 
-      // ✅ Retrieve token
+      //  Retrieve token
       String? token = await SecureStorage.getToken();
 
       final response = await http.delete(
@@ -89,7 +95,7 @@ class CartApi {
     try {
       String url = apiUrl + '/cart/incrementquantity/$productId';
 
-      // ✅ Retrieve token
+      // Retrieve token
       String? token = await SecureStorage.getToken();
 
       final response = await http.put(
@@ -116,7 +122,7 @@ class CartApi {
     try {
       String url = apiUrl + '/cart/decrementquantity/$productId';
 
-      // ✅ Retrieve token
+      // Retrieve token
       String? token = await SecureStorage.getToken();
 
       final response = await http.put(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
+import 'package:inscri_ecommerce/screens/login.dart';
 import 'package:inscri_ecommerce/screens/search/search_screen.dart';
 import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
+import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback onProfilePressed;
@@ -24,7 +26,18 @@ class _CustomAppBarState extends State<CustomAppBar> {
       backgroundColor: kbarColor,
       leading: IconButton(
         icon: Icon(Icons.person_outline, color: Colors.grey, size: 30),
-        onPressed: widget.onProfilePressed, // Ouvre le sidebar
+        onPressed: () async {
+          String? token = await SecureStorage.getToken();
+            if (token == null || token.isEmpty) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => Login()),
+              );
+              return;
+          } else {
+            widget.onProfilePressed();
+          }
+        },
       ),
       actions: [
         navIcon(1, Icons.search, Icons.search_outlined),
@@ -41,23 +54,31 @@ class _CustomAppBarState extends State<CustomAppBar> {
         color: selectedIndex == index ? kIconColor : Colors.grey,
         size: 30,
       ),
-      onPressed: () {
+      onPressed: () async{
         setState(() {
           selectedIndex = index;
         });
         if (index == 1) {
-          // If it's the search icon
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => SearchScreen()),
           );
-        }else if (index == 2) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => WishlistScreen()),
-    );
-  }
+        } else if (index == 2) {
+                    String? token = await SecureStorage.getToken();
+            if (token == null || token.isEmpty) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => Login()),
+              );
+              return;
+            }else{
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => WishlistScreen()),
+          );}
+        }
       },
     );
   }
 }
+

@@ -5,6 +5,8 @@ import 'package:inscri_ecommerce/screens/cart/cart_screen.dart';
 import 'package:inscri_ecommerce/screens/category/category_screen.dart';
 import 'package:inscri_ecommerce/screens/customised_orders/custom_order_screen.dart';
 import 'package:inscri_ecommerce/screens/home/home_screen.dart';
+import 'package:inscri_ecommerce/screens/login.dart';
+import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
 
 class BottomBar extends StatefulWidget {
@@ -57,7 +59,7 @@ class _BottomBarState extends State<BottomBar> {
     final isSelected = selectedIndex == index;
 
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if (index == 0) {
           Navigator.pushAndRemoveUntil(
             context,
@@ -72,18 +74,46 @@ class _BottomBarState extends State<BottomBar> {
         });
 
         Widget destination;
+
         switch (index) {
           case 1:
             destination = CategoryScreen(onRefresh: widget.onRefresh);
             break;
           case 2:
+           String? token = await SecureStorage.getToken();
+            if (token == null || token.isEmpty) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => Login()),
+              );
+              return;
+            } else {
             destination = AddProductScreen(onRefresh: widget.onRefresh);
+            }
             break;
           case 3:
+                     String? token = await SecureStorage.getToken();
+            if (token == null || token.isEmpty) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => Login()),
+              );
+              return;
+            } else {
             destination = CartScreen();
+            }
             break;
           case 4:
-            destination = CustomOrderScreen(onRefresh: widget.onRefresh);
+            String? token = await SecureStorage.getToken();
+            if (token == null || token.isEmpty) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => Login()),
+              );
+              return;
+            } else {
+              destination = CustomOrderScreen(onRefresh: widget.onRefresh);
+            }
             break;
           default:
             return;

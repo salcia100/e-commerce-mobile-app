@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/screens/home/home_screen.dart';
 import 'package:inscri_ecommerce/screens/signup.dart';
 
 class Welcome extends StatelessWidget {
@@ -68,7 +69,7 @@ class Welcome extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUp()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
                 },
                 child: Text(
                   'Get Started',

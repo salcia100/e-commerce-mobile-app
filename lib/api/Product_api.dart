@@ -6,40 +6,45 @@ import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
 class ProductApi {
+
   Future<List<dynamic>> getProducts() async {
-    try {
-      String url = apiUrl + '/product/showall';
-      String? token = await SecureStorage.getToken();
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer $token', 
-          'Content-Type': 'application/json'
-        },
-      );
-      print("API Response: ${response.body}");
-      if (response.statusCode == 200) {
-        List<dynamic> data = jsonDecode(response.body);
-        return data.map((json) => Product.fromJson(json)).toList();
-      } else {
-        throw Exception("Erreur lors du chargement des produits");
-      }
-    } catch (e) {
-      throw Exception("Erreur : $e");
+  try {
+    String url = apiUrl + '/product/showall';
+    String? token = await SecureStorage.getToken();  // On récupère le token si l'utilisateur est connecté.
+    
+    // On crée les headers de la requête
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+    
+    // Si o n a un token, on l'ajoute dans les headers
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $token';
     }
+    
+    final response = await http.get(Uri.parse(url), headers: headers);
+    print("API Response: ${response.body}");
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+      return data.map((json) => Product.fromJson(json)).toList();
+    } else {
+      throw Exception("Erreur lors du chargement des produits");
+    }
+  } catch (e) {
+    throw Exception("Erreur : $e");
   }
+}
 
   Future<List<dynamic>> searchProducts(String query) async {
     try {
       String url = apiUrl + '/product/search?q=$query';
       String? token = await SecureStorage.getToken();
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer $token', 
-          'Content-Type': 'application/json'
-        },
-      );
+      Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    if (token != null && token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+
+    final response = await http.get(Uri.parse(url), headers: headers);
       print("API Response: ${response.body}"); // Debugging
       if (response.statusCode == 200) {
         List<dynamic> data = jsonDecode(response.body);
@@ -79,7 +84,7 @@ class ProductApi {
     try {
       String url = apiUrl + '/products/add';
       String? token = await SecureStorage.getToken();
-      //print('📦 Token utilisé : $token');
+      //print('Token utilisé : $token');
       var request = http.MultipartRequest('POST', Uri.parse(url))
         ..headers['Authorization'] = 'Bearer $token';
       //..headers['Accept'] = 'application/json';
@@ -95,7 +100,7 @@ class ProductApi {
       }
       var response = await request.send();
       String responseBody = await response.stream.bytesToString();
-      print('🔍 Réponse API : $responseBody');
+      print(' Réponse API : $responseBody');
 
       if (response.statusCode == 200) {
         print('✅ Produit ajouté avec succès : $responseBody');
