@@ -116,6 +116,7 @@ Widget build(BuildContext context) {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetailsScreen(
+                      onRefresh: widget.onRefresh,
                       product: widget.products[index],
                     ),
                   ),

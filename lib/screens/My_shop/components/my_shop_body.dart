@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/screens/My_shop/components/product_card.dart';
-import 'package:inscri_ecommerce/screens/My_shop/vendor_orders_screen.dart';
 import 'package:inscri_ecommerce/screens/add_product/add_product_screen.dart';
+import 'package:inscri_ecommerce/screens/my_sales/my_sales_screen.dart';
 
 class MyShopBody extends StatefulWidget {
   final List<Product> VendorProducts;
@@ -93,7 +93,7 @@ class _MyShopBodyState extends State<MyShopBody> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => VendorOrdersScreen(), // Navigate to orders screen of the vendor 
+                              builder: (context) => SalesScreen(), // Navigate to orders screen of the vendor 
                             ),
                           );
                           print("Orders button pressed");
@@ -109,7 +109,7 @@ class _MyShopBodyState extends State<MyShopBody> {
                               horizontal: 16, vertical: 10),
                         ),
                         child: const Text(
-                          'Orders',
+                          'My sales',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,

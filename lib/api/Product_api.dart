@@ -6,33 +6,33 @@ import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
 class ProductApi {
-
   Future<List<dynamic>> getProducts() async {
-  try {
-    String url = apiUrl + '/product/showall';
-    String? token = await SecureStorage.getToken();  // On récupère le token si l'utilisateur est connecté.
-    
-    // On crée les headers de la requête
-    Map<String, String> headers = {'Content-Type': 'application/json'};
-    
-    // Si o n a un token, on l'ajoute dans les headers
-    if (token != null && token.isNotEmpty) {
-      headers['Authorization'] = 'Bearer $token';
-    }
-    
-    final response = await http.get(Uri.parse(url), headers: headers);
-    print("API Response: ${response.body}");
+    try {
+      String url = apiUrl + '/product/showall';
+      String? token = await SecureStorage
+          .getToken(); // On récupère le token si l'utilisateur est connecté.
 
-    if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
-      return data.map((json) => Product.fromJson(json)).toList();
-    } else {
-      throw Exception("Erreur lors du chargement des produits");
+      // On crée les headers de la requête
+      Map<String, String> headers = {'Content-Type': 'application/json'};
+
+      // Si o n a un token, on l'ajoute dans les headers
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      final response = await http.get(Uri.parse(url), headers: headers);
+      print("API Response: ${response.body}");
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        return data.map((json) => Product.fromJson(json)).toList();
+      } else {
+        throw Exception("Erreur lors du chargement des produits");
+      }
+    } catch (e) {
+      throw Exception("Erreur : $e");
     }
-  } catch (e) {
-    throw Exception("Erreur : $e");
   }
-}
 
   Future<List<dynamic>> searchProducts(String query) async {
     try {
@@ -40,11 +40,11 @@ class ProductApi {
       String? token = await SecureStorage.getToken();
       Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    if (token != null && token.isNotEmpty) {
-      headers['Authorization'] = 'Bearer $token';
-    }
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
 
-    final response = await http.get(Uri.parse(url), headers: headers);
+      final response = await http.get(Uri.parse(url), headers: headers);
       print("API Response: ${response.body}"); // Debugging
       if (response.statusCode == 200) {
         List<dynamic> data = jsonDecode(response.body);
@@ -64,7 +64,7 @@ class ProductApi {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer $token', 
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json'
         },
       );
@@ -84,15 +84,18 @@ class ProductApi {
     try {
       String url = apiUrl + '/products/add';
       String? token = await SecureStorage.getToken();
-      //print('Token utilisé : $token');
       var request = http.MultipartRequest('POST', Uri.parse(url))
-        ..headers['Authorization'] = 'Bearer $token';
-      //..headers['Accept'] = 'application/json';
+        ..headers['Authorization'] = 'Bearer $token'
+        ..headers['Accept'] = 'application/json';
       // Ajouter les autres données du produit
       request.fields['name'] = dict['name'];
       request.fields['description'] = dict['description'];
       request.fields['price'] = dict['price'];
       request.fields['stock'] = dict['stock'];
+      request.fields['category_id'] = dict['category_id'].toString();
+      request.fields['color[]'] =dict['color'].toString(); 
+      request.fields['size[]'] =dict['size'].toString(); 
+
       // Vérifier si une image a été sélectionnée
       if (imageFile != null) {
         var file = await http.MultipartFile.fromPath('image', imageFile.path);
@@ -167,4 +170,30 @@ class ProductApi {
       print("❌ Exception delete : $e");
     }
   }
+
+
+  Future<void> addReview(int productId, String review) async {
+    try {
+      String url = apiUrl + '/product/review'; // URL d’ajout de review
+      String? token = await SecureStorage.getToken();
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({'comment': review, 'product_id': productId}),
+      );
+      print("🔍 Réponse API addReview : ${response.body}");
+      if (response.statusCode == 200) {
+        print("✅ Review ajoutée avec succès !");
+      } else {
+        print("⚠️ Erreur lors de l’ajout de la review : ${response.body}");
+      }
+    } catch (e) {
+      print("❌ Exception addReview : $e");
+    }
+  }
 }
+
+

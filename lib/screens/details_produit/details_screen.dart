@@ -6,8 +6,9 @@ import 'package:inscri_ecommerce/screens/home/components/bottomBar.dart';
 
 class DetailsScreen extends StatefulWidget {
   final Product product;
+  final Future<void> Function()? onRefresh;
 
-  const DetailsScreen({Key? key, required this.product}) : super(key: key);
+  const DetailsScreen({Key? key, required this.product,this.onRefresh}) : super(key: key);
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -38,7 +39,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         ),
         centerTitle: true,
       ),
-      body: Body(product: widget.product),
+      body: Body(product: widget.product, onRefresh: widget.onRefresh),
       bottomNavigationBar: BottomBar(),
     );
   }

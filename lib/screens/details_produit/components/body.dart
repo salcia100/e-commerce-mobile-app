@@ -10,8 +10,9 @@ import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
 
 class Body extends StatefulWidget {
   final Product product;
+  final Future<void> Function()? onRefresh;
 
-  const Body({Key? key, required this.product}) : super(key: key);
+  const Body({Key? key, required this.product,required this.onRefresh}) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();
@@ -141,7 +142,7 @@ class _BodyState extends State<Body> {
                           colors: widget.product.color ?? [],
                           sizes: widget.product.size ?? [],
                         ),
-                        DescriptionReview(product: widget.product),
+                        DescriptionReview(product: widget.product,onRefresh: widget.onRefresh),
                         AddToCartButton(product: widget.product),
                       ],
                     ),
