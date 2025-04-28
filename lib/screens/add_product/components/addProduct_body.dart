@@ -222,7 +222,6 @@ class _AddProductBodyState extends State<AddProductBody> {
               onChanged: (textValue) {
                 inputOnChanged("description", textValue);
 
-                ///****** */
               },
             ),
             //category
@@ -318,7 +317,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                     decoration: InputDecoration(
                         labelText: "Price", hintText: "Ex: 29.900"),
                     onChanged: (textValue) {
-                      inputOnChanged("price", textValue); //** */
+                      inputOnChanged("price", textValue); 
                     },
                   ),
                 ),

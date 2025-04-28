@@ -82,7 +82,7 @@ class _EditProductBodyState extends State<EditProductBody> {
             ),
             SizedBox(height: 20),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Nom du produit'),
+              decoration: InputDecoration(labelText: 'Product Name'),
               validator: (value) => value!.isEmpty ? 'Champ requis' : null,
               initialValue: widget.product.name,
               onChanged: (textValue) {
@@ -100,7 +100,7 @@ class _EditProductBodyState extends State<EditProductBody> {
             ),
             SizedBox(height: 10),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Prix'),
+              decoration: InputDecoration(labelText: 'Price'),
               keyboardType: TextInputType.number,
               validator: (value) => value!.isEmpty ? 'Champ requis' : null,
               initialValue: widget.product.price.toString(),
@@ -124,9 +124,9 @@ class _EditProductBodyState extends State<EditProductBody> {
               onPressed: loading ? null : formOnSubmit,
               icon: Icon(Icons.save, color: Colors.white),
               label: loading
-                  ? Text("Mise à jour...",
+                  ? Text("Update...",
                       style: TextStyle(color: Colors.white))
-                  : Text("Mettre à jour",
+                  : Text("Update",
                       style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: kIconColor,
