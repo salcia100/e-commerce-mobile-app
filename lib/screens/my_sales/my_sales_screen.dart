@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/Orders_api.dart';
+import 'package:inscri_ecommerce/api/customOrder_api.dart';
+import 'package:inscri_ecommerce/model/custom_orders.dart';
 import 'package:inscri_ecommerce/model/sale.dart';
+import 'package:inscri_ecommerce/screens/my_sales/components/custom_sales_item.dart';
 import 'package:inscri_ecommerce/screens/my_sales/components/salesItem.dart';
 
 class SalesScreen extends StatefulWidget {
@@ -10,7 +13,11 @@ class SalesScreen extends StatefulWidget {
 
 class _SalesScreenState extends State<SalesScreen> {
   final OrdersApi apiService = OrdersApi();
+  final CustomOrdersApi customOrdersApi = CustomOrdersApi();
+
   List<Sale> sales = [];
+  List<CustomOrders> customSales = [];
+
   bool isLoading = true;
 
   @override
@@ -19,21 +26,24 @@ class _SalesScreenState extends State<SalesScreen> {
     fetchSales();
   }
 
-void fetchSales() async {
-  try {
-    List<Sale> data = await apiService.getMySales();
-    print("Sales Data: $data");  
-    setState(() {
-      sales = data;
-      isLoading = false;
-    });
-  } catch (e) {
-    print("Erreur : $e");
-    setState(() {
-      isLoading = false;
-    });
+  void fetchSales() async {
+    try {
+      List<Sale> data = await apiService.getMySales();
+      List<CustomOrders> customOrdersData = await customOrdersApi.getVendorCustomSales();
+      print("Sales Data: $data");
+      setState(() {
+        sales = data;
+        customSales = customOrdersData;
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Erreur : $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
-}
+
   Future<void> _onRefresh() async {
     setState(() {
       isLoading = true;
@@ -43,6 +53,8 @@ void fetchSales() async {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> allSales = [...customSales, ...sales];
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -62,10 +74,17 @@ void fetchSales() async {
           : RefreshIndicator(
               onRefresh: _onRefresh,
               child: ListView.builder(
-                itemCount: sales.length,
-                itemBuilder: (context, index) {
-                  return SalesItem(sale: sales[index]);
-                },
+                itemCount: allSales.length,
+              itemBuilder: (context, index) {
+                final item = allSales[index];
+                if (item is Sale) {
+                  return SalesItem(sale: item); // widget existant
+                } else if (item is CustomOrders) {
+                  return CustomSalesItem(customOrder: item); // crée ce widget
+                } else {
+                  return SizedBox(); // au cas où
+                }
+              },
               ),
             ),
     );

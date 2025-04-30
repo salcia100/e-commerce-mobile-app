@@ -5,6 +5,7 @@ import 'package:inscri_ecommerce/api/category_api.dart';
 import 'package:inscri_ecommerce/api/product_api.dart';
 import 'package:inscri_ecommerce/model/Category.dart';
 import 'package:inscri_ecommerce/utils/toast.dart';
+import 'package:collection/collection.dart';
 
 class AddProductBody extends StatefulWidget {
   final Future<void> Function()? onRefresh;
@@ -147,7 +148,19 @@ class _AddProductBodyState extends State<AddProductBody> {
     } else {
       print('Aucune image sélectionnée.');
     }
-  } //Fermeture de la méthode addImage
+  } 
+
+  bool isSizeVisible() {
+    final allCategories = [...mainCategories, ...subCategories];
+    final selectedCategory = allCategories.firstWhereOrNull(
+      (category) => category.id == selectedCategoryId,
+    );
+    if (selectedCategory == null) return false;
+    return !(selectedCategory.id == 5 ||
+        selectedCategory.id == 6 ||
+        selectedCategory.parentId == 5 ||
+        selectedCategory.parentId == 6);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +234,6 @@ class _AddProductBodyState extends State<AddProductBody> {
               maxLines: 2,
               onChanged: (textValue) {
                 inputOnChanged("description", textValue);
-
               },
             ),
             //category
@@ -287,24 +299,24 @@ class _AddProductBodyState extends State<AddProductBody> {
                 SizedBox(height: 10),
 
                 //size
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    value: _selectedSize,
-                    items: sizes.map((size) {
-                      return DropdownMenuItem<String>(
-                        value: size,
-                        child: Text(size),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _selectedSize = value;
-                      });
-                    },
-                    decoration: InputDecoration(labelText: 'Size'),
-                    validator: (value) => value == null ? 'Select Size' : null,
+                if (isSizeVisible())
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      value: _selectedSize,
+                      items: sizes.map((size) {
+                        return DropdownMenuItem<String>(
+                          value: size,
+                          child: Text(size),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedSize = value;
+                        });
+                      },
+                      decoration: InputDecoration(labelText: 'Size'),
+                    ),
                   ),
-                ),
 
                 SizedBox(height: 10),
               ],
@@ -317,7 +329,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                     decoration: InputDecoration(
                         labelText: "Price", hintText: "Ex: 29.900"),
                     onChanged: (textValue) {
-                      inputOnChanged("price", textValue); 
+                      inputOnChanged("price", textValue);
                     },
                   ),
                 ),

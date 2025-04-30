@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/screens/home/home_screen.dart';
-import 'package:inscri_ecommerce/screens/signup.dart';
 
 class Welcome extends StatelessWidget {
   @override

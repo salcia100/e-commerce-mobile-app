@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/Product_api.dart';
-import 'package:inscri_ecommerce/model/Product.dart';
 import 'package:inscri_ecommerce/utils/toast.dart';
 
 void showAddReviewModal(BuildContext context, {required int ProductID ,required Future<void> Function()? onRefresh}) {

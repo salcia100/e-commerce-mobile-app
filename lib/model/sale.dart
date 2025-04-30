@@ -25,4 +25,8 @@ class Sale {
 
     );
   }
+  @override
+  String toString() {
+    return 'Sale(id: $id, title: $name, price: ${product.price}, quantity: $quantity, date: $date)';
+  }
 }

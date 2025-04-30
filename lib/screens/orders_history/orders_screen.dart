@@ -29,7 +29,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   void fetchProducts() async {
     try {
       List<dynamic> ordersData = await ordersApi.getOrdersHistory();
-      List<dynamic> customOrdersData = await customOrdersApi.getAvailableCustomOrders();
+      List<dynamic> customOrdersData = await customOrdersApi.getclientCustomOrders();
       
       setState(() {
         orders = [...customOrdersData, ...ordersData]; // Combine les deux listes

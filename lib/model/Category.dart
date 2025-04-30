@@ -3,8 +3,9 @@ import 'package:inscri_ecommerce/constant/constant.dart';
 class Category {
   String name, image;
   int id;
+  int ? parentId;
 
-  Category({this.image='', required this.name, required this.id});
+  Category({this.image='', required this.name, required this.id , this.parentId});
 
   factory Category.fromJson(Map<String, dynamic> json) {
     String imageUrl = json['image'] != null
@@ -16,6 +17,7 @@ class Category {
       id: json['id'],
       image: imageUrl,
       name: json['name'] ?? 'No name available',
+      parentId: json['parent_id'] != null ? int.parse(json['parent_id'].toString()) : null,
     );
   }
 }

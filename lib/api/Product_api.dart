@@ -93,9 +93,10 @@ class ProductApi {
       request.fields['price'] = dict['price'];
       request.fields['stock'] = dict['stock'];
       request.fields['category_id'] = dict['category_id'].toString();
-      request.fields['color[]'] =dict['color'].toString(); 
-      request.fields['size[]'] =dict['size'].toString(); 
-
+      request.fields['color[]'] = dict['color'].toString();
+      if (dict['size'] != null && dict['size'].isNotEmpty) {
+        request.fields['size[]'] = dict['size'].toString();
+      }
       // Vérifier si une image a été sélectionnée
       if (imageFile != null) {
         var file = await http.MultipartFile.fromPath('image', imageFile.path);
@@ -171,7 +172,6 @@ class ProductApi {
     }
   }
 
-
   Future<void> addReview(int productId, String review) async {
     try {
       String url = apiUrl + '/product/review'; // URL d’ajout de review
@@ -195,5 +195,3 @@ class ProductApi {
     }
   }
 }
-
-

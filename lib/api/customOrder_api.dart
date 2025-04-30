@@ -163,4 +163,62 @@ class CustomOrdersApi {
       throw Exception("Erreur lors de l'annulation du vendeur: $e");
     }
   }
+  //les custom orders du client
+  Future<List<CustomOrders>> getclientCustomOrders() async {
+    try {
+      String url = apiUrl+'/custom-orders/my-custom-orders';
+      String? token = await SecureStorage.getToken();
+
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token', 
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print('✅ My Custom orders loaded successfully!');
+
+        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+
+        List<dynamic> data = jsonResponse["MycustomOrders"];
+
+        return data.map((json) => CustomOrders.fromJson(json)).toList();
+      } else {
+        throw Exception("⚠️ Erreur: ${response.body}");
+      }
+    } catch (e) {
+      throw Exception("❌ Erreur: $e");
+    }
+  }
+  //les custom orders accepted by vendor
+  Future<List<CustomOrders>> getVendorCustomSales() async {
+    try {
+      String url = apiUrl+'/custom-orders/my-custom-sales';
+      String? token = await SecureStorage.getToken();
+
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token', 
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print('✅ My Custom Sales loaded successfully!');
+
+        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+
+        List<dynamic> data = jsonResponse["MySales"];
+
+        return data.map((json) => CustomOrders.fromJson(json)).toList();
+      } else {
+        throw Exception("⚠️ Erreur: ${response.body}");
+      }
+    } catch (e) {
+      throw Exception("❌ Erreur: $e");
+    }
+  }
 }

@@ -3,6 +3,7 @@ import 'package:inscri_ecommerce/api/customOrder_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/custom_orders.dart';
 import 'package:inscri_ecommerce/screens/custom_form/component/custom_form.dart';
+import 'package:inscri_ecommerce/screens/custom_form/custom_form_screen.dart';
 import 'package:inscri_ecommerce/screens/customised_orders/components/fullScreenImage.dart';
 import 'package:inscri_ecommerce/model/Category.dart';
 import 'package:inscri_ecommerce/api/category_api.dart';
@@ -20,6 +21,13 @@ class _CustomOrderState extends State<CustomOrder> {
   List<bool> _expandedList = [];
   List<Category> categories = [];
   bool isLoading = true;
+
+  Future<void> onRefresh() async {
+    setState(() {
+      isLoading = true;
+    });
+    loadInitialData();
+  }
 
   @override
   void initState() {
@@ -116,8 +124,7 @@ class _CustomOrderState extends State<CustomOrder> {
                                   const SizedBox(height: 4),
                                   Text("Budget : ${order.budget}"),
                                   const SizedBox(height: 4),
-                                  Text(
-                                      "Category : ${getCategoryName(order.categoryId)}"),
+                                  Text("Category : ${getCategoryName(order.categoryId)}"),
                                   const SizedBox(height: 4),
                                   if (isExpanded) ...[
                                     const SizedBox(height: 10),
@@ -168,11 +175,12 @@ class _CustomOrderState extends State<CustomOrder> {
                                       ElevatedButton(
                                         onPressed: () async {
                                           try {
-                                            await CustomOrdersApi().acceptCustomOrder(order.id);
+                                            await CustomOrdersApi()
+                                                .acceptCustomOrder(order.id);
                                             setState(() {
                                               // Mettez à jour l'état de la commande (par exemple, pour refléter qu'elle est acceptée)
                                             });
-                                           successToast("Order accepted!");
+                                            successToast("Order accepted!");
                                           } catch (e) {
                                             errorToast("Erreur: $e");
                                           }
@@ -196,7 +204,7 @@ class _CustomOrderState extends State<CustomOrder> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => CustomForm()),
+            MaterialPageRoute(builder: (_) => CustomFormScreen(onRefresh: onRefresh)),
           );
         },
         label: const Text("Place Custom Order"),

@@ -7,6 +7,8 @@ import 'package:inscri_ecommerce/model/Category.dart';
 import 'package:inscri_ecommerce/utils/toast.dart';
 
 class CustomForm extends StatefulWidget {
+  final Future<void> Function()? onRefresh;
+  const CustomForm({Key? key, required this.onRefresh}) : super(key: key);
   @override
   State<CustomForm> createState() => _CustomOrderFormState();
 }
@@ -38,12 +40,12 @@ class _CustomOrderFormState extends State<CustomForm> {
 
   formOnSubmit() async {
     formValues['category_id'] = selectedCategoryId.toString();
-  if (_selectedColor != null && _selectedColor!.isNotEmpty) {
-    formValues['color'] = _selectedColor!;
-  }
-  if (_selectedMaterial != null && _selectedMaterial!.isNotEmpty) {
-    formValues['material'] = _selectedMaterial!;
-  }
+    if (_selectedColor != null && _selectedColor!.isNotEmpty) {
+      formValues['color'] = _selectedColor!;
+    }
+    if (_selectedMaterial != null && _selectedMaterial!.isNotEmpty) {
+      formValues['material'] = _selectedMaterial!;
+    }
     if (_image == null) {
       errorToast("Veuillez sélectionner une image !");
     } else if (formValues["title"]!.isEmpty) {
@@ -70,6 +72,7 @@ class _CustomOrderFormState extends State<CustomForm> {
           _image,
         );
         successToast("order added successfully !");
+        widget.onRefresh!();
         Navigator.pop(context);
       } catch (e) {
         errorToast("Error adding order !");
@@ -125,13 +128,15 @@ class _CustomOrderFormState extends State<CustomForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Photos", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            Text("Photos",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
                   child: _image != null
-                      ? Image.file(File(_image!.path), fit: BoxFit.cover, width: 100, height: 100)
+                      ? Image.file(File(_image!.path),
+                          fit: BoxFit.cover, width: 100, height: 100)
                       : ImageBox(label: "Add photo here"),
                 ),
                 SizedBox(width: 10),
@@ -159,13 +164,15 @@ class _CustomOrderFormState extends State<CustomForm> {
             ),
             SizedBox(height: 20),
             TextField(
-              decoration: InputDecoration(labelText: "Title", hintText: "Add the name of your order"),
+              decoration: InputDecoration(
+                  labelText: "Title", hintText: "Add the name of your order"),
               onChanged: (textValue) {
                 inputOnChanged("title", textValue);
               },
             ),
             TextField(
-              decoration: InputDecoration(labelText: "Description", hintText: "Describe your order"),
+              decoration: InputDecoration(
+                  labelText: "Description", hintText: "Describe your order"),
               maxLines: 2,
               onChanged: (textValue) {
                 inputOnChanged("description", textValue);
@@ -189,21 +196,24 @@ class _CustomOrderFormState extends State<CustomForm> {
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(labelText: "Material", hintText: "Material required"),
+              decoration: InputDecoration(
+                  labelText: "Material", hintText: "Material required"),
               onChanged: (textValue) {
                 inputOnChanged("material", textValue);
               },
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(labelText: "Color", hintText: "choose color"),
+              decoration:
+                  InputDecoration(labelText: "Color", hintText: "choose color"),
               onChanged: (textValue) {
                 inputOnChanged("color", textValue);
               },
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(labelText: "Budget", hintText: "Enter the budget"),
+              decoration: InputDecoration(
+                  labelText: "Budget", hintText: "Enter the budget"),
               keyboardType: TextInputType.number,
               onChanged: (textValue) {
                 inputOnChanged("budget", textValue);
@@ -214,10 +224,12 @@ class _CustomOrderFormState extends State<CustomForm> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: formOnSubmit,
-                style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFDB3022)),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFDB3022)),
                 child: loading
                     ? CircularProgressIndicator(color: Colors.white)
-                    : Text("Submit Order", style: TextStyle(color: Colors.white)),
+                    : Text("Submit Order",
+                        style: TextStyle(color: Colors.white)),
               ),
             ),
           ],
