@@ -8,10 +8,10 @@ import 'package:inscri_ecommerce/screens/home/home_screen.dart';
 import 'package:inscri_ecommerce/screens/login.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
-
 class BottomBar extends StatefulWidget {
   final Future<void> Function()? onRefresh;
   final int initialIndex;
+
   const BottomBar({Key? key, this.onRefresh, this.initialIndex = 0}) : super(key: key);
 
   @override
@@ -30,13 +30,13 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       height: 65,
       decoration: BoxDecoration(
-        color: kbarColor,
+        color: Theme.of(context).colorScheme.surface, 
         boxShadow: [
           BoxShadow(
-            color: Colors.black,
+            color: Theme.of(context).shadowColor.withOpacity(0.3),
             spreadRadius: 1,
             blurRadius: 8,
           ),
@@ -80,36 +80,27 @@ class _BottomBarState extends State<BottomBar> {
             destination = CategoryScreen(onRefresh: widget.onRefresh);
             break;
           case 2:
-           String? token = await SecureStorage.getToken();
+            String? token = await SecureStorage.getToken();
             if (token == null || token.isEmpty) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => Login()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const Login()));
               return;
             } else {
-            destination = AddProductScreen(onRefresh: widget.onRefresh);
+              destination = AddProductScreen(onRefresh: widget.onRefresh);
             }
             break;
           case 3:
-                     String? token = await SecureStorage.getToken();
+            String? token = await SecureStorage.getToken();
             if (token == null || token.isEmpty) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => Login()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const Login()));
               return;
             } else {
-            destination = CartScreen();
+              destination = const CartScreen();
             }
             break;
           case 4:
             String? token = await SecureStorage.getToken();
             if (token == null || token.isEmpty) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => Login()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const Login()));
               return;
             } else {
               destination = CustomOrderScreen(onRefresh: widget.onRefresh);
@@ -137,7 +128,7 @@ class _BottomBarState extends State<BottomBar> {
         children: [
           Icon(
             isSelected ? filledIcon : outlinedIcon,
-            color: isSelected ? kIconColor : Colors.grey,
+            color: isSelected ? kIconColor : Theme.of(context).iconTheme.color,
             size: 26,
           ),
           const SizedBox(height: 4),
@@ -145,7 +136,7 @@ class _BottomBarState extends State<BottomBar> {
             label,
             style: TextStyle(
               fontSize: 12,
-              color: isSelected ? kIconColor : Colors.grey,
+              color: isSelected ? kIconColor : Theme.of(context).iconTheme.color,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),

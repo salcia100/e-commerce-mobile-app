@@ -30,7 +30,7 @@ class _DescriptionReviewState extends State<DescriptionReview> {
                 setState(() => isDescriptionExpanded = !isDescriptionExpanded),
             content: Text(
               widget.product.description,
-              style: TextStyle(fontSize: 16, color: Colors.black54),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16)
             ),
           ),
           SizedBox(height: 10),
@@ -73,15 +73,14 @@ class _DescriptionReviewState extends State<DescriptionReview> {
                             padding: const EdgeInsets.only(bottom: 12.0),
                             child: Text(
                               "- $comment",
-                              style: TextStyle(
-                                  fontSize: 14, color: Colors.black87),
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14)
                             ),
                           );
                         }).toList(),
                       )
                     : Text(
                         "No reviews available.",
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14)
                       ),
               ],
             ),

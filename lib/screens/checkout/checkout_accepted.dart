@@ -7,7 +7,7 @@ class CheckoutAccepted extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor, 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Center(
@@ -15,27 +15,29 @@ class CheckoutAccepted extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                'assets/checkout/checkout_ok.jpg',
+                Theme.of(context).brightness == Brightness.dark
+                    ? 'assets/checkout/checkout_ok_Dark.png'
+                    : 'assets/checkout/checkout_ok.jpg',
                 width: 110,
                 height: 110,
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 20),
-              const Text(
+               Text(
                 'Order Completed',
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                   color: Theme.of(context).textTheme.bodyLarge!.color,
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
+              Text(
                 'Thank you for your purchase.\nYou can view your order in ‘My Orders’ section.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.black87,
+                  color: Theme.of(context).textTheme.bodyMedium!.color,
                 ),
               ),
               const SizedBox(height: 30),

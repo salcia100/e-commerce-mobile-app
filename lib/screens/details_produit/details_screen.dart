@@ -22,17 +22,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
       backgroundColor: kbackgroundColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title: Text(
           'Product Details',
           style: TextStyle(
-            color: Color(0xFF1D1F22),
+            color: Theme.of(context).textTheme.titleLarge?.color,
             fontSize: 18,
             fontFamily: 'Product Sans',
           ),

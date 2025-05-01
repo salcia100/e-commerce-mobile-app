@@ -97,7 +97,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
   @override
   Widget build(BuildContext context) {
     return UserAccountsDrawerHeader(
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface,),
       currentAccountPicture: Stack(
         clipBehavior: Clip.none,
         children: [

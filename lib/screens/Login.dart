@@ -62,7 +62,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                            color: Theme.of(context).textTheme.titleLarge?.color,),
                       ),
                       SizedBox(height: 20),
 
@@ -117,7 +117,7 @@ class _LoginState extends State<Login> {
                         child: TextButton(
                           onPressed: () {},
                           child: Text("Forgot Password?",
-                              style: TextStyle(color: Colors.black)),
+                              style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color,)),
                         ),
                       ),
                       SizedBox(height: 20),
@@ -175,7 +175,7 @@ class _LoginState extends State<Login> {
                               );
                             },
                             child: Text("sign up",
-                                style: TextStyle(color: Colors.black)),
+                                style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color,)),
                           ),
                         ],
                       ),

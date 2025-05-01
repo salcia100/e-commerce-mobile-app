@@ -71,7 +71,7 @@ class _BodyState extends State<Body> {
                   margin: EdgeInsets.only(top: size.height * 0.4),
                   //height: 500,
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                       color: Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24),
                         topRight: Radius.circular(24),
@@ -93,19 +93,17 @@ class _BodyState extends State<Body> {
                               Expanded(
                                 child: Text(
                                   widget.product.name,
-                                  style: TextStyle(
-                                    color: Color(0xFF1D1F22),
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                         fontSize: 18,
+                                         fontWeight: FontWeight.w700,
+                                       ),
                                   overflow: TextOverflow
                                       .ellipsis, // Adds "..." if name is too long
                                 ),
                               ),
                               Text(
                                 "\$${widget.product.price.toStringAsFixed(2)}", // Formats price properly
-                                style: TextStyle(
-                                  color: Colors.black,
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   fontSize: 26,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -175,7 +173,7 @@ class _BodyState extends State<Body> {
                         width: 38,
                         height: 38,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context).cardColor,
                           borderRadius: BorderRadius.circular(25.5),
                           boxShadow: [
                             BoxShadow(

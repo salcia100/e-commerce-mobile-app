@@ -29,7 +29,7 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+             color: Theme.of(context).cardColor,    
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -59,7 +59,7 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                           EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                       margin: EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
+                        color: Theme.of(context).cardColor,//color: Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
@@ -82,7 +82,7 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
-                                  color: Colors.black87,
+                                  color: Theme.of(context).textTheme.bodyMedium?.color,//color: Colors.black87,
                                 ),
                               ),
                             ],

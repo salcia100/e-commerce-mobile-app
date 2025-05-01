@@ -51,7 +51,7 @@ Widget build(BuildContext context) {
               "Women",
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 54, 32, 35),
+                color: Theme.of(context).iconTheme.color
               ),
             ),
              if (!isLoggedIn) 

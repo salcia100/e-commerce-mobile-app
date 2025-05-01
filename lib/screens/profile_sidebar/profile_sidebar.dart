@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/api/theme_controller.dart';
 import 'package:inscri_ecommerce/screens/login.dart';
 import 'package:inscri_ecommerce/screens/My_shop/my_shop_screen.dart';
 import 'package:inscri_ecommerce/screens/my_sales/my_sales_screen.dart';
@@ -14,17 +15,19 @@ class ProfileSidebar extends StatefulWidget {
 }
 
 class _ProfileSidebarState extends State<ProfileSidebar> {
-  bool isDarkMode = false; // Pour gérer le mode sombre
-
   @override
   Widget build(BuildContext context) {
+    // N7adrou état actuel mta3 thème (light wela dark)
+    bool isDarkMode = ThemeController.themeNotifier.value == ThemeMode.dark;
+
     return Drawer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // HEADER - Profil utilisateur
+          /// HEADER - Profil utilisateur
           ProfileInfo(),
-          // MENU PRINCIPAL
+
+          /// MENUS PRINCIPAUX
           _buildMenuItem(
             icon: Icons.home,
             text: "Homepage",
@@ -79,7 +82,7 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
 
           Divider(),
 
-          // AUTRES OPTIONS
+          /// AUTRES OPTIONS
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
@@ -96,9 +99,9 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
           _buildMenuItem(
               icon: Icons.info_outline, text: "About us", onTap: () {}),
 
-          Spacer(), // Espacement pour aligner le bouton "Log out" en bas
+          Spacer(),
 
-          // BOUTON LOG OUT
+          /// BOUTON LOGOUT
           _buildMenuItem(
               icon: Icons.logout,
               text: "Log out",
@@ -110,13 +113,14 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
                 );
               }),
 
-          // SWITCH MODE CLAIR / SOMBRE
+          /// SWITCH LIGHT / DARK MODE
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey[800]
+                    : Colors.grey[200],
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: EdgeInsets.all(8),
@@ -125,15 +129,13 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
                 children: [
                   _buildThemeButton(Icons.wb_sunny, "Light",
                       isSelected: !isDarkMode, onTap: () {
-                    setState(() {
-                      isDarkMode = false;
-                    });
+                    ThemeController.themeNotifier.value = ThemeMode.light;
+                    setState(() {});
                   }),
                   _buildThemeButton(Icons.nightlight_round, "Dark",
                       isSelected: isDarkMode, onTap: () {
-                    setState(() {
-                      isDarkMode = true;
-                    });
+                    ThemeController.themeNotifier.value = ThemeMode.dark;
+                    setState(() {});
                   }),
                 ],
               ),
@@ -144,7 +146,7 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
     );
   }
 
-  // WIDGET POUR UN ÉLÉMENT DE MENU
+  /// WIDGET MTA3 MENU
   Widget _buildMenuItem({
     required IconData icon,
     required String text,
@@ -159,13 +161,14 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
       ),
-      tileColor: isSelected ? Colors.grey.withOpacity(0.2) : Colors.transparent,
+      tileColor:
+          isSelected ? Colors.grey.withOpacity(0.2) : Colors.transparent,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       onTap: onTap,
     );
   }
 
-  // BOUTON POUR LE MODE CLAIR / SOMBRE
+  /// BOUTON DE SWITCH MODE SOMBRE / CLAIR
   Widget _buildThemeButton(IconData icon, String text,
       {required bool isSelected, required VoidCallback onTap}) {
     return GestureDetector(
@@ -193,3 +196,4 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
     );
   }
 }
+

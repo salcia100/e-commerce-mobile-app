@@ -13,37 +13,6 @@ class CategoryBody extends StatefulWidget {
 }
 
 class _CategoryBodyState extends State<CategoryBody> {
-  /*final List<String> categories = [
-    "All",
-    "Dresses",
-    "Tops",
-    "Pants",
-    "Jump-suits",
-    "Accessories",
-    "Beauty",
-    "Sweaters",
-    "Outerwear",
-    "shoes",
-    "Weddings & Events",
-    "Sports",
-  ];
-
-  final Map<String, List<Map<String, String>>> categoryPicks = {
-    "Dresses": [
-      {"image": "assets/categories/wedding dress.jpg", "label": "Wedding\nDresses"},
-      {"image": "assets/categories/Bridesmaid_Dresses.jpg", "label": "Bridesmaid\nDresses"},
-      {"image": "assets/categories/Maxi Dress.jpg", "label": "Maxi Dress"},
-      {"image": "assets/categories/Midi Dress.jpg", "label": "Midi Dress"},
-      {"image": "assets/categories/Mini Dress.jpg", "label": "Mini Dress"},
-      {"image": "assets/categories/Empire Waist_Dress.jpg", "label": "Empire Waist\nDress"},
-      {"image": "assets/categories/Sheath Dress.jpg", "label": "Sheath Dress"},
-      {"image": "assets/categories/wrap dress.jpg", "label": "Wrap Dress"},
-      {"image": "assets/categories/sundress.jpg", "label": "Sundress"},
-      {"image": "assets/categories/Tulle Dress.jpg", "label": "Tulle Dress"},
-      {"image": "assets/categories/Women Formal_Evening Dresses.jpg", "label": "Women Formal\n& Evening Dresses"},
-      {"image": "assets/categories/casual dress.jpg", "label": "Casual Dresses"},
-    ],
-  };*/
   int selectedIndex = 0;
   List<Category> subCategories = [];
   final CategoryApi categoryApiService = CategoryApi();
@@ -101,7 +70,7 @@ class _CategoryBodyState extends State<CategoryBody> {
           // Left Category Menu (Main Categories)
           Container(
             width: MediaQuery.of(context).size.width * 0.27,
-            color: Colors.grey.shade100,
+            color: Theme.of(context).cardColor,
             child: ListView.builder(
               itemCount: widget.mainCategories.length,
               itemBuilder: (context, index) {
@@ -115,14 +84,17 @@ class _CategoryBodyState extends State<CategoryBody> {
                   },
                   child: Container(
                     padding: EdgeInsets.all(12),
-                    color: isSelected ? Colors.white : Colors.grey.shade100,
+                    //color: isSelected ? Colors.white : Colors.grey.shade100,
+                    color: isSelected
+                     ? Theme.of(context).colorScheme.surface
+                     : Theme.of(context).colorScheme.background,
                     child: Text(
                       widget.mainCategories[index].name,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight:
                             isSelected ? FontWeight.bold : FontWeight.normal,
-                        color: isSelected ? Colors.black : Colors.grey.shade700,
+                        color: Theme.of(context).textTheme.bodyMedium!.color,//color: isSelected ? Colors.black : Colors.grey.shade700,
                       ),
                     ),
                   ),

@@ -20,7 +20,7 @@ class _CustomSalesItemState extends State<CustomSalesItem> {
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,// color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(

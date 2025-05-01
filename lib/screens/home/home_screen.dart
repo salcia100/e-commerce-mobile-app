@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: const Color.fromARGB(255, 255, 252, 252),
+       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       appBar: CustomAppBar(onProfilePressed: () {
         _scaffoldKey.currentState?.openDrawer(); // Ouvre le sidebar
       }),

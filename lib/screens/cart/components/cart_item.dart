@@ -17,16 +17,16 @@ class CartItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.05),
+              color: Theme.of(context).shadowColor.withOpacity(0.05),
               offset: Offset(0, 4),
               blurRadius: 10,
             )
           ],
-          color: Colors.white,
+          color: Theme.of(context).cardColor,//color: Colors.white,
           border: Border.all(
-            color: const Color.fromRGBO(250, 250, 250, 1),
+            color: Theme.of(context).dividerColor,//color: const Color.fromRGBO(250, 250, 250, 1),
             width: 0.5,
           ),
         ),

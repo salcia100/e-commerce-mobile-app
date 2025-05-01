@@ -5,17 +5,17 @@ class CartAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title: Text(
           'Your Cart',
           style: TextStyle(
-            color: Color(0xFF1D1F22),
+            color: Theme.of(context).textTheme.titleLarge?.color,
             fontSize: 18,
             fontFamily: 'Product Sans',
           ),

@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 PreferredSizeWidget customAppBar(BuildContext context) {
   return AppBar(
     elevation: 0,
-    backgroundColor: Colors.white,
+    backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
     leading: IconButton(
-      icon: const Icon(Icons.arrow_back, color: Colors.black),
+      icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),
       onPressed: () {
         Navigator.pop(context);  // Utilisation du contexte pour revenir à la page précédente
       },
     ),
-    title: const Text(
+    title: Text(
       'Wishlist',
       style: TextStyle(
-        color: Color(0xFF1D1F22),
+        color: Theme.of(context).textTheme.titleLarge?.color,
         fontSize: 18,
         fontFamily: 'Product Sans',
       ),

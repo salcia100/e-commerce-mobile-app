@@ -32,9 +32,9 @@ class _ItemCardState extends State<ItemCard> {
       onTap: widget.press,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
+          boxShadow: [BoxShadow(color: Theme.of(context).shadowColor.withOpacity(0.2), blurRadius: 4)],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,26 +66,17 @@ class _ItemCardState extends State<ItemCard> {
                           vertical: kDefaultPadding / 4),
                       child: Text(
                         widget.product.name,
-                        style: TextStyle(color: kTextLightColor),
+                        style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black),
                       ),
                     ),
                     Text(
                       "\$${widget.product.price}",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.bodyMedium?.color ?? Colors.black),
                     ),
                   ],
                 ),
                 SizedBox(width: 8), 
-                /*IconButton(
-                  onPressed: toggleLike, // Handle the click here
-                  icon: Icon(
-                    isLiked
-                        ? Icons.favorite
-                        : Icons
-                            .favorite_border, // Change the icon based on the state
-                    color: kIconColor,
-                  ),
-                ),*/
               ],
             ),
           ],

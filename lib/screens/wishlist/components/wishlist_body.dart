@@ -25,7 +25,7 @@ class WishlistBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return likedproducts.isEmpty
-        ? Center(child: Text("Wishlist is Empty 😢"))
+        ? Center(child: Text("Wishlist is Empty "))
         : RefreshIndicator(
             onRefresh: onRefresh, // Ajout du RefreshIndicator ici
             child: GridView.builder(

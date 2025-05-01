@@ -39,9 +39,9 @@ class _SubCategoryProductsState extends State<SubCategoryProducts> {
     return Scaffold(
       appBar: AppBar(
       elevation: 0,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.black),
+        icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -49,7 +49,7 @@ class _SubCategoryProductsState extends State<SubCategoryProducts> {
       title: Text(
         " ${widget.subCategory.name} SubCategory",
         style: TextStyle(
-          color: Color(0xFF1D1F22),
+           color: Theme.of(context).textTheme.titleLarge?.color,
           fontSize: 18,
           fontFamily: 'Product Sans',
         ),

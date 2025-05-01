@@ -15,7 +15,7 @@ class _SearchScreenState extends State<SearchScreen> {
   // Cette fonction sera passée à FilterSidebar
   late Function(List<Product>) onFilteredResultsCallback;
 
-  final _searchBodyKey = GlobalKey<BodyState>(); // 👈 clé pour accéder à l’état interne
+  final _searchBodyKey = GlobalKey<BodyState>(); //  clé pour accéder à l’état interne
   
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
       key: _scaffoldKey,
       appBar: SearchAppBar(),
       body:SearchBody(
-        key: _searchBodyKey, // 👈 on donne la clé ici
+        key: _searchBodyKey,
         onfilterPressed: () {
         _scaffoldKey.currentState?.openEndDrawer(); // Ouvre le sidebar
       },

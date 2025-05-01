@@ -328,6 +328,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                   child: TextField(
                     decoration: InputDecoration(
                         labelText: "Price", hintText: "Ex: 29.900"),
+                        keyboardType: TextInputType.number,
                     onChanged: (textValue) {
                       inputOnChanged("price", textValue);
                     },
@@ -344,6 +345,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                   child: TextField(
                     decoration:
                         InputDecoration(labelText: "Stock", hintText: "20"),
+                        keyboardType: TextInputType.number,
                     onChanged: (textValue) {
                       inputOnChanged("stock", textValue); //** */
                     },

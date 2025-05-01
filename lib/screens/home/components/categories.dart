@@ -58,15 +58,15 @@ class _CategoriesState extends State<Categories> {
                           height: 70,
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? Color(0xFF3A2C27)
-                                : Color(0xFFF3F3F3),
+                                ? Theme.of(context).colorScheme.primary
+                                  : Theme.of(context).dividerColor,
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.grey, width: 2),
                           ),
                           child: ClipOval(
                             child: CachedNetworkImage(
                               imageUrl: widget.categories[index]
-                                  .image, // Image URL from API
+                                  .image, // image URL from API
                               height: 170,
                               width: double.infinity,
                               fit: BoxFit.cover,
@@ -86,8 +86,8 @@ class _CategoriesState extends State<Categories> {
                           widget.categories[index].name,
                           style: TextStyle(
                             color: isSelected
-                                ? Color(0xFF3A2C27)
-                                : Color(0xFF9D9D9D),
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.6),
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                           ),

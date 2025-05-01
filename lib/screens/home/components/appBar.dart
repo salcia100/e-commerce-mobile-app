@@ -23,9 +23,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: kbarColor,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor, 
       leading: IconButton(
-        icon: Icon(Icons.person_outline, color: Colors.grey, size: 30),
+        icon: Icon(Icons.person_outline, color: Theme.of(context).iconTheme.color, size: 30),
         onPressed: () async {
           String? token = await SecureStorage.getToken();
             if (token == null || token.isEmpty) {
@@ -51,7 +51,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return IconButton(
       icon: Icon(
         selectedIndex == index ? filledIcon : outlinedIcon,
-        color: selectedIndex == index ? kIconColor : Colors.grey,
+        color: selectedIndex == index ? kIconColor : Theme.of(context).iconTheme.color,
         size: 30,
       ),
       onPressed: () async{

@@ -58,15 +58,15 @@ class _SalesScreenState extends State<SalesScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,//backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),//icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: Text('My Sales',
-            style: TextStyle(color: Colors.black, fontSize: 18)),
+            style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color)),//color: Colors.black, fontSize: 18)),
         centerTitle: true,
       ),
       body: isLoading

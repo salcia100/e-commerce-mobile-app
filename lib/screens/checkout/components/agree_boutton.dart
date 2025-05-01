@@ -74,7 +74,7 @@ class _BottomSectionState extends State<BottomSection> {
               Text(
                 'I agree to Terms and Conditions',
                 style: TextStyle(
-                  color: Color.fromRGBO(29, 31, 34, 1),
+                  color: Theme.of(context).dividerColor,
                   fontFamily: 'Raleway',
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
