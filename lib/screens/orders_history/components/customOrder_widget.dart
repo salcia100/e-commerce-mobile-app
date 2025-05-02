@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/model/custom_orders.dart';
+import 'package:inscri_ecommerce/screens/customised_orders/components/fullScreenImage.dart';
 
 class CustomOrderWidget extends StatefulWidget {
   final CustomOrders order;
@@ -148,7 +149,17 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
               if (_isExpanded) ...[
                 SizedBox(height: 10), // Adds space before the product list
                 Divider(color: Colors.grey), // Optional separator
-                ClipRRect(
+                GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          FullScreenImage(imageUrl: widget.order.image),
+                    ),
+                  );
+                },
+                child :ClipRRect(
                   borderRadius: BorderRadius.circular(12), // Coins arrondis
                   child: Image.network(
                     widget.order.image,
@@ -156,7 +167,7 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
-                ),
+                )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(

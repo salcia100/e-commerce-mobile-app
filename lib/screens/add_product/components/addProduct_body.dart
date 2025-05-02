@@ -53,14 +53,14 @@ class _AddProductBodyState extends State<AddProductBody> {
       errorToast("Product name Required!");
     } else if (formValues["description"]!.isEmpty) {
       errorToast("Product description Required");
-    } else if (formValues["stock"]!.isEmpty) {
-      errorToast("Product stock Required");
-    } else if (int.tryParse(formValues["stock"]!) == null) {
-      errorToast("Stock must be an integer");
     } else if (formValues["price"]!.isEmpty) {
       errorToast("Price Required");
     } else if (double.tryParse(formValues["price"]!) == null) {
       errorToast("Price must be a number");
+    } else if (formValues["stock"]!.isEmpty) {
+      errorToast("Product stock Required");
+    } else if (int.tryParse(formValues["stock"]!) == null) {
+      errorToast("Stock must be an integer");
     } else {
       setState(() {
         loading = true;
