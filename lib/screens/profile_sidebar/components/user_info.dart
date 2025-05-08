@@ -141,7 +141,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
       accountName: Text(
         userName,
         style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.bold, color: const Color.fromARGB(255, 230, 176, 176)),
+            fontSize: 18, fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.titleLarge?.color,),
       ),
       accountEmail: Text(userEmail, style: TextStyle(color: Colors.grey)),
     );

@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Houni nesta3mlou ValueListenableBuilder bech n5allou MaterialApp yetsanna ay changement fil thème
+    // Houni nesta3mlou ValueListenableBuilder bech n5alliou MaterialApp yetsanna ay changement fil thème
     return ValueListenableBuilder<ThemeMode>(
       valueListenable: ThemeController.themeNotifier,
       builder: (context, currentTheme, _) {
@@ -54,8 +54,8 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.black,
             primaryColor: kIconColor,
             colorScheme: ColorScheme.dark(
-    primary: Colors.white, 
-    secondary: kIconColor, 
+            primary: Colors.white, 
+            secondary: kIconColor, 
   ),
             textTheme: TextTheme(
               bodyLarge: TextStyle(color: Colors.white),
