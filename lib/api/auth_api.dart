@@ -100,4 +100,27 @@ class APIService {
       return false;
     }
   }
+
+  Future<void> sendVerificationRequest() async {
+    try {
+      String url = apiUrl + '/auth/send-verification-request';
+      final String? token = await SecureStorage.getToken();
+
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print("Request sent successfully.");
+      } else {
+        print("Failed to send request: ${response.body}");
+      }
+    } catch (e) {
+      print("Error sending request: $e");
+    }
+  }
 }

@@ -3,6 +3,7 @@ import 'package:inscri_ecommerce/api/theme_controller.dart';
 import 'package:inscri_ecommerce/screens/login.dart';
 import 'package:inscri_ecommerce/screens/My_shop/my_shop_screen.dart';
 import 'package:inscri_ecommerce/screens/my_sales/my_sales_screen.dart';
+import 'package:inscri_ecommerce/screens/notifications/notifications_screen.dart';
 import 'package:inscri_ecommerce/screens/orders_history/orders_screen.dart';
 import 'package:inscri_ecommerce/screens/home/home_screen.dart';
 import 'package:inscri_ecommerce/screens/profile_sidebar/components/user_info.dart';
@@ -79,7 +80,16 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
               );
             },
           ),
-
+          _buildMenuItem(
+            icon: Icons.notifications,
+            text: "Notifications",
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsScreen()),
+              );
+            },
+          ),
           Divider(),
 
           /// AUTRES OPTIONS
