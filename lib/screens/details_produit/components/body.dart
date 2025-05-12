@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/wishlist_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/Product.dart';
+import 'package:inscri_ecommerce/screens/customised_orders/components/fullScreenImage.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/description&review.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/productOptions.dart';
 import 'package:inscri_ecommerce/screens/details_produit/components/addToCartButton.dart';
@@ -12,7 +13,8 @@ class Body extends StatefulWidget {
   final Product product;
   final Future<void> Function()? onRefresh;
 
-  const Body({Key? key, required this.product,required this.onRefresh}) : super(key: key);
+  const Body({Key? key, required this.product, required this.onRefresh})
+      : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();
@@ -71,7 +73,7 @@ class _BodyState extends State<Body> {
                   margin: EdgeInsets.only(top: size.height * 0.4),
                   //height: 500,
                   decoration: BoxDecoration(
-                       color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24),
                         topRight: Radius.circular(24),
@@ -93,20 +95,26 @@ class _BodyState extends State<Body> {
                               Expanded(
                                 child: Text(
                                   widget.product.name,
-                                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w700,
-                                       ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                   overflow: TextOverflow
                                       .ellipsis, // Adds "..." if name is too long
                                 ),
                               ),
                               Text(
                                 "\$${widget.product.price.toStringAsFixed(2)}", // Formats price properly
-                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                               ),
                             ],
                           ),
@@ -140,7 +148,9 @@ class _BodyState extends State<Body> {
                           colors: widget.product.color ?? [],
                           sizes: widget.product.size ?? [],
                         ),
-                        DescriptionReview(product: widget.product,onRefresh: widget.onRefresh),
+                        DescriptionReview(
+                            product: widget.product,
+                            onRefresh: widget.onRefresh),
                         AddToCartButton(product: widget.product),
                       ],
                     ),
@@ -149,22 +159,32 @@ class _BodyState extends State<Body> {
                 Stack(
                   children: [
                     // Image
-                    Container(
-                      width: MediaQuery.of(context).size.width *
-                          1, // 100% of screen width
-                      height: MediaQuery.of(context).size.height *
-                          0.4, // 40% of screen height
-                      child: CachedNetworkImage(
-                        imageUrl: widget.product.image,
-                        fit: BoxFit.contain,
-                        placeholder: (context, url) =>
-                            CircularProgressIndicator(), // Placeholder while loading
-                        errorWidget: (context, url, error) => Icon(
-                            Icons.image_not_supported,
-                            size: 50), // Ensures the whole image is visible
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                FullScreenImage(imageUrl: widget.product.image),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width *
+                            1, // 100% of screen width
+                        height: MediaQuery.of(context).size.height *
+                            0.4, // 40% of screen height
+                        child: CachedNetworkImage(
+                          imageUrl: widget.product.image,
+                          fit: BoxFit.contain,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(), // Placeholder while loading
+                          errorWidget: (context, url, error) => Icon(
+                              Icons.image_not_supported,
+                              size: 50), // Ensures the whole image is visible
+                        ),
                       ),
                     ),
-
                     // Like Button Positioned at Top Left
                     Positioned(
                       top: 10, // Adjust this value for positioning

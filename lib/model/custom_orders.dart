@@ -16,6 +16,8 @@ class CustomOrders {
   final int? quantity;
   final User? vendor;
   final Category? category;
+  final order_id; //c'est l'ordre principale a lui lié custom order 
+
 
   CustomOrders({
     required this.id,
@@ -31,6 +33,7 @@ class CustomOrders {
     this.quantity,
     this.vendor,
     this.category,
+    this.order_id,
   });
 
 
@@ -52,6 +55,7 @@ factory CustomOrders.fromJson(Map<String, dynamic> json) {
       quantity: json['quantity'] ?? 1,
       vendor: json['accepted_vendor'] != null ? User.fromJson(json['accepted_vendor']) : null,
       category: json['category'] != null ? Category.fromJson(json['category']) : null,
+      order_id: json['order_id'] ?? null,
     );
   }
 }

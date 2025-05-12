@@ -3,6 +3,7 @@ import 'package:inscri_ecommerce/api/checkout_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/screens/checkout/CheckoutWebView.dart';
 import 'package:inscri_ecommerce/model/checkout.dart';
+import 'package:inscri_ecommerce/screens/checkout/checkout_accepted.dart';
 // Import de la page CheckoutAccepted
 
 class BottomSection extends StatefulWidget {
@@ -23,7 +24,7 @@ class _BottomSectionState extends State<BottomSection> {
     final form = widget.formKey.currentState;
     if (form?.validate() ?? false) {
       form?.save();
-      print("📌 Données après save: ${widget.requestModel.toJson()}"); // Debug
+      print("Données après save: ${widget.requestModel.toJson()}"); // Debug
       return true;
     }
     print("❌ Form non valide");
@@ -40,12 +41,21 @@ class _BottomSectionState extends State<BottomSection> {
         // L'URL de paiement Stripe a été récupérée avec succès
         print('URL de paiement Stripe: $result');
 
-        // Naviguer vers la page CheckoutAccepted 🎉
-        Navigator.push(
+        if (widget.requestModel.paymentMethod == "cash_on_delivery") {
+          // Redirection vers la page de succès si c'est un paiement à la livraison
+          Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CheckoutWebView(paymentUrl: result),
-            ));
+              builder: (context) => CheckoutAccepted(), // ta page de succès
+            ),
+          );
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CheckoutWebView(paymentUrl: result),
+              ));
+        }
       } else {
         print("Veuillez remplir le formulaire et accepter les conditions !");
       }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/api/checkout_api.dart';
 import 'package:inscri_ecommerce/model/custom_orders.dart';
+import 'package:inscri_ecommerce/screens/checkout/CheckoutWebView.dart';
 import 'package:inscri_ecommerce/screens/customised_orders/components/fullScreenImage.dart';
 
 class CustomOrderWidget extends StatefulWidget {
@@ -21,6 +23,27 @@ class CustomOrderWidget extends StatefulWidget {
 class _CustomOrderWidgetState extends State<CustomOrderWidget> {
   bool _isExpanded = false; // Variable to track the expanded state
 
+  void payOrder() async {
+    CheckoutApi api = CheckoutApi();
+    var id = widget.order.order_id;
+    print('URL de paiement Stripe: $id');
+    var result = await api.checkoutPendingOrder(widget.order.order_id);
+
+    if (result != null) {
+      // L'URL de paiement Stripe a été récupérée avec succès
+      print('URL de paiement Stripe: $result');
+
+      // Naviguer vers la page CheckoutAccepted
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CheckoutWebView(paymentUrl: result),
+          ));
+    } else {
+      print("Veuillez remplir le formulaire et accepter les conditions !");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
@@ -30,7 +53,7 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-             color: Theme.of(context).cardColor,    
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -60,7 +83,8 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                           EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                       margin: EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).cardColor,//color: Colors.grey.shade100,
+                        color: Theme.of(context)
+                            .cardColor, //color: Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
@@ -83,13 +107,16 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
-                                  color: Theme.of(context).textTheme.bodyMedium?.color,//color: Colors.black87,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.color, //color: Colors.black87,
                                 ),
                               ),
                             ],
                           ),
 
-                          // Buttons
+                          if(widget.order.status == 'accepted_by_vendor')
                           Row(
                             children: [
                               OutlinedButton(
@@ -128,14 +155,54 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                     style: TextStyle(
                       color: widget.order.status == 'confirmed'
                           ? Colors.orange
-                          : widget.order.status == 'PAID'
+                          : widget.order.status == 'paid'
                               ? Colors.blue
-                              : widget.order.status == 'CANCELED'
+                              : widget.order.status == 'canceled'
                                   ? Colors.red
-                                  : Colors.green,
+                                  : widget.order.status == 'shipped'
+                                      ? Colors.green
+                                      : Colors.grey,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  if (widget.order.status == 'confirmed')
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              title: Text('Choose payment method'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ElevatedButton.icon(
+                                    icon: Icon(Icons.credit_card),
+                                    label: Text('Pay with Stripe'),
+                                    onPressed: () {
+                                      payOrder();
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  SizedBox(height: 10),
+                                  ElevatedButton.icon(
+                                    icon: Icon(Icons.delivery_dining),
+                                    label: Text('Pay on delivery'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: const Text('Pay Now'),
+                    ),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
@@ -150,24 +217,24 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                 SizedBox(height: 10), // Adds space before the product list
                 Divider(color: Colors.grey), // Optional separator
                 GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          FullScreenImage(imageUrl: widget.order.image),
-                    ),
-                  );
-                },
-                child :ClipRRect(
-                  borderRadius: BorderRadius.circular(12), // Coins arrondis
-                  child: Image.network(
-                    widget.order.image,
-                    height: 150,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                )),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              FullScreenImage(imageUrl: widget.order.image),
+                        ),
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12), // Coins arrondis
+                      child: Image.network(
+                        widget.order.image,
+                        height: 150,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -184,62 +251,3 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
         ));
   }
 }
-/*Card(
-      margin: const EdgeInsets.all(12),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(order.client?.image ?? "https://url_image_default.jpg"),
-                      radius: 30,
-                    ),
-                    const SizedBox(height: 6),
-                    Text(order.client?.name ?? "Nom inconnu", style: const TextStyle(fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        Text(
-                    'Order #${order.id}',
-                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text("Title : ${order.title}"),
-                      const SizedBox(height: 4),
-                      Text("Budget : ${order.budget}"),
-                      const SizedBox(height: 4),
-                      Text("Category : ${order.categoryId}"),
-                      const SizedBox(height: 4),
-                      // Confirm Vendor button
-                      Row(
-                        children: [
-                      ElevatedButton(
-                        onPressed: () async {
-                        onConfirmVendor();
-                        },
-                        child: const Text("Confirm"),
-                      ),
-                      // Cancel Vendor button
-                      ElevatedButton(
-                        onPressed: () async {
-                         onCancelVendor();
-                        },
-                        child: const Text("Cancel"),
-                      ),
-                    ],),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );*/

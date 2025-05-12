@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:inscri_ecommerce/api/checkout_api.dart';
 import 'package:inscri_ecommerce/model/order.dart';
 import 'package:inscri_ecommerce/model/orderItem.dart';
+import 'package:inscri_ecommerce/screens/checkout/CheckoutWebView.dart';
+import 'package:inscri_ecommerce/utils/toast.dart';
 
 class OrderItemWidget extends StatefulWidget {
   final Order order;
@@ -21,6 +24,26 @@ class _OrderItemState extends State<OrderItemWidget> {
     orderItems = widget.order.orderItems; // Initialize inside initState
   }
 
+  void payOrder() async {
+    CheckoutApi api = CheckoutApi();
+
+    var result = await api.checkoutPendingOrder(widget.order.id);
+
+    if (result != null) {
+      // L'URL de paiement Stripe a été récupérée avec succès
+      print('URL de paiement Stripe: $result');
+
+      // Naviguer vers la page CheckoutAccepted
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CheckoutWebView(paymentUrl: result),
+          ));
+    } else {
+      print("Veuillez remplir le formulaire et accepter les conditions !");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
@@ -30,7 +53,7 @@ class _OrderItemState extends State<OrderItemWidget> {
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,     //color: Colors.white,
+            color: Theme.of(context).cardColor, //color: Colors.white,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -52,6 +75,8 @@ class _OrderItemState extends State<OrderItemWidget> {
               Text('shipping_address: ${widget.order.shipping_address}'),
               Text('Quantity: ${widget.order.quantity}'),
               Text('Subtotal: \$${widget.order.subtotal}'),
+              if (widget.order.status == 'paid')
+                Text('Payment method: ${widget.order.payment_method}'),
               SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,16 +84,60 @@ class _OrderItemState extends State<OrderItemWidget> {
                   Text(
                     widget.order.status,
                     style: TextStyle(
-                      color: widget.order.status == 'PENDING'
+                      color: widget.order.status == 'pending'
                           ? Colors.orange
-                          : widget.order.status == 'PAID'
+                          : widget.order.status == 'paid'
                               ? Colors.blue
-                              : widget.order.status == 'CANCELED'
+                              : widget.order.status == 'cancelled'
                                   ? Colors.red
                                   : Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  if (widget.order.status == 'pending')
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              title: Text('Choose payment method'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ElevatedButton.icon(
+                                    icon: Icon(Icons.credit_card),
+                                    label: Text('Pay with Stripe'),
+                                    onPressed: () {
+                                      payOrder();
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  SizedBox(height: 10),
+                                  ElevatedButton.icon(
+                                    icon: Icon(Icons.delivery_dining),
+                                    label: Text('Pay on delivery'),
+                                    onPressed: () async {
+                                      Navigator.pop(
+                                          context); // Close the dialog when payment method is selected
+                                      // Call the API for "Cash on Delivery"
+                                      await CheckoutApi.payOnDelivery(
+                                          widget.order.id);
+                                      successToast("Your order has been successfully processed with cash on delivery.");
+                                      
+                                    },
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      child: const Text('Pay Now'),
+                    ),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {

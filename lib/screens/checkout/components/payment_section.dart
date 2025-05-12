@@ -3,12 +3,16 @@ import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'add_new_card.dart'; // Importez le composant AddNewCard
 
 class PaymentSection extends StatefulWidget {
+  final Function(String) onPaymentMethodSelected;
+
+  PaymentSection({required this.onPaymentMethodSelected});
   @override
   _PaymentSectionState createState() => _PaymentSectionState();
 }
 
 class _PaymentSectionState extends State<PaymentSection> {
   bool _showAddNewCard = false; // État pour afficher ou masquer AddNewCard
+  String selectedMethod = 'cash_on_delivery'; // default
 
   @override
   Widget build(BuildContext context) {
@@ -79,29 +83,29 @@ class _PaymentSectionState extends State<PaymentSection> {
               ),
             ),
           SizedBox(height: 20),
-          // Texte "or check out with"
+          // New Payment Method Buttons
           Center(
             child: Text(
-              'or check out with',
+              'Choose your payment method',
               style: TextStyle(fontSize: 14, color: Colors.black),
             ),
           ),
-          SizedBox(height: 15),
-          // Icônes de paiement (PayPal, Visa, Mastercard) avec bordures arrondies
+          SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _buildPaymentIcon('assets/checkout/paypal_icon.jpg'),
-              SizedBox(width: 10),
-              _buildPaymentIcon('assets/checkout/visa_icon.jpg'),
-              SizedBox(width: 10),
-              _buildPaymentIcon('assets/checkout/banc_icon.jpg'),
+              _buildPaymentButton(
+                  'Pay on Delivery', 'cash_on_delivery', Icons.delivery_dining),
+              SizedBox(width: 20),
+              _buildPaymentButton(
+                  'Pay with Stripe', 'Stripe', Icons.credit_card),
             ],
           ),
         ],
       ),
     );
   }
+
   Widget _buildVisaCard(String cardNumber) {
     return Container(
       width: 250,
@@ -111,8 +115,8 @@ class _PaymentSectionState extends State<PaymentSection> {
         //color: Color.fromARGB(255, 137, 159, 238),
         gradient: LinearGradient(
           colors: [
-            Color(0xFF005BAC), // Bleu officiel Visa
-            Color(0xFF012169), // Bleu foncé Visa
+            Colors.grey.shade800, // Bleu officiel Visa
+            Colors.grey.shade100, // Bleu foncé Visa
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -146,17 +150,46 @@ class _PaymentSectionState extends State<PaymentSection> {
     );
   }
 
-  // Méthode pour afficher une icône de paiement avec bordures arrondies
-  Widget _buildPaymentIcon(String iconPath) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(9),
-        child: Image.asset(
-          iconPath,
-          width: 30,
-          height: 30,
-          fit: BoxFit.contain,
+// Function to build the payment method buttons with better design
+  Widget _buildPaymentButton(String label, String method, IconData icon) {
+    final bool isSelected =
+        selectedMethod == method; // Check if this method is selected
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedMethod = method; // Update the selected method
+        });
+        widget.onPaymentMethodSelected(method); // notify parent
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.orange.shade100 : Colors.grey.shade800,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? Colors.black : Colors.white,
+              size: 20,
+            ),
+            SizedBox(width: 10),
+            Text(
+              label,
+              style: TextStyle(
+                color: isSelected ? Colors.black : Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );

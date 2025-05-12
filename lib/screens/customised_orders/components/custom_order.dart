@@ -229,21 +229,27 @@ class _CustomOrderState extends State<CustomOrder> {
                                                       "You're not verified as a vendor yet!"),
                                                   content: const Text(
                                                       "Are you sure you want to send a verification request?\n\nPlease make sure your profile is complete so we can trust your account and approve your seller status. Otherwise, your request may be rejected."),
-                                                 actions: [
+                                                  actions: [
                                                     Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
                                                         TextButton(
-                                                          onPressed: () => Navigator.pop(context),
-                                                          child: const Text("Cancel"),
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  context),
+                                                          child: const Text(
+                                                              "Cancel"),
                                                         ),
-                                                        
                                                         TextButton(
                                                           onPressed: () async {
-                                                            Navigator.pop(context);
+                                                            Navigator.pop(
+                                                                context);
                                                             await sendVerificationRequestToAdmin();
                                                           },
-                                                          child: const Text("Send Request"),
+                                                          child: const Text(
+                                                              "Send Request"),
                                                         ),
                                                       ],
                                                     )

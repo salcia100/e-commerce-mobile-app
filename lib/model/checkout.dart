@@ -2,23 +2,24 @@ class CheckoutRequestModel {
   late String name;
   late String shipping_address;
   late String phone;
-  
+  late String paymentMethod;
 
   CheckoutRequestModel({
-    this.name="",
-    this.shipping_address="",
-    this.phone="",
-    });
+    this.name = "",
+    this.shipping_address = "",
+    this.phone = "",
+    this.paymentMethod = "",
+  });
 
   Map<String, dynamic> toJson() {
-    if (name.isEmpty|| shipping_address.isEmpty || phone.isEmpty) {
-      throw Exception(
-          "name ,shipping_address ,phone should not be empty");
+    if (name.isEmpty || shipping_address.isEmpty || phone.isEmpty ) {
+      throw Exception("name ,shipping_address ,phone should not be empty");
     }
     return {
       'name': name.trim(),
       'shipping_address': shipping_address.trim(),
       'phone': phone.trim(),
+      'payment_method': paymentMethod.trim(),
     };
   }
 }

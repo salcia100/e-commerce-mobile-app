@@ -39,8 +39,12 @@ class CustomOrdersApi {
       String title,
       String description,
       String budget,
+      String quantity,
       String material,
       String color,
+      String name,
+      String phone,
+      String shipping_address,
       int categoryId,
       XFile? image) async {
     try {
@@ -53,8 +57,12 @@ class CustomOrdersApi {
         ..fields['title'] = title
         ..fields['description'] = description
         ..fields['budget'] = budget
+        ..fields['quantity'] = quantity.toString()
         ..fields['material'] = material
         ..fields['color'] = color
+        ..fields['name'] = name
+        ..fields['phone'] = phone
+        ..fields['shipping_address'] = shipping_address
         ..fields['category_id'] = categoryId.toString();
 
       if (image != null) {

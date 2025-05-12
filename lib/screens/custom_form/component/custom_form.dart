@@ -25,10 +25,14 @@ class _CustomOrderFormState extends State<CustomForm> {
     'title': "",
     'description': "",
     'budget': "",
+    'quantity': "",
     'material': "",
     'image': "",
     'color': "",
     'category': "",
+    'shipping_address': "",
+    'name': "",
+    'phone': "",
   };
   bool loading = false;
 
@@ -56,6 +60,12 @@ class _CustomOrderFormState extends State<CustomForm> {
       errorToast("Le budget est requis !");
     } else if (double.tryParse(formValues["budget"]!) == null) {
       errorToast("Le budget doit être un nombre valide !");
+    } else if (formValues["shipping_address"]!.isEmpty) {
+      errorToast("L'adresse de livraison est requise !");
+    } else if (formValues["name"]!.isEmpty) {
+      errorToast("Le nom est requis !");
+    } else if (double.tryParse(formValues["phone"]!) == null) {
+      errorToast("Le numéro de téléphone est requis !");
     } else {
       setState(() {
         loading = true;
@@ -66,8 +76,12 @@ class _CustomOrderFormState extends State<CustomForm> {
           formValues['title'],
           formValues['description'],
           formValues['budget'],
+          formValues['quantity'],
           formValues['material'],
           formValues['color'],
+          formValues['shipping_address'],
+          formValues['name'],
+          formValues['phone'],
           selectedCategoryId!,
           _image,
         );
@@ -162,7 +176,6 @@ class _CustomOrderFormState extends State<CustomForm> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                   labelText: "Title", hintText: "Add the name of your order"),
@@ -195,19 +208,36 @@ class _CustomOrderFormState extends State<CustomForm> {
               decoration: InputDecoration(labelText: 'Category'),
             ),
             SizedBox(height: 10),
-            TextField(
-              decoration: InputDecoration(
-                  labelText: "Material", hintText: "Material required"),
-              onChanged: (textValue) {
-                inputOnChanged("material", textValue);
-              },
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                        labelText: "Material", hintText: "Material required"),
+                    onChanged: (textValue) {
+                      inputOnChanged("material", textValue);
+                    },
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                        labelText: "Color", hintText: "choose color"),
+                    onChanged: (textValue) {
+                      inputOnChanged("color", textValue);
+                    },
+                  ),
+                )
+              ],
             ),
             SizedBox(height: 10),
             TextField(
-              decoration:
-                  InputDecoration(labelText: "Color", hintText: "choose color"),
+              decoration: InputDecoration(
+                  labelText: "Quantity", hintText: "Enter the quantity"),
+              keyboardType: TextInputType.number,
               onChanged: (textValue) {
-                inputOnChanged("color", textValue);
+                inputOnChanged("quantity", textValue);
               },
             ),
             SizedBox(height: 10),
@@ -217,6 +247,42 @@ class _CustomOrderFormState extends State<CustomForm> {
               keyboardType: TextInputType.number,
               onChanged: (textValue) {
                 inputOnChanged("budget", textValue);
+              },
+            ),
+            //inforamtion for the order
+            SizedBox(height: 20),
+            Text("Personal Information",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                        labelText: "Name", hintText: "Your name"),
+                    onChanged: (textValue) {
+                      inputOnChanged("name", textValue);
+                    },
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                        labelText: "Phone", hintText: "Your phone"),
+                    keyboardType: TextInputType.phone,
+                    onChanged: (textValue) {
+                      inputOnChanged("phone", textValue);
+                    },
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 8),
+            TextField(
+              decoration: InputDecoration(
+                  labelText: "Address", hintText: "Shipping address"),
+              onChanged: (textValue) {
+                inputOnChanged("shipping_address", textValue);
               },
             ),
             SizedBox(height: 20),

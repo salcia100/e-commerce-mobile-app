@@ -9,6 +9,7 @@ class Order {
   final double subtotal;
   final String status;
   final List<OrderItem> orderItems;
+  final String payment_method;
 
   Order({
     required this.id,
@@ -18,6 +19,7 @@ class Order {
     required this.subtotal,
     required this.status,
     required this.orderItems,
+    required this.payment_method,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class Order {
       subtotal: double.parse(json['total_price'].toString()),
       quantity: int.parse(json['total_quantity'].toString()),
       orderItems: orderItems,
+      payment_method: json['payment_method'],
     );
   }
 }
