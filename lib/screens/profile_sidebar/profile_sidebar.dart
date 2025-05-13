@@ -18,7 +18,7 @@ class ProfileSidebar extends StatefulWidget {
 class _ProfileSidebarState extends State<ProfileSidebar> {
   @override
   Widget build(BuildContext context) {
-    // N7adrou état actuel mta3 thème (light wela dark)
+    // état actuel mta3 thème (light wela dark)
     bool isDarkMode = ThemeController.themeNotifier.value == ThemeMode.dark;
 
     return Drawer(
@@ -91,27 +91,9 @@ class _ProfileSidebarState extends State<ProfileSidebar> {
             },
           ),
           Divider(),
-
-          /// AUTRES OPTIONS
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              "OTHER",
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          _buildMenuItem(icon: Icons.settings, text: "Setting", onTap: () {}),
-          _buildMenuItem(
-              icon: Icons.support_agent, text: "Support", onTap: () {}),
-          _buildMenuItem(
-              icon: Icons.info_outline, text: "About us", onTap: () {}),
-
           Spacer(),
 
-          /// BOUTON LOGOUT
+          /// LOGOUT
           _buildMenuItem(
               icon: Icons.logout,
               text: "Log out",

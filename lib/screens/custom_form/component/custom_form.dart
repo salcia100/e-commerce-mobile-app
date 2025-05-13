@@ -3,118 +3,54 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inscri_ecommerce/api/category_api.dart';
 import 'package:inscri_ecommerce/api/customOrder_api.dart';
+import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/Category.dart';
 import 'package:inscri_ecommerce/utils/toast.dart';
 
 class CustomForm extends StatefulWidget {
   final Future<void> Function()? onRefresh;
   const CustomForm({Key? key, required this.onRefresh}) : super(key: key);
+
   @override
   State<CustomForm> createState() => _CustomOrderFormState();
 }
 
 class _CustomOrderFormState extends State<CustomForm> {
+  final _formKey = GlobalKey<FormState>();
+  final ImagePicker _picker = ImagePicker();
+
+  XFile? _image;
+  int? selectedCategoryId;
+  String? _selectedColor;
+  String? _selectedMaterial;
+
+  bool loading = false;
+  List<Category> mainCategories = [];
+
+  final Map<String, String> formValues = {
+    'title': '',
+    'description': '',
+    'budget': '',
+    'quantity': '',
+    'material': '',
+    'color': '',
+    'shipping_address': '',
+    'name': '',
+    'phone': '',
+  };
+
   @override
   void initState() {
     super.initState();
     fetchCategories();
   }
 
-  CustomOrdersApi customOrderApi = CustomOrdersApi();
-  Map<String, dynamic> formValues = {
-    'title': "",
-    'description': "",
-    'budget': "",
-    'quantity': "",
-    'material': "",
-    'image': "",
-    'color': "",
-    'category': "",
-    'shipping_address': "",
-    'name': "",
-    'phone': "",
-  };
-  bool loading = false;
-
-  inputOnChanged(mapKey, textValue) {
-    setState(() {
-      formValues.update(mapKey, (value) => textValue);
-    });
-  }
-
-  formOnSubmit() async {
-    formValues['category_id'] = selectedCategoryId.toString();
-    if (_selectedColor != null && _selectedColor!.isNotEmpty) {
-      formValues['color'] = _selectedColor!;
-    }
-    if (_selectedMaterial != null && _selectedMaterial!.isNotEmpty) {
-      formValues['material'] = _selectedMaterial!;
-    }
-    if (_image == null) {
-      errorToast("Veuillez sélectionner une image !");
-    } else if (formValues["title"]!.isEmpty) {
-      errorToast("Le titre de la commande est requis !");
-    } else if (formValues["description"]!.isEmpty) {
-      errorToast("La description de la commande est requise !");
-    } else if (formValues["budget"]!.isEmpty) {
-      errorToast("Le budget est requis !");
-    } else if (double.tryParse(formValues["budget"]!) == null) {
-      errorToast("Le budget doit être un nombre valide !");
-    } else if (formValues["shipping_address"]!.isEmpty) {
-      errorToast("L'adresse de livraison est requise !");
-    } else if (formValues["name"]!.isEmpty) {
-      errorToast("Le nom est requis !");
-    } else if (double.tryParse(formValues["phone"]!) == null) {
-      errorToast("Le numéro de téléphone est requis !");
-    } else {
-      setState(() {
-        loading = true;
-      });
-      try {
-        // Appel à l'API pour ajouter la commande personnalisée
-        await customOrderApi.addCustomOrder(
-          formValues['title'],
-          formValues['description'],
-          formValues['budget'],
-          formValues['quantity'],
-          formValues['material'],
-          formValues['color'],
-          formValues['shipping_address'],
-          formValues['name'],
-          formValues['phone'],
-          selectedCategoryId!,
-          _image,
-        );
-        successToast("order added successfully !");
-        widget.onRefresh!();
-        Navigator.pop(context);
-      } catch (e) {
-        errorToast("Error adding order !");
-      } finally {
-        setState(() => loading = false);
-      }
-    }
-  }
-
-  final ImagePicker _picker = ImagePicker();
-  XFile? _image;
-  int? _selectedCategory;
-  int? selectedCategoryId;
-  String? _selectedColor;
-  String? _selectedMaterial;
-
-  List<Category> mainCategories = [];
-  final CategoryApi categoryApiService = CategoryApi();
-
   void fetchCategories() async {
     try {
-      List<Category> categorieData = await categoryApiService.getCategories();
-      setState(() {
-        mainCategories = categorieData;
-      });
+      final categories = await CategoryApi().getCategories();
+      setState(() => mainCategories = categories);
     } catch (e) {
-      print("Erreur : $e");
-      setState(() {});
+      errorToast("Failed to fetch categories");
     }
   }
 
@@ -124,13 +60,45 @@ class _CustomOrderFormState extends State<CustomForm> {
       maxWidth: 800,
       maxHeight: 800,
     );
-
     if (pickedImage != null) {
-      setState(() {
-        _image = pickedImage;
-      });
-    } else {
-      print('No image selected.');
+      setState(() => _image = pickedImage);
+    }
+  }
+
+  void formOnSubmit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    if (_image == null) {
+      errorToast("Please select an image!");
+      return;
+    }
+
+    _formKey.currentState!.save();
+
+    try {
+      setState(() => loading = true);
+
+      await CustomOrdersApi().addCustomOrder(
+        formValues['title']!,
+        formValues['description']!,
+        formValues['budget']!,
+        formValues['quantity']!,
+        _selectedMaterial ?? '',
+        _selectedColor ?? '',
+        formValues['shipping_address']!,
+        formValues['name']!,
+        formValues['phone']!,
+        selectedCategoryId!,
+        _image,
+      );
+
+      successToast("Order added successfully!");
+      widget.onRefresh?.call();
+      Navigator.pop(context);
+    } catch (e) {
+      errorToast("Error adding order");
+    } finally {
+      setState(() => loading = false);
     }
   }
 
@@ -139,166 +107,143 @@ class _CustomOrderFormState extends State<CustomForm> {
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Photos",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: _image != null
-                      ? Image.file(File(_image!.path),
-                          fit: BoxFit.cover, width: 100, height: 100)
-                      : ImageBox(label: "Add photo here"),
-                ),
-                SizedBox(width: 10),
-                GestureDetector(
-                  onTap: () {
-                    addImage();
-                  },
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Photos", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: _image != null
+                        ? Image.file(File(_image!.path), width: 100, height: 100, fit: BoxFit.cover)
+                        : ImageBox(label: "Add photo here"),
+                  ),
+                  SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: addImage,
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add, size: 30, color: Colors.grey),
+                          Text("Add", style: TextStyle(color: Colors.grey)),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.add, size: 30, color: Colors.grey),
-                        Text("Add", style: TextStyle(color: Colors.grey)),
-                      ],
-                    ),
                   ),
-                ),
-              ],
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  labelText: "Title", hintText: "Add the name of your order"),
-              onChanged: (textValue) {
-                inputOnChanged("title", textValue);
-              },
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  labelText: "Description", hintText: "Describe your order"),
-              maxLines: 2,
-              onChanged: (textValue) {
-                inputOnChanged("description", textValue);
-              },
-            ),
-            DropdownButtonFormField<int>(
-              value: _selectedCategory,
-              items: mainCategories.map((category) {
-                return DropdownMenuItem<int>(
-                  value: category.id,
-                  child: Text(category.name),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedCategory = value;
-                  selectedCategoryId = value;
-                });
-              },
-              decoration: InputDecoration(labelText: 'Category'),
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        labelText: "Material", hintText: "Material required"),
-                    onChanged: (textValue) {
-                      inputOnChanged("material", textValue);
-                    },
-                  ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        labelText: "Color", hintText: "choose color"),
-                    onChanged: (textValue) {
-                      inputOnChanged("color", textValue);
-                    },
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 10),
-            TextField(
-              decoration: InputDecoration(
-                  labelText: "Quantity", hintText: "Enter the quantity"),
-              keyboardType: TextInputType.number,
-              onChanged: (textValue) {
-                inputOnChanged("quantity", textValue);
-              },
-            ),
-            SizedBox(height: 10),
-            TextField(
-              decoration: InputDecoration(
-                  labelText: "Budget", hintText: "Enter the budget"),
-              keyboardType: TextInputType.number,
-              onChanged: (textValue) {
-                inputOnChanged("budget", textValue);
-              },
-            ),
-            //inforamtion for the order
-            SizedBox(height: 20),
-            Text("Personal Information",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        labelText: "Name", hintText: "Your name"),
-                    onChanged: (textValue) {
-                      inputOnChanged("name", textValue);
-                    },
-                  ),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        labelText: "Phone", hintText: "Your phone"),
-                    keyboardType: TextInputType.phone,
-                    onChanged: (textValue) {
-                      inputOnChanged("phone", textValue);
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            TextField(
-              decoration: InputDecoration(
-                  labelText: "Address", hintText: "Shipping address"),
-              onChanged: (textValue) {
-                inputOnChanged("shipping_address", textValue);
-              },
-            ),
-            SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: formOnSubmit,
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFDB3022)),
-                child: loading
-                    ? CircularProgressIndicator(color: Colors.white)
-                    : Text("Submit Order",
-                        style: TextStyle(color: Colors.white)),
+                ],
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+
+              TextFormField(
+                decoration: InputDecoration(labelText: "Title"),
+                validator: (val) => val == null || val.isEmpty ? "Title is required" : null,
+                onSaved: (val) => formValues['title'] = val!,
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Description"),
+                maxLines: 2,
+                validator: (val) => val == null || val.isEmpty ? "Description is required" : null,
+                onSaved: (val) => formValues['description'] = val!,
+              ),
+              DropdownButtonFormField<int>(
+                decoration: InputDecoration(labelText: "Category"),
+                value: selectedCategoryId,
+                items: mainCategories
+                    .map((c) => DropdownMenuItem(value: c.id, child: Text(c.name)))
+                    .toList(),
+                onChanged: (val) => setState(() => selectedCategoryId = val),
+                validator: (val) => val == null ? "Category is required" : null,
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: "Material"),
+                      onSaved: (val) => _selectedMaterial = val,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: "Color"),
+                      onSaved: (val) => _selectedColor = val,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Quantity"),
+                keyboardType: TextInputType.number,
+                onSaved: (val) => formValues['quantity'] = val ?? '',
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Budget"),
+                keyboardType: TextInputType.number,
+                validator: (val) {
+                  if (val == null || val.isEmpty) return "Budget is required";
+                  if (double.tryParse(val) == null) return "Enter a valid number";
+                  return null;
+                },
+                onSaved: (val) => formValues['budget'] = val!,
+              ),
+
+              SizedBox(height: 20),
+              Text("Personal Information", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: "Name"),
+                      validator: (val) => val == null || val.isEmpty ? "Name is required" : null,
+                      onSaved: (val) => formValues['name'] = val!,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      decoration: InputDecoration(labelText: "Phone"),
+                      keyboardType: TextInputType.phone,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) return "Phone is required";
+                        if (val.length != 8) return "Phone must be 8 digits";
+                        return null;
+                      },
+                      onSaved: (val) => formValues['phone'] = val!,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Shipping Address"),
+                validator: (val) => val == null || val.isEmpty ? "Address is required" : null,
+                onSaved: (val) => formValues['shipping_address'] = val!,
+              ),
+              SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: formOnSubmit,
+                  style: ElevatedButton.styleFrom(backgroundColor: kIconColor),
+                  child: loading
+                      ? CircularProgressIndicator(color: Colors.white)
+                      : Text("Submit Order", style: TextStyle(color: Colors.white)),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -307,7 +252,7 @@ class _CustomOrderFormState extends State<CustomForm> {
 
 class ImageBox extends StatelessWidget {
   final String label;
-  ImageBox({required this.label});
+  const ImageBox({required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -317,9 +262,7 @@ class ImageBox extends StatelessWidget {
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Center(
-        child: Text(label, style: TextStyle(fontWeight: FontWeight.bold)),
-      ),
+      child: Center(child: Text(label, style: TextStyle(fontWeight: FontWeight.bold))),
     );
   }
 }

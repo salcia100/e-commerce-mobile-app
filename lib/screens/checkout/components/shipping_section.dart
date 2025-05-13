@@ -12,7 +12,7 @@ class ShippingSection extends StatefulWidget {
 }
 
 class _ShippingSectionState extends State<ShippingSection> {
-  late CheckoutRequestModel requestModel; //****
+  late CheckoutRequestModel requestModel; 
   String name = '';
   String shipping_address = '';
   String phone = '';

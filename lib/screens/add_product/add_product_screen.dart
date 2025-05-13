@@ -16,7 +16,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
     return Scaffold(
       appBar: AddProductAppBar(),
       body: AddProductBody(onRefresh:widget.onRefresh),
-      //bottomNavigationBar: BottomBar(),
     );
   }
 }

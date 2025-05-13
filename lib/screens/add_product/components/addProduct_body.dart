@@ -347,7 +347,7 @@ class _AddProductBodyState extends State<AddProductBody> {
                         InputDecoration(labelText: "Stock", hintText: "20"),
                         keyboardType: TextInputType.number,
                     onChanged: (textValue) {
-                      inputOnChanged("stock", textValue); //** */
+                      inputOnChanged("stock", textValue); 
                     },
                   ),
                 ),
