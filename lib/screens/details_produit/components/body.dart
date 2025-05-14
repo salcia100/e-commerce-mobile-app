@@ -63,12 +63,16 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-              height: size.height,
-              child: Stack(children: <Widget>[
+     return SafeArea(
+    child: LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: Column(
+              children: <Widget>[
+                Stack(
+                  children: [
                 Container(
                   margin: EdgeInsets.only(top: size.height * 0.4),
                   //height: 500,
@@ -214,13 +218,19 @@ class _BodyState extends State<Body> {
                             color: kIconColor,
                           ),
                         ),
+                      
+                        ),
                       ),
+                  ],
                     ),
                   ],
                 ),
-              ]))
-        ],
-      ),
-    );
-  }
+              ],
+            ),
+          ),
+        );
+      },
+    ),
+  );
+}
 }

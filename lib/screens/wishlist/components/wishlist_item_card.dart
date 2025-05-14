@@ -78,7 +78,7 @@ class _WishlistItemCardState extends State<WishlistItemCard> {
 
               // Détails du produit
               Padding(
-                padding: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(1.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

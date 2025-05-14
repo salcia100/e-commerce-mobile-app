@@ -19,7 +19,7 @@ class _DescriptionReviewState extends State<DescriptionReview> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

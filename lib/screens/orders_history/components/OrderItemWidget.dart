@@ -126,8 +126,8 @@ class _OrderItemState extends State<OrderItemWidget> {
                                       // Call the API for "Cash on Delivery"
                                       await CheckoutApi.payOnDelivery(
                                           widget.order.id);
-                                      successToast("Your order has been successfully processed with cash on delivery.");
-                                      
+                                      successToast(
+                                          "Your order has been successfully processed with cash on delivery.");
                                     },
                                   )
                                 ],

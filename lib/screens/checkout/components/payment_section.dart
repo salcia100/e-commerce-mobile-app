@@ -96,7 +96,7 @@ class _PaymentSectionState extends State<PaymentSection> {
             children: [
               _buildPaymentButton(
                   'Pay on Delivery', 'cash_on_delivery', Icons.delivery_dining),
-              SizedBox(width: 20),
+              SizedBox(width: 10),
               _buildPaymentButton(
                   'Pay with Stripe', 'Stripe', Icons.credit_card),
             ],

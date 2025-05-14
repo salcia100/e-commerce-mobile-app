@@ -78,7 +78,7 @@ class APIService {
       String url = apiUrl + '/auth/profile/update';
       final String? token = await SecureStorage.getToken();
 
-      final response = await http.put(
+      final response = await http.post(
         Uri.parse(url),
         headers: {
           'Authorization': 'Bearer $token',

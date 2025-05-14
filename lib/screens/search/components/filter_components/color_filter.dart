@@ -12,14 +12,18 @@ class _ColorFilterState extends State<ColorFilter> {
   // List of available colors
   final List<Map<String, dynamic>> colors = [
     //####3
-    {'name': 'red', 'color': Colors.red},
+    {'name': 'Red', 'color': Colors.red},
     {'name': 'green', 'color': Colors.green},
     {'name': 'blue', 'color': Colors.blue},
     {'name': 'yellow', 'color': Colors.yellow},
-    {'name': 'white', 'color': Colors.white},
+    {'name': 'White', 'color': Colors.white},
     {'name': 'purple', 'color': Colors.purple},
     {'name': 'black', 'color': Colors.black},
-    {'name': 'brown', 'color': Colors.brown},
+    {'name': 'Brown', 'color': Colors.brown},
+    {'name': 'orange', 'color': Colors.orange},
+    {'name': 'Pink', 'color': Colors.pink},
+    {'name': 'grey', 'color': Colors.grey},
+    {'name': 'cyan', 'color': Colors.cyan},
   ];
   // Track selected colors
   List<String> selectedColors = [];
