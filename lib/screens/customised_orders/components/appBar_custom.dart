@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
       ),
       title: Text(
-        ' Custom Product',
+        ' Custom Orders',
         style: TextStyle(
           color: Theme.of(context).textTheme.titleLarge?.color,
           fontSize: 18,

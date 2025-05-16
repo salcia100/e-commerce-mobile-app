@@ -25,7 +25,7 @@ class _ShippingSectionState extends State<ShippingSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Form(
           key: widget.formKey,
           child: Column(
