@@ -20,12 +20,12 @@ class _SignUpState extends State<SignUp> {
   String confirmPassword = '';
   bool _obscureText = true; //caché le mot de passe
   bool _obscureConfirmText = true; //caché confirm mp
-  late RegisterRequestModel requestModel; //****
+  late RegisterRequestModel requestModel; 
 
   @override
   void initState() {
     super.initState();
-    requestModel = new RegisterRequestModel(); //********
+    requestModel = new RegisterRequestModel(); 
   }
 
   @override
@@ -80,7 +80,7 @@ class _SignUpState extends State<SignUp> {
                           setState(() => name = value);
                         },
                         onSaved: (value) =>
-                            requestModel.name = value!, //**********
+                            requestModel.name = value!, 
                       ),
                       SizedBox(height: 15),
 
@@ -98,7 +98,7 @@ class _SignUpState extends State<SignUp> {
                           setState(() => email = value);
                         },
                         onSaved: (value) =>
-                            requestModel.email = value!, //**********
+                            requestModel.email = value!, 
                       ),
                       SizedBox(height: 15),
 
@@ -226,7 +226,6 @@ class _SignUpState extends State<SignUp> {
   }
 
   bool validateAndSave() {
-    //******************
     final form = _formKey.currentState;
     if (form?.validate() ?? false) {
       form?.save();

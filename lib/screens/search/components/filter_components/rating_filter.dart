@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class RatingFilter extends StatefulWidget {
-   final Function(int) onratingSelected;                        //######1
+   final Function(int) onratingSelected;     
 
-  RatingFilter({required this.onratingSelected});              //######2
+  RatingFilter({required this.onratingSelected});      
   @override
   _RatingFilterState createState() => _RatingFilterState();
 }
@@ -23,7 +23,7 @@ class _RatingFilterState extends State<RatingFilter> {
             setState(() {
               selectedRating = rating;
             });
-            widget.onratingSelected(selectedRating);                      //####3
+            widget.onratingSelected(selectedRating);        
           },
           child: Container(
             padding: EdgeInsets.all(8),
@@ -31,7 +31,7 @@ class _RatingFilterState extends State<RatingFilter> {
               color: isSelected ? Colors.black : Colors.transparent,
               shape: BoxShape.circle,
               border: Border.all(
-                color: Colors.black, //isSelected ? Colors.black : Colors.grey,
+                color: Colors.black, 
                 width: 2,
               ),
             ),

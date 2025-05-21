@@ -1,21 +1,3 @@
-/*import 'package:flutter/material.dart';
-import 'package:inscri_ecommerce/screens/welcome.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, //kelmet debug tetnaha
-      home: Welcome(), // Afficher directement la page d'inscription
-    );
-  }
-}*/
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/theme_controller.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
@@ -32,7 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // nesta3mlou ValueListenableBuilder bech n5alliou MaterialApp yetsanna ay changement fil thème
+    // on utilise ValueListenableBuilder pour que MaterialApp yetsanna ay changement fil thème
     return ValueListenableBuilder<ThemeMode>(
       valueListenable: ThemeController.themeNotifier,
       builder: (context, currentTheme, _) {

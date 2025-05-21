@@ -40,7 +40,7 @@ class _MyShopBodyState extends State<MyShopBody> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               margin: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,//color: Colors.grey.shade50,
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.grey.shade300),
               ),
@@ -69,7 +69,7 @@ class _MyShopBodyState extends State<MyShopBody> {
                           print("Add Product button pressed");
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.surface,//backgroundColor: Colors.white,
+                          backgroundColor: Theme.of(context).colorScheme.surface,
                           elevation: 0,
                           side: const BorderSide(color: Colors.grey),
                           shape: RoundedRectangleBorder(
@@ -81,7 +81,7 @@ class _MyShopBodyState extends State<MyShopBody> {
                         child: Text(
                           'Add Product',
                           style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyLarge?.color,//color: Colors.black,
+                            color: Theme.of(context).textTheme.bodyLarge?.color,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -99,7 +99,7 @@ class _MyShopBodyState extends State<MyShopBody> {
                           print("Orders button pressed");
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.surface,//backgroundColor: Colors.white,
+                          backgroundColor: Theme.of(context).colorScheme.surface,
                           elevation: 0,
                           side: const BorderSide(color: Colors.grey),
                           shape: RoundedRectangleBorder(
@@ -111,7 +111,7 @@ class _MyShopBodyState extends State<MyShopBody> {
                         child: Text(
                           'My sales',
                           style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyLarge?.color,//color: Colors.black,
+                            color: Theme.of(context).textTheme.bodyLarge?.color,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

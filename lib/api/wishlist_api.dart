@@ -9,7 +9,6 @@ class WishListApi {
     try {
       String url = apiUrl + '/likes/add';
 
-      // ✅ Retrieve token
       String? token = await SecureStorage.getToken();
 
       final response = await http.post(
@@ -25,7 +24,7 @@ class WishListApi {
       if (response.statusCode == 200) {
         print('✅ Product added to wishlist !');
       } else {
-        print('⚠️ Erreur : ${response.body}');
+        print('❌ Erreur : ${response.body}');
       }
     } catch (e) {
       print('❌ Exception : $e');
@@ -36,7 +35,6 @@ class WishListApi {
     try {
       String url = apiUrl + '/likes';
 
-      // ✅ Retrieve token
       String? token = await SecureStorage.getToken();
 
       final response = await http.get(
@@ -60,7 +58,7 @@ class WishListApi {
         return products;
         
       } else {
-        throw Exception(" ⚠️ Erreur : ${response.body}");
+        throw Exception(" ❌ Erreur : ${response.body}");
       }
     } catch (e) {
       throw Exception(" ❌  Erreur : $e ");
@@ -71,7 +69,6 @@ class WishListApi {
     try {
       String url = apiUrl + '/likes/delete/$id';
 
-      // ✅ Retrieve token
       String? token = await SecureStorage.getToken();
 
       final response = await http.delete(
@@ -84,7 +81,7 @@ class WishListApi {
       if (response.statusCode == 200) {
         print('✅ product deleted from wishlist successfully !');
       } else {
-        print('⚠️ Erreur : ${response.body}');
+        print('❌ Erreur : ${response.body}');
       }
     } catch (e) {
       print('❌ Exception : $e');

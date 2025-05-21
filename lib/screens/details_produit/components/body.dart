@@ -24,9 +24,8 @@ class _BodyState extends State<Body> {
   bool isLiked = false; // Ajout d'une variable pour suivre l'état du like
   bool isExpanded = false;
   bool isReviewsExpanded = false;
-  late int id; // Déclare la variable sans l'initialiser ici         //****** */
+  late int id; // Déclarer la variable sans l'initialiser 
 
-  //final int rating = 5;
   @override
   void initState() {
     super.initState();
@@ -56,7 +55,6 @@ class _BodyState extends State<Body> {
       );
     } catch (e) {
       print("Erreur lors de l'ajout à la wishlist : $e");
-      // Afficher un message d'erreur si nécessaire
     }
   }
 
@@ -75,7 +73,6 @@ class _BodyState extends State<Body> {
                   children: [
                 Container(
                   margin: EdgeInsets.only(top: size.height * 0.4),
-                  //height: 500,
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.background,
                       borderRadius: BorderRadius.only(
@@ -107,7 +104,7 @@ class _BodyState extends State<Body> {
                                         fontWeight: FontWeight.w700,
                                       ),
                                   overflow: TextOverflow
-                                      .ellipsis, // Adds "..." if name is too long
+                                      .ellipsis, 
                                 ),
                               ),
                               Text(
@@ -209,7 +206,7 @@ class _BodyState extends State<Body> {
                           ],
                         ),
                         child: IconButton(
-                          onPressed: toggleLike, // Gérer le clic ici
+                          onPressed: toggleLike, // Gérer le clic 
                           icon: Icon(
                             isLiked
                                 ? Icons.favorite

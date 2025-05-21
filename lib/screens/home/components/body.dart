@@ -12,7 +12,7 @@ class Body extends StatefulWidget {
   final Future<void> Function() onRefresh;
   final  List<dynamic> products;
   final  List<Category> categories;
-  final Function(int) onCategorySelected; // Add this callback
+  final Function(int) onCategorySelected; // callback
 
 
   Body({required this.onRefresh,required this.products,required this.categories,required this.onCategorySelected});

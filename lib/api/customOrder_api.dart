@@ -28,7 +28,7 @@ class CustomOrdersApi {
 
         return data.map((json) => CustomOrders.fromJson(json)).toList();
       } else {
-        throw Exception("⚠️ Erreur: ${response.body}");
+        throw Exception("❌ Erreur: ${response.body}");
       }
     } catch (e) {
       throw Exception("❌ Erreur: $e");
@@ -81,7 +81,7 @@ class CustomOrdersApi {
         Map<String, dynamic> jsonResponse = jsonDecode(responseBody);
         print('Order created: ${jsonResponse['order']}');
       } else {
-        print('⚠️ Failed to create custom order: ${response.statusCode}');
+        print('❌ Failed to create custom order: ${response.statusCode}');
         throw Exception('Failed to create custom order');
       }
     } catch (e) {
@@ -109,7 +109,7 @@ class CustomOrdersApi {
         var responseBody = jsonDecode(response.body);
         print('Accepted order: ${responseBody['order']}');
       } else {
-        print('⚠️ Failed to accept custom order: ${response.statusCode}');
+        print('❌ Failed to accept custom order: ${response.statusCode}');
         throw Exception('Failed to accept custom order');
       }
     } catch (e) {
@@ -194,7 +194,7 @@ class CustomOrdersApi {
 
         return data.map((json) => CustomOrders.fromJson(json)).toList();
       } else {
-        throw Exception("⚠️ Erreur: ${response.body}");
+        throw Exception("❌ Erreur: ${response.body}");
       }
     } catch (e) {
       throw Exception("❌ Erreur: $e");
@@ -223,7 +223,7 @@ class CustomOrdersApi {
 
         return data.map((json) => CustomOrders.fromJson(json)).toList();
       } else {
-        throw Exception("⚠️ Erreur: ${response.body}");
+        throw Exception("❌ Erreur: ${response.body}");
       }
     } catch (e) {
       throw Exception("❌ Erreur: $e");

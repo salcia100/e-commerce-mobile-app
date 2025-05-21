@@ -31,7 +31,7 @@ class _AddNewCardState extends State<AddNewCard> {
               'Your payment cards',
               style: TextStyle(
                 fontSize: 16,
-                fontWeight: FontWeight.bold, // Correction ici
+                fontWeight: FontWeight.bold, 
               ),
             ),
             SizedBox(height: 20),
@@ -135,7 +135,7 @@ class _AddNewCardState extends State<AddNewCard> {
                       SnackBar(content: Text('Card Added Successfully')),
                     );
 
-                    // Vous pouvez également enregistrer les données du formulaire ici
+                    //  enregistrer les données du formulaire 
                     print('Card added: Default payment method: $_isDefaultPaymentMethod');
                   }
                 },

@@ -24,9 +24,9 @@ class CartItem extends StatelessWidget {
               blurRadius: 10,
             )
           ],
-          color: Theme.of(context).cardColor,//color: Colors.white,
+          color: Theme.of(context).cardColor,
           border: Border.all(
-            color: Theme.of(context).dividerColor,//color: const Color.fromRGBO(250, 250, 250, 1),
+            color: Theme.of(context).dividerColor,
             width: 0.5,
           ),
         ),

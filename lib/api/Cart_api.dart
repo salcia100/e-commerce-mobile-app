@@ -17,7 +17,7 @@ class CartApi {
       headers['Authorization'] = 'Bearer $token';
     }
 
-    // ✅ Requête POST
+
     final response = await http.post(
       Uri.parse(url),
       headers: headers,
@@ -29,7 +29,7 @@ class CartApi {
       if (response.statusCode == 200) {
         print('✅ Produit ajouté au panier avec succès !');
       } else {
-        print('⚠️ Erreur : ${response.body}');
+        print('❌ Erreur : ${response.body}');
       }
     } catch (e) {
       print('❌ Exception : $e');
@@ -48,7 +48,7 @@ class CartApi {
       headers['Authorization'] = 'Bearer $token';
     }
 
-    // ✅ Requête POST
+  
     final response = await http.get(
       Uri.parse(url),
       headers: headers,
@@ -59,7 +59,7 @@ class CartApi {
         List<dynamic> data = jsonDecode(response.body);
         return data.map((json) => Cart.fromJson(json)).toList();
       } else {
-        throw Exception(" ⚠️ Erreur : ${response.body}");
+        throw Exception(" ❌ Erreur : ${response.body}");
       }
     } catch (e) {
       throw Exception(" ❌  Erreur : $e ");
@@ -83,7 +83,7 @@ class CartApi {
       if (response.statusCode == 200) {
         print('✅ product deleted from cart successfully !');
       } else {
-        print('⚠️ Erreur : ${response.body}');
+        print('❌ Erreur : ${response.body}');
       }
     } catch (e) {
       print('❌ Exception : $e');
@@ -111,7 +111,7 @@ class CartApi {
       if (response.statusCode == 200) {
         print('✅ Cart updated');
       } else {
-        print('⚠️ Erreur : ${response.body}');
+        print('❌ Erreur : ${response.body}');
       }
     } catch (e) {
       print('❌ Exception : $e');
@@ -138,7 +138,7 @@ class CartApi {
       if (response.statusCode == 200) {
         print('✅ Cart updated');
       } else {
-        print('⚠️ Erreur : ${response.body}');
+        print('❌ Erreur : ${response.body}');
       }
     } catch (e) {
       print('❌ Exception : $e');

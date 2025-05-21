@@ -7,8 +7,8 @@ import 'package:inscri_ecommerce/screens/home/components/item_card.dart';
 
 class SearchBody extends StatefulWidget {
   final VoidCallback onfilterPressed;
-  final Function(List<Product>) onFilteredResults; // 👈 Ajouter cette ligne
-  SearchBody({Key? key, required this.onfilterPressed,required this.onFilteredResults,}) : super(key: key);//*********1 */
+  final Function(List<Product>) onFilteredResults; 
+  SearchBody({Key? key, required this.onfilterPressed,required this.onFilteredResults,}) : super(key: key);
 
   @override
   State<SearchBody> createState() => BodyState();
@@ -18,7 +18,6 @@ class BodyState extends State<SearchBody> {
   ProductApi productApi = new ProductApi();
   List<dynamic> _products = []; // List to store search results
   List<String> _searchHistory = [];
-  //List<Product> filteredProducts = [];                                     //*******2 */
   
 
   void searchProduct(String query) async {
@@ -55,7 +54,6 @@ void onFilteredResults(List<Product> results) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // First Container: Search Bar
               Flexible(
                 flex: 4,
                 child: Container(

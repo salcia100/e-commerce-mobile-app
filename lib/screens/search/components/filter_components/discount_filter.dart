@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class DiscountFilter extends StatefulWidget {
-  final Function(List<String>) ondiscountSelected; //######1
+  final Function(List<String>) ondiscountSelected; 
 
-  DiscountFilter({required this.ondiscountSelected}); //######2
+  DiscountFilter({required this.ondiscountSelected}); 
   @override
   _DiscountFilterState createState() => _DiscountFilterState();
 }
 
 class _DiscountFilterState extends State<DiscountFilter> {
   List<String> discounts = ['10%', '20%', '30%', '50%'];
-  List<String> selectedDiscounts = []; //######3
+  List<String> selectedDiscounts = [];
 
   bool showOnlyDiscounted = false;
 

@@ -21,12 +21,12 @@ class _LoginState extends State<Login> {
   String password = '';
   bool _obscureText = true; //caché le mot de passe
 
-  late LoginRequestModel requestModel; //****
+  late LoginRequestModel requestModel; 
 
   @override
   void initState() {
     super.initState();
-    requestModel = LoginRequestModel(); //********
+    requestModel = LoginRequestModel(); 
   }
 
   @override
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
                           setState(() => email = value);
                         },
                         onSaved: (value) =>
-                            requestModel.email = value!, //**********
+                            requestModel.email = value!, 
                       ),
                       SizedBox(height: 15),
 
@@ -191,7 +191,6 @@ class _LoginState extends State<Login> {
   }
 
   bool validateAndSave() {
-    //******************
     final form = _formKey.currentState;
     if (form?.validate() ?? false) {
       form?.save();

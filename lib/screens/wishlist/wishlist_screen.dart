@@ -52,7 +52,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
         child: WishlistBody(
             likedproducts: likedproducts, onRefresh: fetchWishlist),
       ),
-      //bottomNavigationBar: BottomBar(),
     );
   }
 }

@@ -42,7 +42,6 @@ class _ProfileInfoState extends State<ProfileInfo> {
     try {
       user = await apiService.fetchProfile();
       setState(() {
-        //currentAvatar = user.avatar?.image ?? defaultAvatar;
         userName = user.name;
         userEmail = user.email;
         currentAvatar = user.image;

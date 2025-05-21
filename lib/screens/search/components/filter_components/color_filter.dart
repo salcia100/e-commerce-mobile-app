@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ColorFilter extends StatefulWidget {
-  final Function(List<String>) onColorSelected; //######1
+  final Function(List<String>) onColorSelected; 
 
-  ColorFilter({required this.onColorSelected}); //######2
+  ColorFilter({required this.onColorSelected}); 
   @override
   _ColorFilterState createState() => _ColorFilterState();
 }
@@ -11,7 +11,7 @@ class ColorFilter extends StatefulWidget {
 class _ColorFilterState extends State<ColorFilter> {
   // List of available colors
   final List<Map<String, dynamic>> colors = [
-    //####3
+   
     {'name': 'Red', 'color': Colors.red},
     {'name': 'green', 'color': Colors.green},
     {'name': 'blue', 'color': Colors.blue},
@@ -36,7 +36,6 @@ class _ColorFilterState extends State<ColorFilter> {
       children: colors.map((color) {
         String colorName = color['name'];
         bool isSelected = selectedColors.contains(colorName);
-        //#####3
 
         return GestureDetector(
           onTap: () {
@@ -54,7 +53,7 @@ class _ColorFilterState extends State<ColorFilter> {
             width: 25,
             height: 25,
             decoration: BoxDecoration(
-              color: color['color'], //########5
+              color: color['color'], 
               shape: BoxShape.circle,
               border:
                   isSelected ? Border.all(color: Colors.black, width: 2) : null,

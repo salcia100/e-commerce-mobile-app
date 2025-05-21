@@ -40,34 +40,6 @@ class CategoryApi {
   }
 }
 
-  /*Future<List<Category>> getCategories() async {
-    try {
-      String url = apiUrl + '/categories/mainCategories/show';
-      //  Retrieve token
-      String? token = await SecureStorage.getToken();
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer $token', //  Attach token
-          'Content-Type': 'application/json'
-        },
-      );
-      print("API Response: ${response.body}"); // Debugging
-      if (response.statusCode == 200) {
-        var jsonResponse = jsonDecode(response.body);
-
-        // Access the categories list from the response
-        List<dynamic> data = jsonResponse['categories'];
-
-        return data.map((json) => Category.fromJson(json)).toList();
-      } else {
-        throw Exception("Erreur lors du chargement des categories");
-      }
-    } catch (e) {
-      throw Exception("Erreur : $e");
-    }
-  }*/
-
   //afficher tous les subcategories
   Future<List<Category>> getSubCategories(int id) async {
     try {

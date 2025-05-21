@@ -153,7 +153,7 @@ class _FilterSidebarState extends State<FilterSidebar> {
                       discounts: discounts,
                     );
                     print("✅ Produits filtrés: ${results.length}");
-                    widget.onFilteredResults(results); // 👈 très important
+                    widget.onFilteredResults(results); 
                     Navigator.pop(context);
                     // widget.onFilteredResults(results);
                   } catch (e) {

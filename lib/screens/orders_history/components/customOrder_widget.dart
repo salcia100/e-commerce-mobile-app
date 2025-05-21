@@ -84,7 +84,7 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                       margin: EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
                         color: Theme.of(context)
-                            .cardColor, //color: Colors.grey.shade100,
+                            .cardColor, 
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
@@ -110,7 +110,7 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                                   color: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
-                                      ?.color, //color: Colors.black87,
+                                      ?.color, 
                                 ),
                               ),
                             ],

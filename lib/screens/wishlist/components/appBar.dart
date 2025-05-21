@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Cette fonction crée l'AppBar de votre page Wishlist
 PreferredSizeWidget customAppBar(BuildContext context) {
   return AppBar(
     elevation: 0,

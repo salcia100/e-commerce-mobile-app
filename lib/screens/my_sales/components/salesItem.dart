@@ -24,7 +24,7 @@ class _SalesItemState extends State<SalesItem> {
           margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           padding: EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,//color: Colors.white,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -37,18 +37,6 @@ class _SalesItemState extends State<SalesItem> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ✅ Image produit
-            /*Image.network(
-              product.image,
-              height: 150,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.broken_image);
-              },
-            ),
-
-            SizedBox(height: 8),*/
             Text(
               product.name,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

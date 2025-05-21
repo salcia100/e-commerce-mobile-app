@@ -4,7 +4,7 @@ import 'package:inscri_ecommerce/model/Category.dart';
 
 class Categories extends StatefulWidget {
   final List<Category> categories;
-  final Function(int) onCategorySelected; // Add this callback
+  final Function(int) onCategorySelected; // callback
 
   Categories({required this.categories, required this.onCategorySelected});
 
@@ -25,9 +25,7 @@ class _CategoriesState extends State<Categories> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            // alignment:
-            //  Alignment.centerRight, // Pushes the categories to the right
-            height: 100, // Adjust based on your category size
+            height: 100, // Adjust on category size
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: widget.categories.length,

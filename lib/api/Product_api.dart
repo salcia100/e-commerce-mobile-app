@@ -109,7 +109,7 @@ class ProductApi {
       if (response.statusCode == 200) {
         print('✅ Produit ajouté avec succès : $responseBody');
       } else {
-        print('⚠️ Erreur lors de l’ajout du produit : $responseBody');
+        print('❌ Erreur lors de l’ajout du produit : $responseBody');
       }
     } catch (e) {
       print('❌ Exception : $e');
@@ -142,7 +142,7 @@ class ProductApi {
       if (response.statusCode == 200) {
         print('✅ Produit mis à jour avec succès !');
       } else {
-        print('⚠️ Erreur lors de la mise à jour : $responseBody');
+        print('❌ Erreur lors de la mise à jour : $responseBody');
       }
     } catch (e) {
       print('❌ Exception update : $e');
@@ -165,7 +165,7 @@ class ProductApi {
       if (response.statusCode == 200) {
         print("✅ Produit supprimé avec succès !");
       } else {
-        print("⚠️ Erreur lors de la suppression : ${response.body}");
+        print("❌ Erreur lors de la suppression : ${response.body}");
       }
     } catch (e) {
       print("❌ Exception delete : $e");
@@ -188,7 +188,7 @@ class ProductApi {
       if (response.statusCode == 200) {
         print("✅ Review ajoutée avec succès !");
       } else {
-        print("⚠️ Erreur lors de l’ajout de la review : ${response.body}");
+        print("❌ Erreur lors de l’ajout de la review : ${response.body}");
       }
     } catch (e) {
       print("❌ Exception addReview : $e");

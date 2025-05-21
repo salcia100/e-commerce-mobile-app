@@ -5,7 +5,7 @@ class MyShopAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,//backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: Theme.of(context).iconTheme.color),
         onPressed: () {

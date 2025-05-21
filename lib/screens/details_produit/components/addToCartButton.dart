@@ -28,7 +28,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
           }
           // Logic for Add to Cart action
           int productID = widget.product.id;
-          int quantity = 1; //widget.product.stock; //a modifier
+          int quantity = 1; 
           await CartApi.addProductToCart(productID, quantity);
           Navigator.push(
             //push add tocart---->page cart

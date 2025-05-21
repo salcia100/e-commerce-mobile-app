@@ -28,7 +28,6 @@ class Cart {
       imageUrl = imageUrl.replaceAll("127.0.0.1", IPv4);
     }
 
-    //imageUrl = imageUrl + "?${DateTime.now().second}"; // Append timestamp
 
     print("image url : " + imageUrl);
 
@@ -40,7 +39,6 @@ class Cart {
       imagePath: imageUrl,
       price: double.parse(json['product']['price'].toString()),
       quantity: int.parse(json['quantity'].toString()),
-      //quantity: int.parse(json['product']['stock'].toString()),
     );
   }
 }

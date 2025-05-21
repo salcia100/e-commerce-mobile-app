@@ -20,7 +20,7 @@ class _CustomSalesItemState extends State<CustomSalesItem> {
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,// color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -130,58 +130,5 @@ class _CustomSalesItemState extends State<CustomSalesItem> {
         ],
       ),
     );
-    /*Container(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: const Color.fromARGB(255, 0, 0, 0),
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Custom Order #${widget.customOrder.id}',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 8),
-          Text('Title: ${widget.customOrder.title}'),
-          Text('Description: ${widget.customOrder.description}'),
-          Text('Budget: \$${widget.customOrder.budget}'),
-          SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Color : ${widget.customOrder.color}'),
-                      Text('Material : ${widget.customOrder.material}'),
-                      Text('Status : ${widget.customOrder.status}'),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }*/
   }
 }

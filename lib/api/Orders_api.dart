@@ -29,7 +29,7 @@ class OrdersApi {
         return data.map((json) => Order.fromJson(json)).toList();
 
       } else {
-        throw Exception(" ⚠️ Erreur : ${response.body}");
+        throw Exception(" ❌ Erreur : ${response.body}");
       }
     } catch (e) {
       throw Exception(" ❌  Erreur : $e ");
@@ -68,7 +68,7 @@ for (var order in jsonData) {
 
       return allSales;
     } else {
-      throw Exception("⚠️ Erreur: ${response.body}");
+      throw Exception("❌ Erreur: ${response.body}");
     }
   } catch (e) {
     throw Exception("❌ Erreur: $e");

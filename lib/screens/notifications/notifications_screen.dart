@@ -35,12 +35,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           elevation: 0,
           backgroundColor: Theme.of(context)
               .appBarTheme
-              .backgroundColor, //backgroundColor: Colors.white,
+              .backgroundColor, 
           leading: IconButton(
             icon: Icon(Icons.arrow_back,
                 color: Theme.of(context)
                     .iconTheme
-                    .color), //icon: Icon(Icons.arrow_back, color: Colors.black),
+                    .color), 
             onPressed: () {
               Navigator.pop(context);
             },
@@ -50,7 +50,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   color: Theme.of(context)
                       .textTheme
                       .titleLarge
-                      ?.color)), //color: Colors.black, fontSize: 18)),
+                      ?.color)), 
           centerTitle: true,
         ),
         body: ListView.builder(

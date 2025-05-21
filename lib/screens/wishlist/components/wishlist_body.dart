@@ -27,9 +27,9 @@ class WishlistBody extends StatelessWidget {
     return likedproducts.isEmpty
         ? Center(child: Text("Wishlist is Empty "))
         : RefreshIndicator(
-            onRefresh: onRefresh, // Ajout du RefreshIndicator ici
+            onRefresh: onRefresh, // Ajout du RefreshIndicator 
             child: GridView.builder(
-              physics: const AlwaysScrollableScrollPhysics(), // Important
+              physics: const AlwaysScrollableScrollPhysics(), 
               padding: const EdgeInsets.all(8.0),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

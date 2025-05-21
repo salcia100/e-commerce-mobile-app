@@ -85,7 +85,7 @@ class _CustomOrderState extends State<CustomOrder> {
     return category.name;
   }
 
-  /***********pour l'acceptaion d'order personnaliser  */
+  /*****pour l'acceptaion d'order personnaliser  */
   void loadProfile() async {
     try {
       user = await apiService.fetchProfile();

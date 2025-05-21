@@ -17,7 +17,6 @@ class _FormScreenState extends State<CustomFormScreen> {
     return Scaffold(
       appBar: FormAppBar(),
       body: CustomForm(onRefresh: widget.onRefresh),
-      //bottomNavigationBar: BottomAppBar(),
     );
   }
 }

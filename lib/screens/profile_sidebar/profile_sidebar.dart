@@ -18,7 +18,7 @@ class ProfileSidebar extends StatefulWidget {
 class _ProfileSidebarState extends State<ProfileSidebar> {
   @override
   Widget build(BuildContext context) {
-    // état actuel mta3 thème (light wela dark)
+    // état actuel du thème (light / dark)
     bool isDarkMode = ThemeController.themeNotifier.value == ThemeMode.dark;
 
     return Drawer(

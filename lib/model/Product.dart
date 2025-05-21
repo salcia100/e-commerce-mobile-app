@@ -9,7 +9,7 @@ class Product {
   int stock, id; //
   double price, rating;
   List<Map<String, dynamic>> reviews;
-  final String date; //,category,discount
+  final String date; 
   List<Color>? color;
   List<String>? size;
 
@@ -24,15 +24,11 @@ class Product {
     required this.date,
     this.color,
     this.size,
-    //required this.category,
-    //required this.discount,
     required this.rating,
   });
  
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    //String imageUrl = json['image'].replaceAll("127.0.0.1", "10.0.2.2");
-    //String imageUrl = json['image'].replaceAll("127.0.0.1", "172.16.15.218");
     String imageUrl = json['image'] != null
         ? json['image'].replaceAll("127.0.0.1", IPv4)
         : "default_image_url.jpg"; // Valeur par défaut si image est null
@@ -107,10 +103,6 @@ class Product {
      reviews: parseReviews(json['reviews']),
       date: DateFormat('dd/MM/yyyy HH:mm')
           .format(DateTime.parse(json['created_at'])),
-      /* discount: json['discount'] ?? 'No discount',
-          color: json['color'] ?? 'No color',
-          category: json['category'] ?? 'No category',
-         rating: int.parse(json['rating'].toString()) ?? 0,*/
       color: parseColorList(json['color']),
       size: parseStringList(json['size']),
       rating: (json['rating'] ?? 0).toDouble(),

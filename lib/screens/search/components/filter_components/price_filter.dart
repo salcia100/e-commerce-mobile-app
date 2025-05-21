@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PriceFilter extends StatefulWidget {
-   final Function(double, double) onpriceSelected;                        //######1
+   final Function(double, double) onpriceSelected;                 
 
-  PriceFilter({required this.onpriceSelected});                            //######2
+  PriceFilter({required this.onpriceSelected});             
   @override
   State<PriceFilter> createState() => _PriceFilterState();
 }
@@ -17,7 +17,7 @@ class _PriceFilterState extends State<PriceFilter> {
       children: [
         RangeSlider(
           //price slider with RangeSlider
-          values: _currentRange, // 👈 current range
+          values: _currentRange, //current range
           min: 0,
           max: 200,
           divisions: 20,
@@ -31,7 +31,7 @@ class _PriceFilterState extends State<PriceFilter> {
             setState(() {
               _currentRange = newRange;
             });
-            widget.onpriceSelected(_currentRange.start, _currentRange.end);      //#####3
+            widget.onpriceSelected(_currentRange.start, _currentRange.end);
           },
         ),
         Row(

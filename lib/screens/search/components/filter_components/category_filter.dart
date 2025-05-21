@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/model/Category.dart';
-import 'package:inscri_ecommerce/api/category_api.dart'; // Import your API service
+import 'package:inscri_ecommerce/api/category_api.dart'; 
 
 class CategoryFilter extends StatefulWidget {
-  final Function(int) onCategorySelected; //######1
+  final Function(int) onCategorySelected; 
 
-  CategoryFilter({required this.onCategorySelected}); //######2
+  CategoryFilter({required this.onCategorySelected}); 
 
   @override
   _CategoryFilterState createState() => _CategoryFilterState();
@@ -14,17 +14,7 @@ class CategoryFilter extends StatefulWidget {
 class _CategoryFilterState extends State<CategoryFilter> {
   final CategoryApi categoryApiService = CategoryApi();
   List<Category> categories = [];
-  int selectedCategory = 1; // Change to int
-
-
-  /*List<String> categories = [
-    'All',
-    'Dresses',
-    'Tops',
-    'Beauty',
-    'Pants',
-    'Accessories'
-  ];*/
+  int selectedCategory = 1; 
 
   @override
   void initState() {
@@ -37,8 +27,8 @@ class _CategoryFilterState extends State<CategoryFilter> {
       List<Category> categorieData = await categoryApiService.getCategories();
       print("Categories loaded: ${categorieData.length}");
       setState(() {
-        categories = categorieData; //👈
-      selectedCategory = 1; //👈 id par défaut
+        categories = categorieData; 
+      selectedCategory = 1; // id par défaut
       });
     } catch (e) {
       print("Erreur : $e");

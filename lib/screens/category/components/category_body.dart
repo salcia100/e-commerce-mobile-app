@@ -52,11 +52,6 @@ class _CategoryBodyState extends State<CategoryBody> {
     }
   }
 
-  /*List<Map<String, String>> get currentPicks {
-    String selectedCategory = categories[selectedIndex];
-    return categoryPicks[selectedCategory] ?? [];
-  }*/
-
   @override
   Widget build(BuildContext context) {
     if (widget.mainCategories.isEmpty) {
@@ -84,7 +79,6 @@ class _CategoryBodyState extends State<CategoryBody> {
                   },
                   child: Container(
                     padding: EdgeInsets.all(12),
-                    //color: isSelected ? Colors.white : Colors.grey.shade100,
                     color: isSelected
                      ? Theme.of(context).colorScheme.surface
                      : Theme.of(context).colorScheme.background,
@@ -94,7 +88,7 @@ class _CategoryBodyState extends State<CategoryBody> {
                         fontSize: 13,
                         fontWeight:
                             isSelected ? FontWeight.bold : FontWeight.normal,
-                        color: Theme.of(context).textTheme.bodyMedium!.color,//color: isSelected ? Colors.black : Colors.grey.shade700,
+                        color: Theme.of(context).textTheme.bodyMedium!.color,
                       ),
                     ),
                   ),
