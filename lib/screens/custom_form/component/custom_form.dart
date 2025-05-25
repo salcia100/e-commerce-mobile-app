@@ -34,9 +34,9 @@ class _CustomOrderFormState extends State<CustomForm> {
     'quantity': '',
     'material': '',
     'color': '',
-    'shipping_address': '',
     'name': '',
     'phone': '',
+    'shipping_address': '',
   };
 
   @override
@@ -85,9 +85,9 @@ class _CustomOrderFormState extends State<CustomForm> {
         formValues['quantity']!,
         _selectedMaterial ?? '',
         _selectedColor ?? '',
-        formValues['shipping_address']!,
         formValues['name']!,
         formValues['phone']!,
+        formValues['shipping_address']!,
         selectedCategoryId!,
         _image,
       );

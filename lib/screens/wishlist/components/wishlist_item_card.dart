@@ -38,7 +38,8 @@ class _WishlistItemCardState extends State<WishlistItemCard> {
                     height: 180,
                     width: 160,
                     child: CachedNetworkImage(
-                      imageUrl: widget.product.image, // The image URL from your product model
+                      imageUrl: widget.product
+                          .image, // The image URL from your product model
                       fit: BoxFit.cover,
                       placeholder: (context, url) =>
                           CircularProgressIndicator(), // Placeholder while loading
@@ -54,23 +55,16 @@ class _WishlistItemCardState extends State<WishlistItemCard> {
                     right: 10,
                     child: GestureDetector(
                       onTap: () {
-                        setState(() {
-                          isFavorite = !isFavorite;
-                        });
-
-                        if (!isFavorite) {
-                          widget
-                              .onRemove(); // Supprime le produit de la wishlist
-                        }
+                        widget.onRemove();
                       },
                       child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 15,
-                        child: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? Colors.red : Colors.grey,
-                        ),
-                      ),
+                          backgroundColor: Colors.white,
+                          radius: 15,
+                          child: Icon(
+                            Icons
+                                .favorite, // Toujours plein car c’est dans la wishlist
+                            color: Colors.red,
+                          )),
                     ),
                   ),
                 ],
