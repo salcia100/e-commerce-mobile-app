@@ -41,7 +41,7 @@ class _CategoriesState extends State<Categories> {
                       setState(() {
                         selectedIndex = index;
                       });
-                      // If the first category ("Women") is tapped, send -1 to fetch all products
+                      // If the first category ("All") is tapped, send -1 to fetch all products
                       if (index == 0) {
                         widget.onCategorySelected(-1); // -1 means "show all products"
                       } else {

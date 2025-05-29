@@ -137,7 +137,7 @@ class ProductApi {
       }
       var response = await request.send();
       String responseBody = await response.stream.bytesToString();
-      print('🔍 Réponse API update : $responseBody');
+      print('Réponse API update : $responseBody');
 
       if (response.statusCode == 200) {
         print('✅ Produit mis à jour avec succès !');

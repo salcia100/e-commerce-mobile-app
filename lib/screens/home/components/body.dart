@@ -53,7 +53,6 @@ class _BodyState extends State<Body> {
               Text(
                 "Women",
                 style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      fontFamily: 'cursive',
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).iconTheme.color,
                       letterSpacing: 1.5,

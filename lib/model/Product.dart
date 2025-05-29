@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 class Product {
   String image, name, description;
-  int stock, id; //
+  int stock, id; 
   double price, rating;
   List<Map<String, dynamic>> reviews;
   final String date; 

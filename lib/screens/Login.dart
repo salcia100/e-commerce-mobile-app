@@ -3,6 +3,7 @@ import 'package:inscri_ecommerce/api/auth_api.dart';
 import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/user/login_model.dart';
 import 'package:inscri_ecommerce/screens/signup.dart';
+import 'package:inscri_ecommerce/utils/toast.dart';
 
 import 'home/home_screen.dart';
 
@@ -21,12 +22,12 @@ class _LoginState extends State<Login> {
   String password = '';
   bool _obscureText = true; //caché le mot de passe
 
-  late LoginRequestModel requestModel; 
+  late LoginRequestModel requestModel;
 
   @override
   void initState() {
     super.initState();
-    requestModel = LoginRequestModel(); 
+    requestModel = LoginRequestModel();
   }
 
   @override
@@ -60,9 +61,10 @@ class _LoginState extends State<Login> {
                       Text(
                         "Login",
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).textTheme.titleLarge?.color,),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.titleLarge?.color,
+                        ),
                       ),
                       SizedBox(height: 20),
 
@@ -79,8 +81,7 @@ class _LoginState extends State<Login> {
                         onChanged: (value) {
                           setState(() => email = value);
                         },
-                        onSaved: (value) =>
-                            requestModel.email = value!, 
+                        onSaved: (value) => requestModel.email = value!,
                       ),
                       SizedBox(height: 15),
 
@@ -117,7 +118,12 @@ class _LoginState extends State<Login> {
                         child: TextButton(
                           onPressed: () {},
                           child: Text("Forgot Password?",
-                              style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color,)),
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.color,
+                              )),
                         ),
                       ),
                       SizedBox(height: 20),
@@ -137,21 +143,13 @@ class _LoginState extends State<Login> {
                             LoginResponseModel response =
                                 await api.login(requestModel);
                             print(requestModel.toJson());
-                            // Check if the response contains a valid token (successful login)
+                            // Check if the response contains a valid token
                             if (response.token.isNotEmpty) {
                               // If login is successful, navigate to the home screen
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        HomeScreen()), // Your home screen widget
-                              );
-                            } else {
-                              // If login fails (no token), show an error message
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text(
-                                        'Login failed. ${response.error}')),
+                                    builder: (context) => HomeScreen()),
                               );
                             }
                           }
@@ -175,7 +173,12 @@ class _LoginState extends State<Login> {
                               );
                             },
                             child: Text("sign up",
-                                style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color,)),
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.color,
+                                )),
                           ),
                         ],
                       ),

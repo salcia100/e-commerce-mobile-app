@@ -5,19 +5,19 @@ import 'package:inscri_ecommerce/screens/search/search_screen.dart';
 import 'package:inscri_ecommerce/screens/wishlist/wishlist_screen.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   final VoidCallback onProfilePressed;
 
-  CustomAppBar({required this.onProfilePressed});
+  HomeAppBar({required this.onProfilePressed});
 
   @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
+  State<HomeAppBar> createState() => _HomeAppBarState();
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
 
-class _CustomAppBarState extends State<CustomAppBar> {
+class _HomeAppBarState extends State<HomeAppBar> {
   int selectedIndex = 0;
 
   @override

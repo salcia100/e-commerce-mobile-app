@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inscri_ecommerce/api/auth_api.dart';
+import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/model/user/register_model.dart';
 
 import 'login.dart';
@@ -20,12 +21,12 @@ class _SignUpState extends State<SignUp> {
   String confirmPassword = '';
   bool _obscureText = true; //caché le mot de passe
   bool _obscureConfirmText = true; //caché confirm mp
-  late RegisterRequestModel requestModel; 
+  late RegisterRequestModel requestModel;
 
   @override
   void initState() {
     super.initState();
-    requestModel = new RegisterRequestModel(); 
+    requestModel = new RegisterRequestModel();
   }
 
   @override
@@ -59,9 +60,10 @@ class _SignUpState extends State<SignUp> {
                       Text(
                         "Sign Up",
                         style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).textTheme.titleLarge?.color,),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).textTheme.titleLarge?.color,
+                        ),
                       ),
                       SizedBox(height: 20),
 
@@ -79,8 +81,7 @@ class _SignUpState extends State<SignUp> {
                         onChanged: (value) {
                           setState(() => name = value);
                         },
-                        onSaved: (value) =>
-                            requestModel.name = value!, 
+                        onSaved: (value) => requestModel.name = value!,
                       ),
                       SizedBox(height: 15),
 
@@ -97,8 +98,7 @@ class _SignUpState extends State<SignUp> {
                         onChanged: (value) {
                           setState(() => email = value);
                         },
-                        onSaved: (value) =>
-                            requestModel.email = value!, 
+                        onSaved: (value) => requestModel.email = value!,
                       ),
                       SizedBox(height: 15),
 
@@ -163,7 +163,12 @@ class _SignUpState extends State<SignUp> {
                         child: TextButton(
                           onPressed: () {},
                           child: Text("Forgot Password?",
-                              style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color,)),
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge
+                                    ?.color,
+                              )),
                         ),
                       ),
                       SizedBox(height: 20),
@@ -171,7 +176,7 @@ class _SignUpState extends State<SignUp> {
                       // Sign Up Button
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFDB3022),
+                          backgroundColor: kIconColor,
                           padding: EdgeInsets.symmetric(
                               horizontal: 50, vertical: 15),
                           shape: RoundedRectangleBorder(
@@ -183,11 +188,9 @@ class _SignUpState extends State<SignUp> {
                             api.Register(requestModel);
                             print(requestModel.toJson());
                             Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        Login()), // Your home screen widget
-                              );
+                              context,
+                              MaterialPageRoute(builder: (context) => Login()),
+                            );
                           }
                         },
                         child: Text("Sign Up",
@@ -210,7 +213,12 @@ class _SignUpState extends State<SignUp> {
                               );
                             },
                             child: Text("Login",
-                                style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color,)),
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.color,
+                                )),
                           ),
                         ],
                       ),

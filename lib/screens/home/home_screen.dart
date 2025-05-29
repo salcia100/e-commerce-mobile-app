@@ -5,7 +5,7 @@ import 'package:inscri_ecommerce/model/Category.dart';
 import 'package:inscri_ecommerce/screens/home/components/body.dart';
 import 'package:inscri_ecommerce/screens/profile_sidebar/profile_sidebar.dart';
 import 'components/bottomBar.dart';
-import 'components/appBar.dart';
+import 'components/homeAppBar.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<dynamic> products = [];
   List<Category> categories = [];
   bool isLoading = true;
-  int selectedCategoryId = -1; // Add a variable to store selected category id
+  int selectedCategoryId = -1; // to store selected category id
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  //if women or nothing selected it shows all products if another categorie selected it shows with categoryapi depend on id
+  //if All or nothing selected it shows all products if another categorie selected it shows with categoryapi depend on id
   void fetchProducts({int? categoryId}) async {
     try {
       List<dynamic> data = (categoryId == null || categoryId == -1)
@@ -91,8 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-      appBar: CustomAppBar(onProfilePressed: () {
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      appBar: HomeAppBar(onProfilePressed: () {
         _scaffoldKey.currentState?.openDrawer(); // Ouvre le sidebar
       }),
       drawer: ProfileSidebar(),
@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
           categories: categories,
           onRefresh: onRefresh,
           onCategorySelected:
-              onCategorySelected), // this is to listen for the selected category,
+              onCategorySelected), // to listen for the selected category
       bottomNavigationBar:
           BottomBar(onRefresh: onRefresh, initialIndex: 0), // Pass the initial
     );

@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:inscri_ecommerce/model/user/User.dart';
 import 'package:inscri_ecommerce/utils/secure_storage.dart';
 import 'package:inscri_ecommerce/model/user/register_model.dart';
+import 'package:inscri_ecommerce/utils/toast.dart';
 
 import '../model/user/login_model.dart';
 
@@ -27,7 +28,6 @@ class APIService {
     }
   }
 
-  final storage = FlutterSecureStorage(); // Secure storage for token
   Future<LoginResponseModel> login(LoginRequestModel requestModel) async {
     String url = apiUrl + '/auth/login';
     final response =
@@ -45,10 +45,11 @@ class APIService {
       if (loginResponse.token.isNotEmpty) {
         await SecureStorage.saveToken(loginResponse.token);
         print("Token stored successfully!");
+        successToast("Login successful!");
       }
-
       return loginResponse;
     } else {
+      errorToast("Login failed. Please try again.");
       throw Exception('Failed to login: ${response.statusCode}');
     }
   }
