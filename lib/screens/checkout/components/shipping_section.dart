@@ -64,7 +64,7 @@ class _ShippingSectionState extends State<ShippingSection> {
                 onSaved: (value) {
                   widget.requestModel.name = value!;
                   print(
-                      "✅ Nom enregistré: ${widget.requestModel.name}"); // Debug
+                      " Nom enregistré: ${widget.requestModel.name}"); // Debug
                 },
               ),
               SizedBox(height: 10),
@@ -81,7 +81,7 @@ class _ShippingSectionState extends State<ShippingSection> {
                   onSaved: (value) {
                     widget.requestModel.shipping_address = value!;
                     print(
-                        "✅ address enregistré: ${widget.requestModel.shipping_address}");
+                        " address enregistré: ${widget.requestModel.shipping_address}");
                   }),
               SizedBox(height: 10),
               TextFormField(
@@ -106,7 +106,7 @@ class _ShippingSectionState extends State<ShippingSection> {
   },
   onSaved: (value) {
     widget.requestModel.phone = value!;
-    print("✅ phone enregistré: ${widget.requestModel.phone}");
+    print(" phone enregistré: ${widget.requestModel.phone}");
   },
 )
             ],

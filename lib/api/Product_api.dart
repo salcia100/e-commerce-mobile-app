@@ -161,7 +161,7 @@ class ProductApi {
           'Content-Type': 'application/json',
         },
       );
-      print("🔍 Réponse API delete : ${response.body}");
+      print(" Réponse API delete : ${response.body}");
       if (response.statusCode == 200) {
         print("✅ Produit supprimé avec succès !");
       } else {
@@ -184,7 +184,7 @@ class ProductApi {
         },
         body: jsonEncode({'comment': review, 'product_id': productId}),
       );
-      print("🔍 Réponse API addReview : ${response.body}");
+      print(" Réponse API addReview : ${response.body}");
       if (response.statusCode == 200) {
         print("✅ Review ajoutée avec succès !");
       } else {

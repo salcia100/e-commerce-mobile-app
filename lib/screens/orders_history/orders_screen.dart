@@ -22,11 +22,11 @@ class _OrdersScreenState extends State<OrdersScreen> {
   @override
   void initState() {
     super.initState();
-    fetchProducts();
+    fetchOrders();
   }
 
   // Récupérer les commandes génériques (Orders) et les commandes personnalisées (CustomOrders)
-  void fetchProducts() async {
+  void fetchOrders() async {
     try {
       List<dynamic> ordersData = await ordersApi.getOrdersHistory();
       List<dynamic> customOrdersData = await customOrdersApi.getclientCustomOrders();
@@ -48,7 +48,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
     setState(() {
       isLoading = true;
     });
-    fetchProducts();
+    fetchOrders();
   }
 
   @override

@@ -4,7 +4,6 @@ import 'package:inscri_ecommerce/constant/theme_constants.dart';
 import 'package:inscri_ecommerce/screens/checkout/CheckoutWebView.dart';
 import 'package:inscri_ecommerce/model/checkout.dart';
 import 'package:inscri_ecommerce/screens/checkout/checkout_accepted.dart';
-// Import de la page CheckoutAccepted
 
 class BottomSection extends StatefulWidget {
   final CheckoutRequestModel requestModel;

@@ -80,9 +80,9 @@ class _SalesScreenState extends State<SalesScreen> {
                 if (item is Sale) {
                   return SalesItem(sale: item); // widget existant
                 } else if (item is CustomOrders) {
-                  return CustomSalesItem(customOrder: item); // crée ce widget
+                  return CustomSalesItem(customOrder: item); 
                 } else {
-                  return SizedBox(); // au cas où
+                  return SizedBox(); // au cas où l'item n'est ni Sale ni CustomOrders
                 }
               },
               ),

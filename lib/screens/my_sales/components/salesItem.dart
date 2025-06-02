@@ -4,7 +4,7 @@ import 'package:inscri_ecommerce/model/sale.dart';
 class SalesItem extends StatefulWidget {
   final Sale sale;
 
-  const SalesItem({Key? key, required this.sale}) : super(key: key);
+  const SalesItem({ required this.sale});
 
   @override
   State<SalesItem> createState() => _SalesItemState();

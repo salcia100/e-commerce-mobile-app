@@ -5,9 +5,8 @@ import 'package:inscri_ecommerce/screens/customised_orders/components/fullScreen
 class CustomSalesItem extends StatefulWidget {
   final CustomOrders customOrder;
   const CustomSalesItem({
-    Key? key,
     required this.customOrder,
-  }) : super(key: key);
+  });
   @override
   State<CustomSalesItem> createState() => _CustomSalesItemState();
 }
@@ -107,12 +106,12 @@ class _CustomSalesItemState extends State<CustomSalesItem> {
                     ),
                   );
                 },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12), // Coins arrondis
+                child: ClipRRect(         //image arrondie
+                  borderRadius: BorderRadius.circular(12), 
                   child: Image.network(
                     widget.customOrder.image,
                     height: 150,
-                    width: double.infinity,
+                    width: double.infinity,    //remplit l'espace
                     fit: BoxFit.cover,
                   ),
                 )),

@@ -76,7 +76,6 @@ class _CheckoutWebViewState extends State<CheckoutWebView> {
             MaterialPageRoute(
               builder: (context) => CheckoutAccepted(),
             ));
-        //_showDialog("Payment Confirmed", "Thank you for your order!");
       } else {
         _showDialog("Error", "Payment was made but not confirmed.");
       }

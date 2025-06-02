@@ -87,15 +87,14 @@ class _CartScreenState extends State<CartScreen> {
                         price: item.price,
                         quantity: item.quantity,
                         imagePath: item.imagePath),
-                    removeItem: removeItem, // Pass removeItem callback
-                    updateQuantity: updateQuantity, // Pass update function
+                    removeItem: removeItem, // removeItem callback
+                    updateQuantity: updateQuantity, // update function
                   );
                 },
               ),
             ),
           ),
 
-          //const CartResume(subtotal: 110.00),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: ElevatedButton(

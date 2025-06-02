@@ -6,7 +6,7 @@ import 'package:inscri_ecommerce/model/Cart.dart';
 class CartItem extends StatelessWidget {
   final Cart cart;
   final Function removeItem; // Callback function to remove the item
-  final Function(int id, int newQuantity) updateQuantity; // Add callback
+  final Function(int id, int newQuantity) updateQuantity; // callback
 
   CartItem({required this.cart, required this.removeItem,required this.updateQuantity});
 

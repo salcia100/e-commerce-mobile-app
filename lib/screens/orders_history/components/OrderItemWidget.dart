@@ -8,7 +8,7 @@ import 'package:inscri_ecommerce/utils/toast.dart';
 class OrderItemWidget extends StatefulWidget {
   final Order order;
 
-  const OrderItemWidget({Key? key, required this.order}) : super(key: key);
+  const OrderItemWidget({required this.order});
 
   @override
   State<OrderItemWidget> createState() => _OrderItemState();

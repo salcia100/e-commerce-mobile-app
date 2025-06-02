@@ -3,6 +3,7 @@ import 'package:inscri_ecommerce/api/checkout_api.dart';
 import 'package:inscri_ecommerce/model/custom_orders.dart';
 import 'package:inscri_ecommerce/screens/checkout/CheckoutWebView.dart';
 import 'package:inscri_ecommerce/screens/customised_orders/components/fullScreenImage.dart';
+import 'package:inscri_ecommerce/utils/toast.dart ';
 
 class CustomOrderWidget extends StatefulWidget {
   final CustomOrders order;
@@ -10,11 +11,10 @@ class CustomOrderWidget extends StatefulWidget {
   final VoidCallback onCancelVendor;
 
   const CustomOrderWidget({
-    Key? key,
     required this.order,
     required this.onConfirmVendor,
     required this.onCancelVendor,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomOrderWidget> createState() => _CustomOrderWidgetState();
@@ -159,7 +159,7 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                               ? Colors.blue
                               : widget.order.status == 'canceled'
                                   ? Colors.red
-                                  : widget.order.status == 'shipped'
+                                  : widget.order.status == 'accepted_by_vendor'
                                       ? Colors.green
                                       : Colors.grey,
                       fontWeight: FontWeight.bold,
@@ -191,8 +191,12 @@ class _CustomOrderWidgetState extends State<CustomOrderWidget> {
                                   ElevatedButton.icon(
                                     icon: Icon(Icons.delivery_dining),
                                     label: Text('Pay on delivery'),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       Navigator.pop(context);
+                                        await CheckoutApi.payOnDelivery(
+                                          widget.order.order_id);
+                                      successToast(
+                                          "Your order has been successfully processed with cash on delivery.");
                                     },
                                   ),
                                 ],
