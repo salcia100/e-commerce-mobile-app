@@ -12,7 +12,7 @@ class BottomBar extends StatefulWidget {
   final Future<void> Function()? onRefresh;
   final int initialIndex;
 
-  const BottomBar({Key? key, this.onRefresh, this.initialIndex = 0}) : super(key: key);
+  const BottomBar({ this.onRefresh, this.initialIndex = 0});
 
   @override
   _BottomBarState createState() => _BottomBarState();

@@ -15,7 +15,7 @@ class ProductApi {
       // On crée les headers de la requête
       Map<String, String> headers = {'Content-Type': 'application/json'};
 
-      // Si o n a un token, on l'ajoute dans les headers
+      // Si on a un token, on l'ajoute dans les headers
       if (token != null && token.isNotEmpty) {
         headers['Authorization'] = 'Bearer $token';
       }

@@ -8,23 +8,16 @@ class ItemCard extends StatefulWidget {
   final VoidCallback press;
 
   const ItemCard({
-    Key? key,
     required this.product,
     required this.press,
-  }) : super(key: key);
+  });
 
   @override
   State<ItemCard> createState() => _ItemCardState();
 }
 
 class _ItemCardState extends State<ItemCard> {
-  bool isLiked = false;
 
-  void toggleLike() async {
-    setState(() {
-      isLiked = !isLiked;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +69,7 @@ class _ItemCardState extends State<ItemCard> {
                     ),
                   ],
                 ),
-                SizedBox(width: 8), 
+                SizedBox(width: 8),
               ],
             ),
           ],

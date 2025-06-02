@@ -31,9 +31,9 @@ class Product {
     String imageUrl = json['image'] != null
         ? json['image'].replaceAll("127.0.0.1", IPv4)
         : "default_image_url.jpg"; // Valeur par défaut si image est null
-    imageUrl = imageUrl + "?${DateTime.now().minute}"; // Append timestamp
+    imageUrl = imageUrl + "?${DateTime.now().minute}"; // les images ssont up to date chaque minute
 
-    List<String> parseStringList(dynamic input) {
+    List<String> parseStringList(dynamic input) {  //pour une liste des tailles
       if (input == null) return [];
       if (input is String) {
         try {
@@ -52,7 +52,7 @@ class Product {
       return [];
     }
 
-    List<Color> parseColorList(dynamic input) {
+    List<Color> parseColorList(dynamic input) { // pour une liste des couleurs
       if (input == null) return [];
       if (input is String) {
         try {
@@ -73,7 +73,7 @@ class Product {
       return [];
     }
 
-    List<Map<String, dynamic>> parseReviews(dynamic input) {
+    List<Map<String, dynamic>> parseReviews(dynamic input) {   // pour une liste des reviews
     if (input is String) {
       try {
         final decoded = jsonDecode(input);  // Si c'est une chaîne JSON
@@ -100,8 +100,7 @@ class Product {
       description: json['description'] ?? 'No description available',
       stock: int.parse(json['stock'].toString()),
      reviews: parseReviews(json['reviews']),
-      date: DateFormat('dd/MM/yyyy HH:mm')
-          .format(DateTime.parse(json['created_at'])),
+      date: DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(json['created_at'])),
       color: parseColorList(json['color']),
       size: parseStringList(json['size']),
       rating: (json['rating'] ?? 0).toDouble(),
