@@ -42,7 +42,7 @@ class FilterApi {
         body: body,
       );
       print('Request body: $body');
-      print('🔍 Filter API response: ${response.body}');
+      print(' Filter API response: ${response.body}');
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
