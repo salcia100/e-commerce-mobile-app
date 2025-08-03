@@ -1,4 +1,4 @@
-# inscri_ecommerce
+# ecommerce-mobile-app-flutter-front
 
 A new Flutter project.
 
